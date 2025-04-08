@@ -11,12 +11,15 @@
   <header>
     <h1><%= title %></h1>
   </header>
-  <main>
-    <form action='/new' method="POST">
-      <label for='wineName'>Nom du vin:</label>
-      <input placeholder='Domaine Extondoa Xut' type='text' name='wineName' id="'wineName">
-      <label for='year'>Millésime</label>
-      <button type='submit'>Add wine</button>
+  <main class='newMain'>
+    <form action='/newWine' method='POST' class='newForm'>
+      <label for='wineName'>Nom du vin *</label>
+      <input placeholder='Domaine Extondoa Xut' type='text' name='wineName' id='wineName' required>
+      <label for='wineYear'>Millésime *</label>
+      <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1950' max='2025' required>
+      <div class='formButton'>
+        <button type='submit'>Add wine</button>
+      </div>
     </form>
   </main>
 </body>

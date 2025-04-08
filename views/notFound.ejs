@@ -4,20 +4,15 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <link rel='stylesheet' href='styles.css'>
-  <title><%= title %></title>
+  <title>404 - Page Not Found</title>
 </head>
 <body>
   <%- include('./navbar.ejs') %>
   <header>
-    <h1><%= wineDetail.winename %></h1>
+    <h1>Oops! Page not found</h1>
   </header>
-  <main class='detailMain'>
-    <div>
-      <h2>Millésime: <%= wineDetail.year %></h2>
-    </div>
-    <div>
-      <a href='/'>Close</a>
-    </div>
+  <main>
+    <p><%= message || 'We couldn't find the page you're looking for.' %></p>
   </main>
 </body>
 </html>
