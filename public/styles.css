@@ -92,16 +92,16 @@ section li div {
   margin-bottom: 1rem;
 }
 
-/* newWine styles */
+/* newWine & editWine styles */
 
-main.newMain {
+main.mainBox {
   width: 50%;
   margin: auto;
   display: flex;
   justify-content: center;
 }
 
-form.newForm {
+form.mainForm {
   color: var(--background-color);
   background-color: var(--text-color);
   border: var(--light-border);
@@ -148,5 +148,8 @@ main.detailMain {
 
 main.detailMain div {
   align-self: flex-end;
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }

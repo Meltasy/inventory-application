@@ -14,8 +14,18 @@ async function getWineDetail(wineId) {
   return rows[0]
 }
 
+async function updateWineDetail(wineName, wineYear, wineId) {
+  await pool.query('UPDATE wine_list SET winename = $1, year = $2 WHERE id = $3', [wineName, wineYear, wineId])
+}
+
+async function deleteWine(wineId) {
+  await pool.query('DELETE FROM wine_list WHERE id = $1', [wineId])
+}
+
 module.exports = {
   getAllWines,
   insertWine,
-  getWineDetail
+  getWineDetail,
+  updateWineDetail,
+  deleteWine
 }

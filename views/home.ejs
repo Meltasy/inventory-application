@@ -3,7 +3,7 @@
 <head>
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <link rel='stylesheet' href='styles.css'>
+  <link rel='stylesheet' href='/styles.css'>
   <title><%= title %></title>
 </head>
 <body>
@@ -24,7 +24,7 @@
               <h4><%= wine.year %></h4>
             </div>
             <div>
-              <a href='/<%= wine.id %>'>Détails</a>
+              <a href='/wine/<%= wine.id %>'>Détails</a>
             </div>
           </li>
         <% }) %> 

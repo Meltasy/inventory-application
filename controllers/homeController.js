@@ -1,18 +1,18 @@
 const db = require('../db/queries')
 const asyncHandler = require('express-async-handler')
-const CustomNotFoundError = require('../errors/CustomNotFoundError')
-// const { getWineById } = require('./wineController')
+const CustomError = require('../errors/CustomError')
 // Need to add validation to all of the forms
 // const { body, validationResult } = require('express-validator')
 
-const getWineList = asyncHandler(async (req, res) => {
+const getWineList = asyncHandler(async (req, res, next) => {
   const wineList = await db.getAllWines()
+  console.log('Wine list: ', wineList)
 
   if (!wineList) {
-    res.status(404).render('notFound', {
-      message: 'No wine list found'
-    })
-    return
+    return next(new CustomError('Wine list not found.', 404))
+  }
+  if (wineList.length === 0) {
+    return next(new CustomError('Wine list is empty.', 204))
   }
 
   res.render('home', {
@@ -27,32 +27,19 @@ async function createWineGet(req, res) {
   })  
 }
 
-async function createWinePost(req, res) {
+const createWinePost = asyncHandler(async (req, res, next) => {
   const { wineName, wineYear } = req.body
-  await db.insertWine(wineName, wineYear)
-  res.redirect('/')
-}
 
-async function getWineById(req, res) {
-  const wineId = req.params.wineId
-  const wineDetail = await db.getWineDetail(wineId)
-
-  if(!wineDetail) {
-    res.status(404).render('notFound', {
-      message: `No wine found with ID ${wineId}`
-    })
-    return
+  if (!wineName || !wineYear) {
+    return next(new CustomError('Wine name and year are required!', 400))
   }
 
-  res.render('detailWine', {
-    title: 'Mon vin',
-    wineDetail: wineDetail
-  })
-}
+  await db.insertWine(wineName, wineYear)
+  res.redirect('/')
+})
 
 module.exports = {
   getWineList,
   createWineGet,
-  createWinePost,
-  getWineById
+  createWinePost
 }

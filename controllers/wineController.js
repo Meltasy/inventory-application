@@ -1,25 +1,63 @@
-// Need to change this to postgreSQL database
-// const database = require(database)
+const db = require('../db/queries')
 const asyncHandler = require('express-async-handler')
-const CustomNotFoundError = require('../errors/CustomNotFoundError')
+const CustomError = require('../errors/CustomError')
 // Need to add validation to all of the forms
 // const { body, validationResult } = require('express-validator')
 
-const getWineById = asyncHandler(async (req, res) => {
-  const { wineId } = req.params
+const getWineById = asyncHandler(async(req, res, next) => {
+  const wineId = req.params.wineId
+  const wineDetail = await db.getWineDetail(wineId)
 
-  const wine = await db.getWineById(Number(wineId))
-
-  if (!wine) {
-    // Should we remove this and just use the notFound 404 page?
-    throw new CustomNotFoundError('Wine not found')
+  if(!wineDetail) {
+    return next(new CustomError(`No wine found with ID ${wineId}.`, 404))
   }
 
-  // res.send(`Wine name: ${wine.name}`)
   res.render('detailWine', {
-    title: wine.name,
-    wineDetail: wine
+    title: 'Mon vin',
+    wineDetail: wineDetail
   })
 })
 
-module.exports = { getWineById }
+const updateWineGet = asyncHandler(async(req, res, next) => {
+  const wineId = req.params.wineId
+  const wineDetail = await db.getWineDetail(wineId)
+
+  if(!wineDetail) {
+    return next(new CustomError(`No wine found with ID ${wineId}.`, 404))
+  }
+
+  res.render('editWine', {
+    title: 'Mettre à jour le vin',
+    wineDetail: wineDetail
+  })
+})
+
+const updateWinePut = asyncHandler(async(req, res, next) => {
+  const { wineName, wineYear } = req.body
+  const wineId = req.params.wineId
+
+  if (!wineName || !wineYear) {
+    return next(new CustomError('Wine name and year are required!', 400))
+  }
+
+  await db.updateWineDetail(wineName, wineYear, wineId)
+  res.redirect('/')
+})
+
+const deleteWineById = asyncHandler(async(req, res, next) => {
+  const wineId = req.params.wineId
+
+  if (!wineId) {
+    return next(new CustomError(`No wine found with ID ${wineId}.`, 404))
+  }
+
+  await db.deleteWine(wineId)
+  res.redirect('/')
+})
+
+module.exports = {
+  getWineById,
+  updateWineGet,
+  updateWinePut,
+  deleteWineById
+}

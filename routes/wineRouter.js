@@ -1,12 +1,12 @@
 const { Router } = require('express')
-const { getWineById } = require('../controllers/wineController')
 const wineRouter = Router()
+const wineController = require('../controllers/wineController')
 
-wineRouter.get('/', (req, res) => req.send('All wines'))
-wineRouter.get('/:wineId', (req, res) => {
-  const { wineId } = req.params;
-  res.send(`Wine ID: ${wineId}`)
-})
-wineRouter.get('/:wineId', getWineById)
+// Returns '204 No Content' when browser requests favicon
+wineRouter.get('/favicon.ico', (req, res) => res.status(204).end())
+wineRouter.get('/:wineId', wineController.getWineById)
+wineRouter.get('/:wineId/edit', wineController.updateWineGet)
+wineRouter.put('/:wineId/edit', wineController.updateWinePut)
+wineRouter.delete('/:wineId/delete', wineController.deleteWineById)
 
 module.exports = wineRouter;
