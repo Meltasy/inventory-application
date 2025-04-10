@@ -20,11 +20,12 @@
         <% wineList.forEach((wine) => { %>
           <li>
             <div>
-              <h3><%= wine.winename %></h3>
-              <h4><%= wine.year %></h4>
+              <h3><%= wine.wine_name %></h3>
+              <p><%= wine.year %></p>
+              <p><%= wine.color %></p>
             </div>
             <div>
-              <a href='/wine/<%= wine.id %>'>Détails</a>
+              <a href='/wine/<%= wine.wine_id %>'>Détails</a>
             </div>
           </li>
         <% }) %> 

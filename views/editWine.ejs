@@ -12,13 +12,22 @@
     <h1><%= title %></h1>
   </header>
   <main class='mainBox'>
-    <form action='/wine/<%= wineDetail.id %>/edit?_method=PUT' method='POST' class='mainForm'>
+    <form action='/wine/<%= wineDetail.wine_id %>/edit?_method=PUT' method='POST' class='mainForm'>
       <label for='wineName'>Nom du vin *</label>
-      <input value='<%= wineDetail.winename %>' type='text' name='wineName' id='wineName' required>
+      <input value='<%= wineDetail.wine_name %>' type='text' name='wineName' id='wineName' required>
       <label for='wineYear'>Millésime *</label>
       <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1950' max='2025' required>
+      <fieldset>
+        <legend>Couleur *</legend>
+        <input type='radio' id='red' name='wineColor' value='Rouge' <%= wineDetail.color === 'Rouge' ? 'checked' : '' %> >
+        <label for='red'>Rouge</label><br>
+        <input type='radio' id='white' name='wineColor' value='Blanc' <%= wineDetail.color === 'Blanc' ? 'checked' : '' %> >
+        <label for='white'>Blanc</label><br>
+        <input type='radio' id='rose' name='wineColor' value='Rose' <%= wineDetail.color === 'Rose' ? 'checked' : '' %> >
+        <label for='rose'>Rose</label><br>
+      </fieldset>
       <div class='formButton'>
-        <button type='submit'>Save</button>
+        <button type='submit'>Sauvegarder</button>
       </div>
     </form>
   </main>

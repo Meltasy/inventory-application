@@ -28,13 +28,14 @@ async function createWineGet(req, res) {
 }
 
 const createWinePost = asyncHandler(async (req, res, next) => {
-  const { wineName, wineYear } = req.body
+  const { wineName, wineYear, wineColor } = req.body
+  console.log('req.body', req.body)
 
-  if (!wineName || !wineYear) {
-    return next(new CustomError('Wine name and year are required!', 400))
+  if (!wineName || !wineYear || !wineColor) {
+    return next(new CustomError('Wine name, year and color are required!', 400))
   }
 
-  await db.insertWine(wineName, wineYear)
+  await db.createWine(wineName, wineYear, wineColor)
   res.redirect('/')
 })
 

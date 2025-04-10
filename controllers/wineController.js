@@ -33,14 +33,14 @@ const updateWineGet = asyncHandler(async(req, res, next) => {
 })
 
 const updateWinePut = asyncHandler(async(req, res, next) => {
-  const { wineName, wineYear } = req.body
+  const { wineName, wineYear, wineColor } = req.body
   const wineId = req.params.wineId
 
-  if (!wineName || !wineYear) {
-    return next(new CustomError('Wine name and year are required!', 400))
+  if (!wineName || !wineYear || !wineColor) {
+    return next(new CustomError('Wine name, year and color are required!', 400))
   }
 
-  await db.updateWineDetail(wineName, wineYear, wineId)
+  await db.updateWineDetail(wineName, wineYear, wineColor, wineId)
   res.redirect('/')
 })
 

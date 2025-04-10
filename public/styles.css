@@ -146,7 +146,7 @@ main.detailMain {
   justify-content: space-between;
 }
 
-main.detailMain div {
+main.detailMain .detailButtons {
   align-self: flex-end;
   display: flex;
   flex-direction: column;

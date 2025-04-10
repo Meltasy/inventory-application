@@ -9,15 +9,16 @@
 <body>
   <%- include('./navbar.ejs') %>
   <header>
-    <h1><%= wineDetail.winename %></h1>
+    <h1><%= wineDetail.wine_name %></h1>
   </header>
   <main class='detailMain'>
     <div>
-      <h2>Millésime: <%= wineDetail.year %></h2>
+      <p>Millésime: <%= wineDetail.year %></p>
+      <p>Couleur: <%= wineDetail.color %></p>
     </div>
-    <div>
-      <a href='/wine/<%= wineDetail.id %>/edit'>Edit</a>
-      <form action='/wine/<%= wineDetail.id %>/delete?_method=DELETE' method='POST'>
+    <div class="detailButtons">
+      <a href='/wine/<%= wineDetail.wine_id %>/edit'>Edit</a>
+      <form action='/wine/<%= wineDetail.wine_id %>/delete?_method=DELETE' method='POST'>
         <button type='submit'>Delete</button>
       </form>
     </div>
