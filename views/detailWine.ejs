@@ -7,7 +7,7 @@
   <title><%= title %></title>
 </head>
 <body>
-  <%- include('./navbar.ejs') %>
+  <%- include('./navbar') %>
   <header>
     <h1><%= wineDetail.wine_name %></h1>
   </header>
@@ -16,7 +16,7 @@
       <p>Millésime: <%= wineDetail.year %></p>
       <p>Couleur: <%= wineDetail.color %></p>
     </div>
-    <div class="detailButtons">
+    <div class='detailButtons'>
       <a href='/wine/<%= wineDetail.wine_id %>/edit'>Edit</a>
       <form action='/wine/<%= wineDetail.wine_id %>/delete?_method=DELETE' method='POST'>
         <button type='submit'>Delete</button>

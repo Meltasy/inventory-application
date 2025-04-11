@@ -19,6 +19,11 @@ const wines = [
   { wineName: 'Domaine Extondoa Xut', year: 2022, color: 'Rouge' },
   { wineName: 'La Maison Brana Domaine Brana', year: 2018, color: 'Rouge' },
   { wineName: 'Domaine Couet Origine', year: 2022, color: 'Blanc' },
+  { wineName: 'Domaine Langlois Les Charmes', year: 2022, color: 'Blanc' },
+  { wineName: 'Château Lamothe-Bergeron Cru Bourgeois', year: 2015, color: 'Rouge' },
+  { wineName: 'Le Temps des Sages Les Opiniâtres', year: 2021, color: 'Rouge' },
+  { wineName: 'Egiategia Dena Dela', year: 2022, color: 'Blanc' },
+  { wineName: 'Caves de Pouilly-Sur-Loire Tonelum', year: 2019, color: 'Blanc' },
 ]
 
 async function main() {
@@ -26,8 +31,6 @@ async function main() {
   await client.connect()
 
   console.log('Creating tables ...')
-  // Check what it says and remove here and on mini-message-board too!
-  console.log('Connection String:', process.env.CONNECTION_STRING)
   
   await client.query(SQL)
 

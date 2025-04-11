@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='/styles.css'>
+  <title><%= title %></title>
+</head>
+<body>
+  <%- include('./navbar') %>
+  <header>
+    <h1><%= title %></h1>
+    <h2><%= subtitle %></h2>
+  </header>
+  <main class='mainWine'>
+    <section>
+      <ul>
+        <% wineList.forEach((wine) => { %>
+          <li>
+            <div>
+              <h3><%= wine.wine_name %></h3>
+              <p><%= wine.year %></p>
+              <p><%= wine.color %></p>
+            </div>
+            <div>
+              <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+            </div>
+          </li>
+        <% }) %> 
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

@@ -7,7 +7,7 @@
   <title><%= title %></title>
 </head>
 <body>
-  <%- include('./navbar.ejs') %>
+  <%- include('./navbar') %>
   <header>
     <h1><%= title %></h1>
   </header>
@@ -23,8 +23,8 @@
         <label for='red'>Rouge</label><br>
         <input type='radio' id='white' name='wineColor' value='Blanc' <%= wineDetail.color === 'Blanc' ? 'checked' : '' %> >
         <label for='white'>Blanc</label><br>
-        <input type='radio' id='rose' name='wineColor' value='Rose' <%= wineDetail.color === 'Rose' ? 'checked' : '' %> >
-        <label for='rose'>Rose</label><br>
+        <input type='radio' id='rose' name='wineColor' value='Rosé' <%= wineDetail.color === 'Rosé' ? 'checked' : '' %> >
+        <label for='rose'>Rosé</label><br>
       </fieldset>
       <div class='formButton'>
         <button type='submit'>Sauvegarder</button>

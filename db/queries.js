@@ -12,6 +12,19 @@ async function getAllWines() {
   }
 }
 
+async function getColorWine(wineColor) {
+  try {
+    const { rows } = await pool.query(
+      'SELECT wine_list.wine_id, wine_name, year, color FROM wine_list INNER JOIN wine_type ON wine_list.wine_id = wine_type.wine_id WHERE LOWER(color) = LOWER($1)',
+      [wineColor]
+    )
+    return rows
+  } catch (err) {
+    console.error(`Error getting ${wineColor} wine list`, err)
+    throw new Error(`Impossible to get ${wineColor} wine list.`)
+  }
+}
+
 async function createWine(wineName, wineYear, wineColor) {
   const client = await pool.connect()
   try {
@@ -89,6 +102,7 @@ async function deleteWine(wineId) {
 
 module.exports = {
   getAllWines,
+  getColorWine,
   createWine,
   getWineDetail,
   updateWineDetail,

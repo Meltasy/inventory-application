@@ -7,7 +7,7 @@ const path = require('node:path')
 const assetsPath = path.join(__dirname, 'public')
 const homeRouter = require('./routes/homeRouter')
 const wineRouter = require('./routes/wineRouter')
-// const typeRouter = require('./routes/typeRouter')
+const typeRouter = require('./routes/typeRouter')
 const CustomError = require('./errors/CustomError')
 
 app.listen(PORT, '0.0.0.0', () => {
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use('/', homeRouter)
 app.use('/wine', wineRouter)
-// app.use('/type', typeRouter)
+app.use('/type', typeRouter)
 
 // Do I need this here?
 // app.use((req, res, next) => {

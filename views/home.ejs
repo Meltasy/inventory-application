@@ -7,30 +7,14 @@
   <title><%= title %></title>
 </head>
 <body>
-  <%- include('./navbar.ejs') %>
+  <%- include('./navbar') %>
   <header>
     <h1><%= title %></h1>
-    <div>
-      <a href='/newWine'>Ajouter du vin</a>
-    </div>
   </header>
-  <main>
-    <section>
-      <ul>
-        <% wineList.forEach((wine) => { %>
-          <li>
-            <div>
-              <h3><%= wine.wine_name %></h3>
-              <p><%= wine.year %></p>
-              <p><%= wine.color %></p>
-            </div>
-            <div>
-              <a href='/wine/<%= wine.wine_id %>'>Détails</a>
-            </div>
-          </li>
-        <% }) %> 
-      </ul>
-    </section>
+  <main class='mainHome'>
+    <h3>Please choose to find your wine:</h3>
+    <a href='/wine'>Full wine list</a>
+    <a href='/type'>Wine by type</a>
   </main>
 </body>
 </html>
