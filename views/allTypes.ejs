@@ -14,9 +14,9 @@
   </header>
   <main class='mainType'>
     <div class='searchBar'>
-      <a href='/type/search?search=Rouge'>Rouge</a>
-      <a href='/type/search?search=Blanc'>Blanc</a>
-      <a href='/type/search?search=Rosé'>Rosé</a>
+      <% typeWineList.forEach((wineType) => { %>
+        <a href='/type/search?search=<%= wineType.color %>'><%= wineType.color %></a>
+      <% }) %>
     </div>
     <section>
       <% if (colorWineList.length > 0) { %>

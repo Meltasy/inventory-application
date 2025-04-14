@@ -3,7 +3,7 @@ const pool = require('./pool')
 async function getAllWines() {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_list.wine_id, wine_name, year, color FROM wine_list INNER JOIN wine_type ON wine_list.wine_id = wine_type.wine_id'
+      'SELECT wine_id, wine_name, year, wine_type.color_id, color FROM wine_list INNER JOIN wine_type ON wine_list.color_id = wine_type.color_id'
     )
     return rows
   } catch (err) {
@@ -12,10 +12,23 @@ async function getAllWines() {
   }
 }
 
+async function getTypeWine() {
+  try {
+    const { rows } = await pool.query(
+      'SELECT * FROM wine_type'
+    )
+    console.log('wine_type', rows)
+    return rows
+  } catch(err) {
+    console.error('Error getting wine type list: ', err)
+    throw new Error('Impossible to get wine type list.')
+  }
+}
+
 async function getColorWine(wineColor) {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_list.wine_id, wine_name, year, color FROM wine_list INNER JOIN wine_type ON wine_list.wine_id = wine_type.wine_id WHERE LOWER(color) = LOWER($1)',
+      'SELECT wine_id, wine_name, year, wine_type.color_id, color FROM wine_list INNER JOIN wine_type ON wine_list.color_id = wine_type.color_id WHERE color = $1',
       [wineColor]
     )
     return rows
@@ -25,21 +38,26 @@ async function getColorWine(wineColor) {
   }
 }
 
+// Need to add wine_style to new wine options before it will work!
 async function createWine(wineName, wineYear, wineColor) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
-    const insertWine = await client.query(
-      'INSERT INTO wine_list (wine_name, year) VALUES ($1, $2) RETURNING wine_id',
-      [wineName, wineYear]
-    )
-    const wineId = insertWine.rows[0].wine_id
     await client.query(
-      `INSERT INTO wine_type (wine_id, color) VALUES ($1, $2)`,
-      [wineId, wineColor]
+      `INSERT INTO wine_type (color) VALUES ($1) ON CONFLICT (color) DO NOTHING`,
+      [wineColor]
+    )
+    const { rows } = await client.query(
+      'SELECT color_id FROM wine_type WHERE color = $1',
+      [wineColor]
+    )
+    const colorId = rows[0].color_id
+    await client.query(
+      'INSERT INTO wine_list (wine_name, year, color_id) VALUES ($1, $2, $3)',
+      [wineName, wineYear, colorId]
     )
     await client.query('COMMIT')
-    return wineId
+    return colorId
   } catch (err) {
     await client.query('ROLLBACK')
     console.error('Error adding new wine to list: ', err)
@@ -52,7 +70,7 @@ async function createWine(wineName, wineYear, wineColor) {
 async function getWineDetail(wineId) {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_list.wine_id, wine_name, year, color FROM wine_list INNER JOIN wine_type ON wine_list.wine_id = wine_type.wine_id WHERE wine_list.wine_id = $1',
+      'SELECT wine_id, wine_name, year, wine_list.color_id, color FROM wine_list INNER JOIN wine_type ON wine_list.color_id = wine_type.color_id WHERE wine_list.wine_id = $1',
       [wineId]
     )
     return rows[0]
@@ -66,13 +84,21 @@ async function updateWineDetail(wineName, wineYear, wineColor, wineId) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
+    // Leaving color in the wine_type TABLE, without checking if other wines are associated - IS THIS OK?
+    const colorId = await client.query(
+      'SELECT color_id FROM wine_type WHERE color = $1',
+      [wineColor]
+    )
+    // console.log('colorId: ', colorId)
+    if (!colorId || colorId === 0) {
+      colorId = await client.query(
+        'INSERT INTO wine_type (color) VALUES ($1)',
+        [wineColor]
+      )
+    }
     await client.query(
       'UPDATE wine_list SET wine_name = $1, year = $2 WHERE wine_id = $3',
       [wineName, wineYear, wineId]
-    )
-    await client.query(
-      'UPDATE wine_type SET color = $1 WHERE wine_id = $2',
-      [wineColor, wineId]
     )
     await client.query('COMMIT')
   } catch (err) {
@@ -88,7 +114,7 @@ async function deleteWine(wineId) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
-    await client.query('DELETE FROM wine_type WHERE wine_id = $1', [wineId])
+    // Leaving color in the wine_type TABLE, without checking if other wines are associated - IS THIS OK?
     await client.query('DELETE FROM wine_list WHERE wine_id = $1', [wineId])
     await client.query('COMMIT')
   } catch (err) {
@@ -102,6 +128,7 @@ async function deleteWine(wineId) {
 
 module.exports = {
   getAllWines,
+  getTypeWine,
   getColorWine,
   createWine,
   getWineDetail,

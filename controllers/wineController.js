@@ -6,7 +6,7 @@ const CustomError = require('../errors/CustomError')
 
 const getWineList = asyncHandler(async (req, res, next) => {
   const wineList = await db.getAllWines()
-  console.log('Wine list: ', wineList)
+  // console.log('Wine list: ', wineList)
 
   if (!wineList) {
     return next(new CustomError('Wine list not found.', 404))
