@@ -3,7 +3,7 @@ const pool = require('./pool')
 async function getAllWines() {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_id, wine_name, year, wine_type.color_id, color FROM wine_list INNER JOIN wine_type ON wine_list.color_id = wine_type.color_id'
+      'SELECT wine_id, wine_name, year, wine_type.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id'
     )
     return rows
   } catch (err) {
@@ -12,23 +12,35 @@ async function getAllWines() {
   }
 }
 
-async function getTypeWine() {
+async function getListByColor() {
   try {
     const { rows } = await pool.query(
-      'SELECT * FROM wine_type'
+      'SELECT DISTINCT color FROM wine_type'
     )
-    console.log('wine_type', rows)
     return rows
   } catch(err) {
-    console.error('Error getting wine type list: ', err)
-    throw new Error('Impossible to get wine type list.')
+    console.error('Error getting wine list by color: ', err)
+    throw new Error('Impossible to get wine list by color.')
+  }
+}
+
+async function getListByStyle(wineColor) {
+  try {
+    const { rows } = await pool.query(
+      'SELECT color, wine_style FROM wine_type WHERE color = $1',
+      [wineColor]
+    )
+    return rows
+  } catch(err) {
+    console.error('Error getting wine list by style: ', err)
+    throw new Error('Impossible to get wine list by style.')
   }
 }
 
 async function getColorWine(wineColor) {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_id, wine_name, year, wine_type.color_id, color FROM wine_list INNER JOIN wine_type ON wine_list.color_id = wine_type.color_id WHERE color = $1',
+      'SELECT wine_id, wine_name, year, wine_type.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id WHERE color = $1',
       [wineColor]
     )
     return rows
@@ -38,26 +50,38 @@ async function getColorWine(wineColor) {
   }
 }
 
-// Need to add wine_style to new wine options before it will work!
-async function createWine(wineName, wineYear, wineColor) {
+async function getStyleWine(wineColor, wineStyle) {
+  try {
+    const { rows } = await pool.query(
+      'SELECT wine_id, wine_name, year, wine_type.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id WHERE color = $1 AND wine_style = $2',
+      [wineColor, wineStyle]
+    )
+    return rows
+  } catch (err) {
+    console.error(`Error getting ${wineColor} - ${wineStyle} wine list`, err)
+    throw new Error(`Impossible to get ${wineColor} - ${wineStyle} wine list.`)
+  }
+}
+
+async function createWine(wineName, wineYear, wineColor, wineStyle) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
     await client.query(
-      `INSERT INTO wine_type (color) VALUES ($1) ON CONFLICT (color) DO NOTHING`,
-      [wineColor]
+      `INSERT INTO wine_type (color, wine_style) VALUES ($1, $2) ON CONFLICT (color, wine_style) DO NOTHING`,
+      [wineColor, wineStyle]
     )
     const { rows } = await client.query(
-      'SELECT color_id FROM wine_type WHERE color = $1',
-      [wineColor]
+      'SELECT type_id FROM wine_type WHERE color = $1 AND wine_style = $2',
+      [wineColor, wineStyle]
     )
-    const colorId = rows[0].color_id
+    const typeId = rows[0].type_id
     await client.query(
-      'INSERT INTO wine_list (wine_name, year, color_id) VALUES ($1, $2, $3)',
-      [wineName, wineYear, colorId]
+      'INSERT INTO wine_list (wine_name, year, type_id) VALUES ($1, $2, $3)',
+      [wineName, wineYear, typeId]
     )
     await client.query('COMMIT')
-    return colorId
+    return typeId
   } catch (err) {
     await client.query('ROLLBACK')
     console.error('Error adding new wine to list: ', err)
@@ -70,7 +94,7 @@ async function createWine(wineName, wineYear, wineColor) {
 async function getWineDetail(wineId) {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_id, wine_name, year, wine_list.color_id, color FROM wine_list INNER JOIN wine_type ON wine_list.color_id = wine_type.color_id WHERE wine_list.wine_id = $1',
+      'SELECT wine_id, wine_name, year, wine_list.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id WHERE wine_list.wine_id = $1',
       [wineId]
     )
     return rows[0]
@@ -80,20 +104,19 @@ async function getWineDetail(wineId) {
   }
 }
 
-async function updateWineDetail(wineName, wineYear, wineColor, wineId) {
+async function updateWineDetail(wineName, wineYear, wineColor, wineStyle, wineId) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
-    // Leaving color in the wine_type TABLE, without checking if other wines are associated - IS THIS OK?
-    const colorId = await client.query(
-      'SELECT color_id FROM wine_type WHERE color = $1',
-      [wineColor]
+    // Leaving type in the wine_type TABLE, without checking if other wines are associated - IS THIS OK?
+    const typeId = await client.query(
+      'SELECT type_id FROM wine_type WHERE color = $1 AND wine_style = $2',
+      [wineColor, wineStyle]
     )
-    // console.log('colorId: ', colorId)
-    if (!colorId || colorId === 0) {
-      colorId = await client.query(
-        'INSERT INTO wine_type (color) VALUES ($1)',
-        [wineColor]
+    if (!typeId || typeId === 0) {
+      typeId = await client.query(
+        'INSERT INTO wine_type (color, wine_style) VALUES ($1, $2)',
+        [wineColor, wineStyle]
       )
     }
     await client.query(
@@ -114,7 +137,7 @@ async function deleteWine(wineId) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
-    // Leaving color in the wine_type TABLE, without checking if other wines are associated - IS THIS OK?
+    // Leaving type in the wine_type TABLE, without checking if other wines are associated - IS THIS OK?
     await client.query('DELETE FROM wine_list WHERE wine_id = $1', [wineId])
     await client.query('COMMIT')
   } catch (err) {
@@ -128,8 +151,10 @@ async function deleteWine(wineId) {
 
 module.exports = {
   getAllWines,
-  getTypeWine,
+  getListByColor,
+  getListByStyle,
   getColorWine,
+  getStyleWine,
   createWine,
   getWineDetail,
   updateWineDetail,

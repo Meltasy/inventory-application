@@ -14,12 +14,25 @@
   </header>
   <main class='mainType'>
     <div class='searchBar'>
-      <% typeWineList.forEach((wineType) => { %>
-        <a href='/type/search?search=<%= wineType.color %>'><%= wineType.color %></a>
-      <% }) %>
+      <ul class='colorList'>
+        <% listByColor.forEach((colorList) => { %>
+          <li>
+            <a href='/type/search?color=<%= colorList.color %>'><%= colorList.color %></a>
+            <% if (listByStyle[colorList.color] && listByStyle[colorList.color].length > 0) { %>
+              <ul class='styleList'>
+                <% listByStyle[colorList.color].forEach((style) => { %>
+                  <li>
+                    <a href='/type/search?color=<%= colorList.color %>&style=<%= style %>'><%= style %></a>
+                  </li>
+                <% }) %>
+              </ul>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
     </div>
     <section>
-      <% if (colorWineList.length > 0) { %>
+      <% if (colorWineList && colorWineList.length > 0) { %>
         <ul>
           <% colorWineList.forEach((wine) => { %>
             <li>
@@ -33,10 +46,10 @@
               </div>
             </li>
           <% }) %>
-        <% } else { %>
-          <p>No wines found - please choose another color.</p>
         </ul>
-      <% } %>  
+      <% } else if (hasSearched) { %>
+        <p>No wines found - please choose another wine type from the menu.</p>
+      <% } %>
     </section>
   </main>
 </body>

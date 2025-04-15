@@ -6,7 +6,6 @@ const CustomError = require('../errors/CustomError')
 
 const getWineList = asyncHandler(async (req, res, next) => {
   const wineList = await db.getAllWines()
-  // console.log('Wine list: ', wineList)
 
   if (!wineList) {
     return next(new CustomError('Wine list not found.', 404))
@@ -52,15 +51,15 @@ const updateWineGet = asyncHandler(async(req, res, next) => {
 })
 
 const updateWinePut = asyncHandler(async(req, res, next) => {
-  const { wineName, wineYear, wineColor } = req.body
+  const { wineName, wineYear, wineColor, wineStyle } = req.body
   const wineId = req.params.wineId
 
-  if (!wineName || !wineYear || !wineColor) {
-    return next(new CustomError('Wine name, year and color are required!', 400))
+  if (!wineName || !wineYear || !wineColor || !wineStyle) {
+    return next(new CustomError('Wine name, year, color and style are required!', 400))
   }
 
-  await db.updateWineDetail(wineName, wineYear, wineColor, wineId)
-  return res.redirect('/')
+  await db.updateWineDetail(wineName, wineYear, wineColor, wineStyle, wineId)
+  return res.redirect('/wine')
 })
 
 const deleteWineById = asyncHandler(async(req, res, next) => {
@@ -71,7 +70,7 @@ const deleteWineById = asyncHandler(async(req, res, next) => {
   }
 
   await db.deleteWine(wineId)
-  return res.redirect('/')
+  return res.redirect('/wine')
 })
 
 module.exports = {

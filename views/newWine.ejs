@@ -19,13 +19,26 @@
       <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1950' max='2025' required>
       <fieldset>
         <legend>Couleur *</legend>
-        <input type='radio' id='red' name='wineColor' value='Rouge'>
-        <label for='red'>Rouge</label><br>
-        <input type='radio' id='white' name='wineColor' value='Blanc'>
-        <label for='white'>Blanc</label><br>
-        <input type='radio' id='rose' name='wineColor' value='Rosé'>
-        <label for='rose'>Rosé</label><br>
+        <input type='radio' id='rouge' name='wineColor' value='rouge' required>
+        <label for='rouge'>rouge</label><br>
+        <input type='radio' id='blanc' name='wineColor' value='blanc'>
+        <label for='blanc'>blanc</label><br>
+        <input type='radio' id='rosé' name='wineColor' value='rosé'>
+        <label for='rosé'>rosé</label><br>
       </fieldset>
+      <select id='wineStyle' name='wineStyle' required>
+        <option disabled selected>Style *</option>
+        <option value='effervescent'>effervescent</option>
+        <option value='sec'>sec</option>
+        <option value='moelleux'>moelleux</option>
+        <option value='liquoreux'>liquoreux</option>
+        <option value='charpenté'>charpenté</option>
+        <option value='rond'>rond</option>
+        <option value='léger'>léger</option>
+        <option value='fruité'>fruité</option>
+        <option value='vif'>vif</option>
+        <option value='aromatique'>aromatique</option>
+      </select>
       <div class='formButton'>
         <button type='submit'>Sauvegarder</button>
       </div>

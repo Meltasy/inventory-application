@@ -19,13 +19,26 @@
       <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1950' max='2025' required>
       <fieldset>
         <legend>Couleur *</legend>
-        <input type='radio' id='red' name='wineColor' value='Rouge' <%= wineDetail.color === 'Rouge' ? 'checked' : '' %> >
-        <label for='red'>Rouge</label><br>
-        <input type='radio' id='white' name='wineColor' value='Blanc' <%= wineDetail.color === 'Blanc' ? 'checked' : '' %> >
-        <label for='white'>Blanc</label><br>
-        <input type='radio' id='rose' name='wineColor' value='Rosé' <%= wineDetail.color === 'Rosé' ? 'checked' : '' %> >
-        <label for='rose'>Rosé</label><br>
+        <input type='radio' id='rouge' name='wineColor' value='rouge' <%= wineDetail.color === 'rouge' ? 'checked' : '' %> required>
+        <label for='rouge'>rouge</label><br>
+        <input type='radio' id='blanc' name='wineColor' value='blanc' <%= wineDetail.color === 'blanc' ? 'checked' : '' %> >
+        <label for='blanc'>blanc</label><br>
+        <input type='radio' id='rosé' name='wineColor' value='rosé' <%= wineDetail.color === 'rosé' ? 'checked' : '' %> >
+        <label for='rosé'>rosé</label><br>
       </fieldset>
+      <select id='wineStyle' name='wineStyle' required>
+        <option disabled <%= wineDetail.wine_style === '' ? 'selected' : '' %> >Style *</option>
+        <option value='effervescent' <%= wineDetail.wine_style === 'effervescent' ? 'selected' : '' %> >effervescent</option>
+        <option value='sec' <%= wineDetail.wine_style === 'sec' ? 'selected' : '' %> >sec</option>
+        <option value='moelleux' <%= wineDetail.wine_style === 'moelleux' ? 'selected' : '' %> >moelleux</option>
+        <option value='liquoreux' <%= wineDetail.wine_style === 'liquoreux' ? 'selected' : '' %> >liquoreux</option>
+        <option value='charpenté' <%= wineDetail.wine_style === 'charpenté' ? 'selected' : '' %> >charpenté</option>
+        <option value='rond' <%= wineDetail.wine_style === 'rond' ? 'selected' : '' %> >rond</option>
+        <option value='léger' <%= wineDetail.wine_style === 'léger' ? 'selected' : '' %> >léger</option>
+        <option value='fruité' <%= wineDetail.wine_style === 'fruité' ? 'selected' : '' %> >fruité</option>
+        <option value='vif' <%= wineDetail.wine_style === 'vif' ? 'selected' : '' %> >vif</option>
+        <option value='aromatique' <%= wineDetail.wine_style === 'aromatique' ? 'selected' : '' %> >aromatique</option>
+      </select>
       <div class='formButton'>
         <button type='submit'>Sauvegarder</button>
       </div>
