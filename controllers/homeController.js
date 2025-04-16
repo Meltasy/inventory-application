@@ -1,8 +1,7 @@
 const db = require('../db/queries')
 const asyncHandler = require('express-async-handler')
 const CustomError = require('../errors/CustomError')
-// Need to add validation to all of the forms
-// const { body, validationResult } = require('express-validator')
+const { validationResult } = require('express-validator')
 
 async function createWineGet(req, res) {
   res.render('newWine', {
@@ -11,14 +10,17 @@ async function createWineGet(req, res) {
 }
 
 const createWinePost = asyncHandler(async (req, res, next) => {
-  const { wineName, wineYear, wineColor } = req.body
-
-  if (!wineName || !wineYear || !wineColor) {
-    return next(new CustomError('Wine name, year and color are required!', 400))
+  try {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
+    }
+    const { wineName, wineYear, quantity, wineColor, wineStyle } = req.body
+    await db.createWine(wineName, wineYear, quantity, wineColor, wineStyle)
+    res.redirect('/')
+  } catch (err) {
+    next(err)
   }
-
-  await db.createWine(wineName, wineYear, wineColor)
-  res.redirect('/')
 })
 
 module.exports = {

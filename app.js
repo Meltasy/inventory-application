@@ -24,10 +24,9 @@ app.use('/', homeRouter)
 app.use('/wine', wineRouter)
 app.use('/type', typeRouter)
 
-// Do I need this here?
-// app.use((req, res, next) => {
-//   next(new CustomError('Page not found.'))
-// })
+app.use((req, res, next) => {
+  next(new CustomError('Page not found.', 404))
+})
 
 app.use((err, req, res, next) => {
   console.error(err)

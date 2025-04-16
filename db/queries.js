@@ -3,7 +3,7 @@ const pool = require('./pool')
 async function getAllWines() {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_id, wine_name, year, wine_type.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id'
+      'SELECT wine_type.type_id, color, wine_style, wine_id, wine_name, year, quantity FROM wine_type INNER JOIN wine_list ON wine_type.type_id = wine_list.type_id'
     )
     return rows
   } catch (err) {
@@ -40,7 +40,7 @@ async function getListByStyle(wineColor) {
 async function getColorWine(wineColor) {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_id, wine_name, year, wine_type.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id WHERE color = $1',
+      'SELECT wine_type.type_id, color, wine_style, wine_id, wine_name, year, quantity FROM wine_type INNER JOIN wine_list ON wine_type.type_id = wine_list.type_id WHERE color = $1',
       [wineColor]
     )
     return rows
@@ -53,7 +53,7 @@ async function getColorWine(wineColor) {
 async function getStyleWine(wineColor, wineStyle) {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_id, wine_name, year, wine_type.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id WHERE color = $1 AND wine_style = $2',
+      'SELECT wine_type.type_id, color, wine_style, wine_id, wine_name, year, quantity FROM wine_type INNER JOIN wine_list ON wine_type.type_id = wine_list.type_id WHERE color = $1 AND wine_style = $2',
       [wineColor, wineStyle]
     )
     return rows
@@ -63,7 +63,7 @@ async function getStyleWine(wineColor, wineStyle) {
   }
 }
 
-async function createWine(wineName, wineYear, wineColor, wineStyle) {
+async function createWine(wineName, wineYear, quantity, wineColor, wineStyle) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
@@ -77,8 +77,8 @@ async function createWine(wineName, wineYear, wineColor, wineStyle) {
     )
     const typeId = rows[0].type_id
     await client.query(
-      'INSERT INTO wine_list (wine_name, year, type_id) VALUES ($1, $2, $3)',
-      [wineName, wineYear, typeId]
+      'INSERT INTO wine_list (type_id, wine_name, year, quantity) VALUES ($1, $2, $3, $4)',
+      [typeId, wineName, wineYear, quantity]
     )
     await client.query('COMMIT')
     return typeId
@@ -94,7 +94,7 @@ async function createWine(wineName, wineYear, wineColor, wineStyle) {
 async function getWineDetail(wineId) {
   try {
     const { rows } = await pool.query(
-      'SELECT wine_id, wine_name, year, wine_list.type_id, color, wine_style FROM wine_list INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id WHERE wine_list.wine_id = $1',
+      'SELECT wine_list.type_id, color, wine_style, wine_id, wine_name, year, quantity FROM wine_type INNER JOIN wine_list ON wine_type.type_id = wine_list.type_id WHERE wine_list.wine_id = $1',
       [wineId]
     )
     return rows[0]
@@ -104,7 +104,7 @@ async function getWineDetail(wineId) {
   }
 }
 
-async function updateWineDetail(wineName, wineYear, wineColor, wineStyle, wineId) {
+async function updateWineDetail(wineName, wineYear, quantity, wineColor, wineStyle, wineId) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
@@ -120,8 +120,8 @@ async function updateWineDetail(wineName, wineYear, wineColor, wineStyle, wineId
       )
     }
     await client.query(
-      'UPDATE wine_list SET wine_name = $1, year = $2 WHERE wine_id = $3',
-      [wineName, wineYear, wineId]
+      'UPDATE wine_list SET wine_name = $1, year = $2, quantity = $3 WHERE wine_id = $4',
+      [wineName, wineYear, quantity, wineId]
     )
     await client.query('COMMIT')
   } catch (err) {

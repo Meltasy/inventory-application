@@ -14,9 +14,11 @@
   <main class='mainBox'>
     <form action='/newWine' method='POST' class='mainForm'>
       <label for='wineName'>Nom du vin *</label>
-      <input placeholder='Domaine Extondoa Xut' type='text' name='wineName' id='wineName' required>
+      <input placeholder='Domaine Extondoa Xut' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' required>
       <label for='wineYear'>Millésime *</label>
-      <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1950' max='2025' required>
+      <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
+      <label for='quantity'>Quantité *</label>
+      <input type='number' name='quantity' id='quantity' min='0' max='100' required>
       <fieldset>
         <legend>Couleur *</legend>
         <input type='radio' id='rouge' name='wineColor' value='rouge' required>

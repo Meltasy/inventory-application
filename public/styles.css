@@ -74,7 +74,7 @@ button:hover {
 
 /* home styles */
 
-main.mainHome {
+.mainHome {
   width: 50%;
   margin: auto;
   display: grid;
@@ -90,7 +90,7 @@ main.mainHome {
 
 /* type styles */
 
-main.mainType {
+.mainType {
   width: 75%;
   margin: auto;
   display: grid;
@@ -99,58 +99,55 @@ main.mainType {
   justify-content: center;
 }
 
-main.mainType ul {
+.mainType section ul {
   display: grid;
   gap: 1rem;
 }
 
-main.mainType .searchBar .colorList {
+.searchBar .colorList {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   position: relative;
+  gap: 1rem;
 }
 
-main.mainType .searchBar .colorList li {
+.searchBar .colorList li {
   display: flex;
   position: relative;
   align-self: center;
 }
 
-main.mainType .searchBar .colorList a {
+.searchBar a {
   font-size: 1.5rem;
-  padding: 3rem 6rem;
+  padding: 1.5rem 3rem;
 }
 
-main.mainType .searchBar .styleList {
+.searchBar .styleList {
   display: none;
   position: absolute;
-  bottom: 100%;
-  top: 100%;
+  left: 100%;
   min-width: 150px;
   z-index: 1;
 }
 
-main.mainType .searchBar .colorList > li:hover .styleList {
+.colorList > li:hover .styleList {
   display: block;
 }
 
-main.mainType .searchBar .styleList li {
+.searchBar .styleList li {
   margin-bottom: 1rem;
-}
-
-main.mainType .searchBar .styleList a {
-  white-space: nowrap;
+  margin-left: 1rem;
 }
 
 /* wine styles */
 
-main.mainWine {
+.mainWine {
   width: 50%;
   margin: auto;
 }
 
-main.mainWine ul {
+.mainWine ul {
   display: grid;
   gap: 1rem;
 }
@@ -172,14 +169,14 @@ section li div {
 
 /* newWine & editWine styles */
 
-main.mainBox {
+.mainBox {
   width: 50%;
   margin: auto;
   display: flex;
   justify-content: center;
 }
 
-form.mainForm {
+.mainForm {
   color: var(--background-color);
   background-color: var(--text-color);
   border: var(--light-border);
@@ -207,13 +204,13 @@ label {
   font-weight: 700;
 }
 
-div.formButton {
+.formButton {
   text-align: center;
 }
 
 /* detailWine styles */
 
-main.detailMain {
+.detailMain {
   color: var(--background-color);
   background-color: var(--text-color);
   border: var(--light-border);
@@ -224,7 +221,7 @@ main.detailMain {
   justify-content: space-between;
 }
 
-main.detailMain .detailButtons {
+.detailButtons {
   align-self: flex-end;
   display: flex;
   flex-direction: column;

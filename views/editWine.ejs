@@ -14,9 +14,11 @@
   <main class='mainBox'>
     <form action='/wine/<%= wineDetail.wine_id %>/edit?_method=PUT' method='POST' class='mainForm'>
       <label for='wineName'>Nom du vin *</label>
-      <input value='<%= wineDetail.wine_name %>' type='text' name='wineName' id='wineName' required>
+      <input value='<%= wineDetail.wine_name %>' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' required>
       <label for='wineYear'>Millésime *</label>
-      <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1950' max='2025' required>
+      <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
+      <label for='quantity'>Quantité *</label>
+      <input value='<%= wineDetail.quantity %>' type='number' name='quantity' id='quantity' min='0' max='100' required>
       <fieldset>
         <legend>Couleur *</legend>
         <input type='radio' id='rouge' name='wineColor' value='rouge' <%= wineDetail.color === 'rouge' ? 'checked' : '' %> required>

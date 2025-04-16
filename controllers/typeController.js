@@ -1,8 +1,6 @@
 const db = require('../db/queries')
 const asyncHandler = require('express-async-handler')
 const CustomError = require('../errors/CustomError')
-// Need to add validation to all of the forms
-// const { body, validationResult } = require('express-validator')
 
 const getTypeWineList = asyncHandler(async (req, res, next) => {
   const colorRows = await db.getListByColor()
@@ -22,7 +20,7 @@ const getTypeWineList = asyncHandler(async (req, res, next) => {
     return next(new CustomError('Wine type list is empty.', 204))
   }
 
-  return res.render('allTypes', { 
+  res.render('allTypes', { 
     title: 'Wine by type',
     subtitle: 'Please choose a wine type from the menu.',
     listByColor: colorRows,
@@ -56,7 +54,7 @@ const getEachTypeWineList = asyncHandler(async (req, res, next) => {
     colorWineList = await db.getColorWine(searchColor)
   }
 
-  return res.render('allTypes', {
+  res.render('allTypes', {
     title: 'Wine by type',
     subtitle: searchStyle
     ? `${searchColor} - ${searchStyle} wine list`

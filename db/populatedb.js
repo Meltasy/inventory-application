@@ -15,18 +15,19 @@ CREATE TABLE IF NOT EXISTS wine_type (
   wine_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   type_id INTEGER REFERENCES wine_type,
   wine_name VARCHAR ( 255 ),
-  year INTEGER
+  year INTEGER,
+  quantity INTEGER
 );`
 
 const wines = [
-  { wineName: 'Domaine Extondoa Xut', year: 2022, color: 'rouge', wineStyle: 'rond' },
-  { wineName: 'La Maison Brana Domaine Brana', year: 2018, color: 'rouge', wineStyle: 'rond' },
-  { wineName: 'Domaine Couet Origine', year: 2022, color: 'blanc', wineStyle: 'sec' },
-  { wineName: 'Domaine Langlois Les Charmes', year: 2022, color: 'blanc', wineStyle: 'sec' },
-  { wineName: 'Château Lamothe-Bergeron Cru Bourgeois', year: 2015, color: 'rouge', wineStyle: 'rond' },
-  { wineName: 'Le Temps des Sages Les Opiniâtres', year: 2021, color: 'rouge', wineStyle: 'fruité' },
-  { wineName: 'Egiategia Dena Dela', year: 2022, color: 'blanc', wineStyle: 'aromatique' },
-  { wineName: 'Caves de Pouilly-Sur-Loire Tonelum', year: 2019, color: 'blanc', wineStyle: 'sec' },
+  { wineName: 'Domaine Extondoa Xut', year: 2022, quantity: '5', color: 'rouge', wineStyle: 'rond' },
+  { wineName: 'La Maison Brana Domaine Brana', year: 2018, quantity: '4', color: 'rouge', wineStyle: 'rond' },
+  { wineName: 'Domaine Couet Origine', year: 2022, quantity: '4', color: 'blanc', wineStyle: 'sec' },
+  { wineName: 'Domaine Langlois Les Charmes', year: 2022, quantity: '4', color: 'blanc', wineStyle: 'sec' },
+  { wineName: 'Château Lamothe-Bergeron Cru Bourgeois', year: 2015, quantity: '1', color: 'rouge', wineStyle: 'rond' },
+  { wineName: 'Le Temps des Sages Les Opiniâtres', year: 2021, quantity: '0', color: 'rouge', wineStyle: 'fruité' },
+  { wineName: 'Egiategia Dena Dela', year: 2022, quantity: '0', color: 'blanc', wineStyle: 'aromatique' },
+  { wineName: 'Caves de Pouilly-Sur-Loire Tonelum', year: 2019, quantity: '3', color: 'blanc', wineStyle: 'sec' },
 ]
 
 async function main() {
@@ -48,8 +49,8 @@ async function main() {
     )
     const typeId = rows[0].type_id
     await client.query(
-      'INSERT INTO wine_list (type_id, wine_name, year) VALUES ($1, $2, $3)',
-      [typeId, wine.wineName, wine.year]
+      'INSERT INTO wine_list (type_id, wine_name, year, quantity) VALUES ($1, $2, $3, $4)',
+      [typeId, wine.wineName, wine.year, wine.quantity]
     )
   }
 
