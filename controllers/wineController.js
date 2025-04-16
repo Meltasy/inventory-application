@@ -64,6 +64,21 @@ const updateWinePut = asyncHandler(async(req, res, next) => {
   }
 })
 
+const updateQuantityPatch = asyncHandler(async(req, res, next) => {
+  try {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
+    }
+    const { quantity } = req.body
+    const wineId = req.params.wineId
+    await db.updateWineQuantity(quantity, wineId)
+    res.redirect('/wine')
+  } catch(err) {
+    next(err)
+  }
+})
+
 const deleteWineById = asyncHandler(async(req, res, next) => {
   const wineId = req.params.wineId
 
@@ -80,5 +95,6 @@ module.exports = {
   getWineById,
   updateWineGet,
   updateWinePut,
+  updateQuantityPatch,
   deleteWineById
 }

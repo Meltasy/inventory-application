@@ -133,6 +133,19 @@ async function updateWineDetail(wineName, wineYear, quantity, wineColor, wineSty
   }
 }
 
+async function updateWineQuantity(quantity, wineId) {
+  try {
+    const { rows } = await pool.query(
+      'UPDATE wine_list SET quantity = $1 WHERE wine_id = $2 RETURNING *',
+      [quantity, wineId]
+    )
+    return rows[0]
+  } catch (err) {
+    console.error('Error editing quantity of wine: ', err)
+    throw new Error('Impossible to edit quantity of wine.')
+  }
+}
+
 async function deleteWine(wineId) {
   const client = await pool.connect()
   try {
@@ -158,5 +171,6 @@ module.exports = {
   createWine,
   getWineDetail,
   updateWineDetail,
+  updateWineQuantity,
   deleteWine
 }

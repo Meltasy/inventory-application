@@ -14,4 +14,9 @@ const validateWine = [
     .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
 ]
 
-module.exports = { validateWine }
+const validateQuantity = [
+  body('quantity').notEmpty().withMessage(`Wine quantity ${reqErr}`)
+    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
+]
+
+module.exports = { validateWine, validateQuantity }
