@@ -18,17 +18,15 @@
       <p>Couleur: <%= wineDetail.color %></p>
       <p>Style: <%= wineDetail.wine_style %></p>
     </div>
-    <div>
-      <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='quantityForm'>
-        <label for='quantity'>Quantité *</label>
-        <div>
-          <button type='button' onclick='handleDecrease()'>-</button>
-            <input value='<%= wineDetail.quantity %>' type='text' name='quantity' id='quantity' min='0' max='100' required>
-          <button type='button' onclick='handleIncrease()'>+</button>
-        </div>
-        <button type='submit'>Sauvegarder</button>
-      </form>
-    </div>
+    <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='quantityForm'>
+      <label for='quantity'>Quantité *</label>
+      <div>
+        <button type='button' onclick='handleDecrease()'>-</button>
+          <input value='<%= wineDetail.quantity %>' type='text' name='quantity' id='quantity' minlength='0' maxlength='3' pattern='^\d+$' required>
+        <button type='button' onclick='handleIncrease()'>+</button>
+      </div>
+      <button type='submit'>Sauvegarder</button>
+    </form>
     <div class='detailButtons'>
       <a href='/wine/<%= wineDetail.wine_id %>/edit'>Edit</a>
       <form action='/wine/<%= wineDetail.wine_id %>/delete?_method=DELETE' method='POST'>
