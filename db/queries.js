@@ -1,5 +1,7 @@
 const pool = require('./pool')
 
+// Need to add Origin TABLE to all of the queries below
+
 async function getAllWines() {
   try {
     const { rows } = await pool.query(
@@ -9,6 +11,42 @@ async function getAllWines() {
   } catch (err) {
     console.error('Error getting wine list: ', err)
     throw new Error('Impossible to get wine list.')
+  }
+}
+
+async function getListByProducer() {
+  try {
+    const { rows } = await pool.query(
+      'SELECT DISTINCT producer FROM wine_origin'
+    )
+    return rows
+  } catch(err) {
+    console.error('Error getting wine list by producer: ', err)
+    throw new Error('Impossible to get wine list by producer.')
+  }
+}
+
+async function getListByAppellation() {
+  try {
+    const { rows } = await pool.query(
+      'SELECT DISTINCT appellation FROM wine_origin'
+    )
+    return rows
+  } catch(err) {
+    console.error('Error getting wine list by appellation: ', err)
+    throw new Error('Impossible to get wine list by appellation.')
+  }
+}
+
+async function getListByRegion() {
+  try {
+    const { rows } = await pool.query(
+      'SELECT DISTINCT region FROM wine_origin'
+    )
+    return rows
+  } catch(err) {
+    console.error('Error getting wine list by region: ', err)
+    throw new Error('Impossible to get wine list by region.')
   }
 }
 
@@ -164,6 +202,9 @@ async function deleteWine(wineId) {
 
 module.exports = {
   getAllWines,
+  getListByProducer,
+  getListByAppellation,
+  getListByRegion,
   getListByColor,
   getListByStyle,
   getColorWine,

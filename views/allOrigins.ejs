@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='/styles.css'>
+  <script src='/originControls.js' defer></script>
+  <title><%= title %></title>
+</head>
+<body>
+  <%- include('./navbar') %>
+  <header>
+    <h1><%= title %></h1>
+    <h2><%= subtitle %></h2>
+  </header>
+  <main class='mainOrigin'>
+    <div class='searchBar'>
+      <ul class='originList'>
+        <li>
+          <button>Producteur</button>
+          <ul class='eachList'>
+            <% listByProducer.forEach((producerList) => { %>
+              <li>
+                <a href='/origin/search?producer=<%= producerList.producer %>'><%= producerList.producer %></a>
+              </li>
+            <% }) %>
+          </ul>
+        </li>
+        <li>
+          <button>Appellation</button>
+          <ul class='eachList'>
+            <% listByAppellation.forEach((appellationList) => { %>
+              <li>
+                <a href='/origin/search?appellation=<%= appellationList.appellation %>'><%= appellationList.appellation %></a>
+              </li>
+            <% }) %>
+          </ul>
+        </li>
+        <li>
+          <button>Region</button>
+          <ul class='eachList'>
+            <% listByRegion.forEach((regionList) => { %>
+              <li>
+                <a href='/origin/search?region=<%= regionList.region %>'><%= regionList.region %></a>
+              </li>
+            <% }) %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>

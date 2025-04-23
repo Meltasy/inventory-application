@@ -88,9 +88,10 @@ button:hover {
   padding: 3rem 6rem;
 }
 
-/* type styles */
+/* type styles & origin styles */
 
-.mainType {
+.mainType,
+.mainOrigin {
   width: 75%;
   margin: auto;
   display: grid;
@@ -99,12 +100,14 @@ button:hover {
   justify-content: center;
 }
 
-.mainType section ul {
+.mainType section ul,
+.mainOrigin section ul {
   display: grid;
   gap: 1rem;
 }
 
-.searchBar .colorList {
+.searchBar .colorList,
+.searchBar .originList {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -112,7 +115,8 @@ button:hover {
   gap: 1rem;
 }
 
-.searchBar .colorList li {
+.searchBar .colorList li,
+.searchBar .originList li {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -120,11 +124,13 @@ button:hover {
   width: 100%;
 }
 
-.colorList > li.active > a {
+.colorList > li.active > a,
+.originList > li.active > button {
   background-color: var(--background-color);
 }
 
-.colorList > li.active > a:hover {
+.colorList > li.active > a:hover,
+.originList > li.active > button:hover {
   background-color: var(--primary-color-dark);
 }
 
@@ -135,28 +141,48 @@ button:hover {
   box-sizing: border-box;
 }
 
-.searchBar .styleList {
+.searchBar button {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  background-color: var(--primary-color-dark);
+  border: var(--dark-border);
+  text-align: left;
+  padding: 1.5rem 3rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.searchBar button:hover {
+  background-color: var(--background-color);
+}
+
+.searchBar .styleList,
+.searchBar .eachList {
   display: none;
   width: 100%;
 }
 
-.searchBar .styleList.show {
+.searchBar .styleList.show,
+.searchBar .eachList.show {
   display: block;
 }
 
-.searchBar .styleList li {
+.searchBar .styleList li,
+.searchBar .eachList li {
   margin-top: 1rem;
   width: 100%;
 }
 
-.searchBar .styleList a {
+.searchBar .styleList a,
+.searchBar .eachList a {
   color: var(--background-color);
   background-color: var(--primary-color-light);
   border: var(--light-border);
   display: block;
 }
 
-.searchBar .styleList a:hover {
+.searchBar .styleList a:hover,
+.searchBar .eachList a:hover {
   color: var(--text-color);
   background-color: var(--primary-color-dark);
   border: var(--dark-border);
