@@ -1,28 +1,30 @@
-const originListItems = document.querySelectorAll('.originList > li')
+const regionListItems = document.querySelectorAll('.regionList > li')
 
-originListItems.forEach(item => {
-  const originBtn = item.querySelector('button')
-  const eachList = item.querySelector('.eachList')
+regionListItems.forEach(item => {
+  const regionLink = item.querySelector('a')
+  const appellationList = item.querySelector('.appellationList')
 
-  if (eachList) {
-    originBtn.addEventListener('click', function(e) {
+  if (appellationList) {
+    regionLink.addEventListener('click', function(e) {
       e.preventDefault()
-      const isOpen = eachList.classList.contains('show')
-      document.querySelectorAll('.eachList.show').forEach(openList => {
+      const isOpen = appellationList.classList.contains('show')
+      document.querySelectorAll('.appellationList.show').forEach(openList => {
         openList.classList.remove('show')
         openList.parentElement.classList.remove('active')
       })
       if (!isOpen) {
-        eachList.classList.add('show')
+        appellationList.classList.add('show')
         item.classList.add('active')
+      } else {
+        window.location.href = regionLink.href
       }
     })
   }
 })
 
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('.originList')) {
-    document.querySelectorAll('.eachList.show').forEach(openList => {
+  if (!e.target.closest('.regionList')) {
+    document.querySelectorAll('.appellationList.show').forEach(openList => {
       openList.classList.remove('show')
       openList.parentElement.classList.remove('active')
     })

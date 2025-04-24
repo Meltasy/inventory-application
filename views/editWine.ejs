@@ -15,6 +15,12 @@
     <form action='/wine/<%= wineDetail.wine_id %>/edit?_method=PUT' method='POST' class='mainForm'>
       <label for='wineName'>Nom du vin *</label>
       <input value='<%= wineDetail.wine_name %>' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' required>
+      <label for='producer'>Producteur *</label>
+      <input value='<%= wineDetail.producer %>' type='text' name='producer' id='producer' minlength='3' maxlength='30' required>
+      <label for='appellation'>Appellation *</label>
+      <input value='<%= wineDetail.appellation %>' type='text' name='appellation' id='appellation' minlength='3' maxlength='30' required>
+      <label for='region'>Région *</label>
+      <input value='<%= wineDetail.region %>' type='text' name='region' id='region' minlength='3' maxlength='30' required>
       <label for='wineYear'>Millésime *</label>
       <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
       <label for='quantity'>Quantité *</label>

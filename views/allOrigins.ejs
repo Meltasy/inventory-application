@@ -15,39 +15,52 @@
   </header>
   <main class='mainOrigin'>
     <div class='searchBar'>
-      <ul class='originList'>
-        <li>
-          <button>Producteur</button>
-          <ul class='eachList'>
-            <% listByProducer.forEach((producerList) => { %>
-              <li>
-                <a href='/origin/search?producer=<%= producerList.producer %>'><%= producerList.producer %></a>
-              </li>
-            <% }) %>
-          </ul>
-        </li>
-        <li>
-          <button>Appellation</button>
-          <ul class='eachList'>
-            <% listByAppellation.forEach((appellationList) => { %>
-              <li>
-                <a href='/origin/search?appellation=<%= appellationList.appellation %>'><%= appellationList.appellation %></a>
-              </li>
-            <% }) %>
-          </ul>
-        </li>
-        <li>
-          <button>Region</button>
-          <ul class='eachList'>
-            <% listByRegion.forEach((regionList) => { %>
-              <li>
-                <a href='/origin/search?region=<%= regionList.region %>'><%= regionList.region %></a>
-              </li>
-            <% }) %>
-          </ul>
-        </li>
+      <ul class='regionList'>
+        <% listByRegion.forEach((regionList) => { %>
+          <li>
+            <a href='/origin/search?region=<%= regionList.region %>'><%= regionList.region %></a>
+            <% if (listByAppellation[regionList.region] && listByAppellation[regionList.region].length > 0) { %>
+              <ul class='appellationList'>
+                <% listByAppellation[regionList.region].forEach((appellation) => { %>
+                  <li>
+                    <a href='/origin/search?region=<%= regionList.region %>&appellation=<%= appellation %>'><%= appellation %></a>
+                  </li>
+                <% }) %>
+              </ul>
+            <% } %>
+          </li>
+        <% }) %>
       </ul>
     </div>
+    <section>
+      <% if (fullWineList && fullWineList.length > 0) { %>
+        <ul>
+          <% fullWineList.forEach((wine) => { %>
+            <li>
+              <div>
+                <h3><%= wine.wine_name %></h3>
+                <p><%= wine.year %></p>
+                <p><%= wine.color %></p>
+                <p><%= wine.style %></p>
+              </div>
+              <div>
+                <p><%= wine.producer %></p>
+                <p><%= wine.appellation %></p>
+                <p><%= wine.region %></p>
+              </div>
+              <div>
+                <p><%= wine.quantity %></p>
+              </div>
+              <div>
+                <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else if (hasSearched) { %>
+        <p>Aucun vin trouvé - veuillez choisir un autre région ou appellation.</p>
+      <% } %>
+    </section>
   </main>
 </body>
 </html>

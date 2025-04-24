@@ -3,6 +3,6 @@ const originRouter = Router()
 const originController = require('../controllers/originController')
 
 originRouter.get('/', originController.getOriginWineList)
-originRouter.get('/serach', originController.getEachOriginWineList)
+originRouter.get('/search', originController.getEachOriginWineList)
 
 module.exports = originRouter

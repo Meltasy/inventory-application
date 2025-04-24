@@ -107,7 +107,7 @@ button:hover {
 }
 
 .searchBar .colorList,
-.searchBar .originList {
+.searchBar .regionList {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -116,7 +116,7 @@ button:hover {
 }
 
 .searchBar .colorList li,
-.searchBar .originList li {
+.searchBar .regionList li {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -124,13 +124,11 @@ button:hover {
   width: 100%;
 }
 
-.colorList > li.active > a,
-.originList > li.active > button {
+.colorList > li.active > a {
   background-color: var(--background-color);
 }
 
-.colorList > li.active > a:hover,
-.originList > li.active > button:hover {
+.colorList > li.active > a:hover {
   background-color: var(--primary-color-dark);
 }
 
@@ -141,40 +139,25 @@ button:hover {
   box-sizing: border-box;
 }
 
-.searchBar button {
-  font-size: 1.5rem;
-  color: var(--text-color);
-  background-color: var(--primary-color-dark);
-  border: var(--dark-border);
-  text-align: left;
-  padding: 1.5rem 3rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.searchBar button:hover {
-  background-color: var(--background-color);
-}
-
 .searchBar .styleList,
-.searchBar .eachList {
+.searchBar .appellationList {
   display: none;
   width: 100%;
 }
 
 .searchBar .styleList.show,
-.searchBar .eachList.show {
+.searchBar .appellationList.show {
   display: block;
 }
 
 .searchBar .styleList li,
-.searchBar .eachList li {
+.searchBar .appellationList li {
   margin-top: 1rem;
   width: 100%;
 }
 
 .searchBar .styleList a,
-.searchBar .eachList a {
+.searchBar .appellationList a {
   color: var(--background-color);
   background-color: var(--primary-color-light);
   border: var(--light-border);
@@ -182,7 +165,7 @@ button:hover {
 }
 
 .searchBar .styleList a:hover,
-.searchBar .eachList a:hover {
+.searchBar .appellationList a:hover {
   color: var(--text-color);
   background-color: var(--primary-color-dark);
   border: var(--dark-border);

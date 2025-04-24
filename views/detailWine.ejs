@@ -18,6 +18,11 @@
       <p>Couleur: <%= wineDetail.color %></p>
       <p>Style: <%= wineDetail.wine_style %></p>
     </div>
+    <div>
+      <p>Producteur: <%= wineDetail.producer %></p>
+      <p>Appellation: <%= wineDetail.appellation %></p>
+      <p>Région: <%= wineDetail.region %></p>
+    </div>
     <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='quantityForm'>
       <label for='quantity'>Quantité *</label>
       <div>
