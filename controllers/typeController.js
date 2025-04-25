@@ -37,13 +37,13 @@ const getEachTypeWineList = asyncHandler(async (req, res, next) => {
 
   const [ colorRows, styleRows ] = await Promise.all([
     db.getListByColor(),
-    db.getListByColor().then(rows => {
+    db.getListByColor().then(async (rows) => {
       let styleMap = {}
-      return Promise.all(rows.map(async row => {
+      await Promise.all(rows.map(async row => {
         const styles = await db.getListByStyle(row.color)
         styleMap[row.color] = styles.map(s => s.wine_style)
-        return styleMap
-      })).then(() => styleMap)
+      }))
+      return styleMap
     })
   ])
 

@@ -6,7 +6,8 @@ async function getAllWines() {
       `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color, wine_style
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
-      INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id;`
+      INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
+      ORDER BY wine_name;`
     )
     return rows
   } catch (err) {
@@ -20,7 +21,6 @@ async function getListByRegion() {
     const { rows } = await pool.query(
       'SELECT DISTINCT region FROM wine_origin;'
     )
-    console.log('getListByRegion: ', rows)
     return rows
   } catch(err) {
     console.error('Error getting wine list by region: ', err)
@@ -34,7 +34,6 @@ async function getListByAppellation(region) {
       'SELECT DISTINCT appellation FROM wine_origin WHERE region = $1;',
       [region]
     )
-    console.log('getListByAppellation: ', rows)
     return rows
   } catch(err) {
     console.error('Error getting wine list by appellation: ', err)
@@ -49,10 +48,10 @@ async function getRegionWine(region) {
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
-      WHERE region = $1;`,
+      WHERE region = $1
+      ORDER BY producer;`,
       [region]
     )
-    console.log('getRegionWine: ', rows)
     return rows
   } catch (err) {
     console.error(`Error getting ${region} wine list.`, err)
@@ -67,10 +66,10 @@ async function getAppellationWine(region, appellation) {
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
-      WHERE region = $1 AND appellation = $2;`,
+      WHERE region = $1 AND appellation = $2
+      ORDER BY producer;`,
       [region, appellation]
     )
-    console.log('getAppellationWine: ', rows)
     return rows
   } catch (err) {
     console.error(`Error getting ${region} - ${appellation} wine list.`, err)
@@ -78,7 +77,23 @@ async function getAppellationWine(region, appellation) {
   }
 }
 
-// Need to add Origin TABLE to all of the queries below, and split the lines using backticks ``
+async function getListByProducer(producer) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color, wine_style
+      FROM wine_list
+      INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
+      INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
+      WHERE producer ILIKE $1
+      ORDER BY wine_name;`,
+      [`%${producer}%`]
+    )
+    return rows
+  } catch(err) {
+    console.error(`Error getting ${producer} wine list.`, err)
+    throw new Error(`Impossible to get ${producer} wine list.`)
+  }
+}
 
 async function getListByColor() {
   try {
@@ -204,6 +219,7 @@ async function updateWineDetail(wineName, wineYear, quantity, wineColor, wineSty
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
+    // Leaving origin in the wine_origin TABLE and type in the wine_type TABLE, without checking if other wines are associated - IS THIS OK?
     await client.query(
       `INSERT INTO wine_origin (region, appellation, producer)
       VALUES ($1, $2, $3)
@@ -228,7 +244,6 @@ async function updateWineDetail(wineName, wineYear, quantity, wineColor, wineSty
       [wineColor, wineStyle]
     )
     const typeId = typeRows[0].type_id
-    console.log('origin_id and type_id: ', originId, typeId)
     await client.query(
       `UPDATE wine_list SET origin_id = $1, type_id = $2, wine_name = $3, year = $4, quantity = $5
       WHERE wine_id = $6;`,
@@ -279,6 +294,7 @@ module.exports = {
   getListByAppellation,
   getRegionWine,
   getAppellationWine,
+  getListByProducer,
   getListByColor,
   getListByStyle,
   getColorWine,

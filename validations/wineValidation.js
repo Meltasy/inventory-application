@@ -1,4 +1,4 @@
-const { body } = require('express-validator')
+const { body, query } = require('express-validator')
 
 const reqErr = 'is required.'
 const lengthErr = 'must be between 1 and 30 characters'
@@ -25,4 +25,9 @@ const validateQuantity = [
     .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
 ]
 
-module.exports = { validateWine, validateQuantity }
+const validateSearch = [
+  query('producer').trim().notEmpty().withMessage('Please enter a producer to search.')
+    .isLength({ min: 1, max: 30 }).withMessage(`Producer ${lengthErr}`),
+]
+
+module.exports = { validateWine, validateQuantity, validateSearch }

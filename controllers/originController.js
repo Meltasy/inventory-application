@@ -1,6 +1,7 @@
 const db = require('../db/queries')
 const asyncHandler = require('express-async-handler')
 const CustomError = require('../errors/CustomError')
+const { validationResult } = require('express-validator')
 
 const getOriginWineList = asyncHandler(async(req, res, next) => {
   const regionRows = await db.getListByRegion()
@@ -21,7 +22,7 @@ const getOriginWineList = asyncHandler(async(req, res, next) => {
   }
 
   res.render('allOrigins', {
-    title: 'Vin par région ou appellation',
+    title: 'Vin par origin',
     subtitle: 'Choisissez un région ou un appellation.',
     listByRegion: regionRows,
     listByAppellation: listByAppellation,
@@ -55,7 +56,7 @@ const getEachOriginWineList = asyncHandler(async(req, res, next) => {
   }
 
   res.render('allOrigins', {
-    title: 'Vin par région ou appellation',
+    title: 'Vin par origin',
     subtitle: searchAppellation
       ? `Liste des vins par ${searchAppellation}, ${searchRegion}`
       : `Liste des vins par ${searchRegion}`,
@@ -67,7 +68,51 @@ const getEachOriginWineList = asyncHandler(async(req, res, next) => {
   })
 })
 
+const getProducerWineList = asyncHandler(async(req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return next(new CustomError(`Search validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
+  }
+  const searchProducer = req.query.producer
+
+  const [ regionRows, appellationRows ] = await Promise.all([
+    db.getListByRegion(),
+    db.getListByRegion().then(async (rows) => {
+      let appellationMap = {}
+      await Promise.all(rows.map(async row => {
+        const appellations = await db.getListByAppellation(row.region)
+        appellationMap[row.region] = appellations.map(a => a.appellation)
+      }))
+      return appellationMap
+    })
+  ])
+
+  const listByProducer = await db.getListByProducer(searchProducer)
+  console.log('searchProducer: ', searchProducer)
+  console.log('listByProducer: ', listByProducer)
+
+  if (!listByProducer) {
+    return next(new CustomError('Wine producer list not found.', 404))
+  }
+
+  if (listByProducer.length === 0) {
+    return next(new CustomError('Wine producer list is empty', 204))
+  }
+
+  res.render('allOrigins', {
+    title: 'Vin par origin',
+    subtitle: `Liste des vins par producteur`,
+    listByRegion: regionRows,
+    listByAppellation: appellationRows,
+    fullWineList: listByProducer,
+    searchRegion: '',
+    hasSearched: true
+  })
+})
+
+
 module.exports = {
   getOriginWineList,
-  getEachOriginWineList
+  getEachOriginWineList,
+  getProducerWineList
 }

@@ -171,6 +171,14 @@ button:hover {
   border: var(--dark-border);
 }
 
+.searchProducer {
+  margin: 1rem;
+}
+
+.searchProducer button {
+  padding: 0.3rem 0.8rem;
+}
+
 /* wine styles */
 
 .mainWine {

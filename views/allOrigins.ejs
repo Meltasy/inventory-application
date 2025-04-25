@@ -12,6 +12,11 @@
   <header>
     <h1><%= title %></h1>
     <h2><%= subtitle %></h2>
+    <form action='/origin/search/producer' method='GET' class='searchProducer'>
+      <label for='producer'>Trouver par producteur *</label>
+      <input type='text' name='producer' id='producer' placeholder='Domaine Langlois' required>
+      <button type='submit'>Trouver</button>
+    </form>
   </header>
   <main class='mainOrigin'>
     <div class='searchBar'>
