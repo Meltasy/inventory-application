@@ -4,7 +4,6 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <link rel='stylesheet' href='/styles.css'>
-  <script src='/listControls.js' defer></script>
   <title><%= title %></title>
 </head>
 <body>
@@ -19,21 +18,14 @@
         <% listByColor.forEach((colorList) => { %>
           <li>
             <a href='/type/search?color=<%= colorList.color %>'><%= colorList.color %></a>
-            <% if (listByStyle[colorList.color] && listByStyle[colorList.color].length > 0) { %>
-              <ul class='styleList'>
-                <% listByStyle[colorList.color].forEach((style) => { %>
-                  <li>
-                    <a href='/type/search?color=<%= colorList.color %>&style=<%= style %>'><%= style %></a>
-                  </li>
-                <% }) %>
-              </ul>
-            <% } %>
           </li>
         <% }) %>
       </ul>
     </div>
     <section>
-      <% if (colorWineList && colorWineList.length > 0) { %>
+      <% if (hasSearched && colorWineList.length === 0) { %>
+        <p>No wines found - please choose another wine type from the menu.</p>
+      <% } else if (colorWineList && colorWineList.length > 0) { %>
         <ul>
           <% colorWineList.forEach((wine) => { %>
             <li>
@@ -41,7 +33,6 @@
                 <h3><%= wine.wine_name %></h3>
                 <p><%= wine.year %></p>
                 <p><%= wine.color %></p>
-                <p><%= wine.style %></p>
               </div>
               <div>
                 <p><%= wine.producer %></p>
@@ -57,8 +48,6 @@
             </li>
           <% }) %>
         </ul>
-      <% } else if (hasSearched) { %>
-        <p>No wines found - please choose another wine type from the menu.</p>
       <% } %>
     </section>
   </main>

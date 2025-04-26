@@ -15,8 +15,8 @@ const createWinePost = asyncHandler(async (req, res, next) => {
     if (!errors.isEmpty()) {
       return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
     }
-    const { wineName, wineYear, quantity, wineColor, wineStyle, region, appellation, producer } = req.body
-    await db.createWine(wineName, wineYear, quantity, wineColor, wineStyle, region, appellation, producer)
+    const { wineName, wineYear, quantity, wineColor, region, appellation, producer } = req.body
+    await db.createWine(wineName, wineYear, quantity, wineColor, region, appellation, producer)
     res.redirect('/')
   } catch (err) {
     next(err)

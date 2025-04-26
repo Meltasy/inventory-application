@@ -124,11 +124,11 @@ button:hover {
   width: 100%;
 }
 
-.colorList > li.active > a {
+.regionList > li.active > a {
   background-color: var(--background-color);
 }
 
-.colorList > li.active > a:hover {
+.regionList > li.active > a:hover {
   background-color: var(--primary-color-dark);
 }
 
@@ -139,24 +139,20 @@ button:hover {
   box-sizing: border-box;
 }
 
-.searchBar .styleList,
 .searchBar .appellationList {
   display: none;
   width: 100%;
 }
 
-.searchBar .styleList.show,
 .searchBar .appellationList.show {
   display: block;
 }
 
-.searchBar .styleList li,
 .searchBar .appellationList li {
   margin-top: 1rem;
   width: 100%;
 }
 
-.searchBar .styleList a,
 .searchBar .appellationList a {
   color: var(--background-color);
   background-color: var(--primary-color-light);
@@ -164,7 +160,6 @@ button:hover {
   display: block;
 }
 
-.searchBar .styleList a:hover,
 .searchBar .appellationList a:hover {
   color: var(--text-color);
   background-color: var(--primary-color-dark);

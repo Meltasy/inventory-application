@@ -4,14 +4,17 @@ const CustomError = require('../errors/CustomError')
 const { validationResult } = require('express-validator')
 
 const getOriginWineList = asyncHandler(async(req, res, next) => {
-  const regionRows = await db.getListByRegion()
-  const listByRegion = regionRows.map(row => row.region)
-  
-  const listByAppellation = {}
-  for (let region of listByRegion) {
-    const appellationRows = await db.getListByAppellation(region)
-    listByAppellation[region] = appellationRows.map(row => row.appellation)
-  }
+  const [ listByRegion, listByAppellation ] = await Promise.all([
+    db.getListByRegion(),
+    db.getListByRegion().then(async (rows) => {
+      let appellationMap = {}
+      await Promise.all(rows.map(async row => {
+        const appellations = await db.getListByAppellation(row.region)
+        appellationMap[row.region] = appellations.map(a => a.appellation)
+      }))
+      return appellationMap
+    })
+  ])
 
   if (!listByRegion || !listByAppellation) {
     return next(new CustomError('Wine origin list not found.', 404))
@@ -24,10 +27,9 @@ const getOriginWineList = asyncHandler(async(req, res, next) => {
   res.render('allOrigins', {
     title: 'Vin par origin',
     subtitle: 'Choisissez un région ou un appellation.',
-    listByRegion: regionRows,
+    listByRegion: listByRegion,
     listByAppellation: listByAppellation,
     fullWineList: [],
-    searchRegion: '',
     hasSearched: false
   })
 })
@@ -36,7 +38,7 @@ const getEachOriginWineList = asyncHandler(async(req, res, next) => {
   const searchRegion = req.query.region || ''
   const searchAppellation = req.query.appellation || ''
 
-  const [ regionRows, appellationRows ] = await Promise.all([
+  const [ listByRegion, listByAppellation ] = await Promise.all([
     db.getListByRegion(),
     db.getListByRegion().then(async (rows) => {
       let appellationMap = {}
@@ -55,15 +57,22 @@ const getEachOriginWineList = asyncHandler(async(req, res, next) => {
     fullWineList = await db.getRegionWine(searchRegion)
   }
 
+  if (!fullWineList) {
+    return next(new CustomError('Wine producer list not found.', 404))
+  }
+
+  if (fullWineList.length === 0) {
+    return next(new CustomError('Wine producer list is empty', 204))
+  }
+
   res.render('allOrigins', {
     title: 'Vin par origin',
     subtitle: searchAppellation
       ? `Liste des vins par ${searchAppellation}, ${searchRegion}`
       : `Liste des vins par ${searchRegion}`,
-    listByRegion: regionRows,
-    listByAppellation: appellationRows,
+    listByRegion: listByRegion,
+    listByAppellation: listByAppellation,
     fullWineList: fullWineList,
-    searchRegion: searchRegion,
     hasSearched: true
   })
 })
@@ -75,7 +84,7 @@ const getProducerWineList = asyncHandler(async(req, res, next) => {
   }
   const searchProducer = req.query.producer
 
-  const [ regionRows, appellationRows ] = await Promise.all([
+  const [ listByRegion, listByAppellation ] = await Promise.all([
     db.getListByRegion(),
     db.getListByRegion().then(async (rows) => {
       let appellationMap = {}
@@ -88,8 +97,6 @@ const getProducerWineList = asyncHandler(async(req, res, next) => {
   ])
 
   const listByProducer = await db.getListByProducer(searchProducer)
-  console.log('searchProducer: ', searchProducer)
-  console.log('listByProducer: ', listByProducer)
 
   if (!listByProducer) {
     return next(new CustomError('Wine producer list not found.', 404))
@@ -102,14 +109,12 @@ const getProducerWineList = asyncHandler(async(req, res, next) => {
   res.render('allOrigins', {
     title: 'Vin par origin',
     subtitle: `Liste des vins par producteur`,
-    listByRegion: regionRows,
-    listByAppellation: appellationRows,
+    listByRegion: listByRegion,
+    listByAppellation: listByAppellation,
     fullWineList: listByProducer,
-    searchRegion: '',
     hasSearched: true
   })
 })
-
 
 module.exports = {
   getOriginWineList,

@@ -3,66 +3,35 @@ const asyncHandler = require('express-async-handler')
 const CustomError = require('../errors/CustomError')
 
 const getTypeWineList = asyncHandler(async (req, res, next) => {
-  const colorRows = await db.getListByColor()
-  const listByColor = colorRows.map(row => row.color)
-  
-  let listByStyle = {}
-  for (let color of listByColor) {
-    const styleRows = await db.getListByStyle(color)
-    listByStyle[color] = styleRows.map(row => row.wine_style)
-  }
+  const listByColor = await db.getListByColor()
 
-  if (!listByColor || !listByStyle) {
-    return next(new CustomError('Wine type list not found.', 404))
-  }
-  
-  if (listByColor.length === 0 || listByStyle === 0) {
-    return next(new CustomError('Wine type list is empty.', 204))
+  if (!listByColor) {
+    return next(new CustomError('Wine color list not found.', 404))
   }
 
   res.render('allTypes', { 
-    title: 'Wine by type',
-    subtitle: 'Please choose a wine type from the menu.',
-    listByColor: colorRows,
-    listByStyle: listByStyle,
+    title: 'Wine by color',
+    subtitle: 'Please choose a wine color from the menu.',
+    listByColor: listByColor,
     colorWineList: [],
-    searchColor: '',
     hasSearched: false
   })
 })
 
 const getEachTypeWineList = asyncHandler(async (req, res, next) => {
   const searchColor = req.query.color || ''
-  const searchStyle = req.query.style || ''
+  const listByColor = await db.getListByColor()
+  const colorWineList = await db.getColorWine(searchColor)
 
-  const [ colorRows, styleRows ] = await Promise.all([
-    db.getListByColor(),
-    db.getListByColor().then(async (rows) => {
-      let styleMap = {}
-      await Promise.all(rows.map(async row => {
-        const styles = await db.getListByStyle(row.color)
-        styleMap[row.color] = styles.map(s => s.wine_style)
-      }))
-      return styleMap
-    })
-  ])
-
-  let colorWineList = []
-  if (searchColor && searchStyle) {
-    colorWineList = await db.getStyleWine(searchColor, searchStyle)
-  } else if (searchColor) {
-    colorWineList = await db.getColorWine(searchColor)
+  if (!colorWineList) {
+    return next(new CustomError('Wine color list not found.', 404))
   }
 
   res.render('allTypes', {
     title: 'Wine by type',
-    subtitle: searchStyle
-    ? `${searchColor} - ${searchStyle} wine list`
-    : `${searchColor} wine list`,
-    listByColor: colorRows,
-    listByStyle: styleRows,
+    subtitle: `${searchColor} wine list`,
+    listByColor: listByColor,
     colorWineList: colorWineList,
-    searchColor: searchColor,
     hasSearched: true
   })
 })

@@ -33,20 +33,9 @@
         <label for='blanc'>blanc</label><br>
         <input type='radio' id='rosé' name='wineColor' value='rosé' <%= wineDetail.color === 'rosé' ? 'checked' : '' %> >
         <label for='rosé'>rosé</label><br>
+        <input type='radio' id='effervescent' name='wineColor' value='effervescent' <%= wineDetail.color === 'effervescent' ? 'checked' : '' %> >
+        <label for='effervescent'>effervescent</label><br>
       </fieldset>
-      <select id='wineStyle' name='wineStyle' required>
-        <option disabled <%= wineDetail.wine_style === '' ? 'selected' : '' %> >Style *</option>
-        <option value='effervescent' <%= wineDetail.wine_style === 'effervescent' ? 'selected' : '' %> >effervescent</option>
-        <option value='sec' <%= wineDetail.wine_style === 'sec' ? 'selected' : '' %> >sec</option>
-        <option value='moelleux' <%= wineDetail.wine_style === 'moelleux' ? 'selected' : '' %> >moelleux</option>
-        <option value='liquoreux' <%= wineDetail.wine_style === 'liquoreux' ? 'selected' : '' %> >liquoreux</option>
-        <option value='charpenté' <%= wineDetail.wine_style === 'charpenté' ? 'selected' : '' %> >charpenté</option>
-        <option value='rond' <%= wineDetail.wine_style === 'rond' ? 'selected' : '' %> >rond</option>
-        <option value='léger' <%= wineDetail.wine_style === 'léger' ? 'selected' : '' %> >léger</option>
-        <option value='fruité' <%= wineDetail.wine_style === 'fruité' ? 'selected' : '' %> >fruité</option>
-        <option value='vif' <%= wineDetail.wine_style === 'vif' ? 'selected' : '' %> >vif</option>
-        <option value='aromatique' <%= wineDetail.wine_style === 'aromatique' ? 'selected' : '' %> >aromatique</option>
-      </select>
       <div class='formButton'>
         <button type='submit'>Sauvegarder</button>
       </div>

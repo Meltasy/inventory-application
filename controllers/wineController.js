@@ -55,9 +55,9 @@ const updateWinePut = asyncHandler(async(req, res, next) => {
     if (!errors.isEmpty()) {
       return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
     }
-    const { wineName, wineYear, quantity, wineColor, wineStyle, region, appellation, producer } = req.body
+    const { wineName, wineYear, quantity, wineColor, region, appellation, producer } = req.body
     const wineId = req.params.wineId
-    await db.updateWineDetail(wineName, wineYear, quantity, wineColor, wineStyle, region, appellation, producer, wineId)
+    await db.updateWineDetail(wineName, wineYear, quantity, wineColor, region, appellation, producer, wineId)
     res.redirect('/wine')
   } catch(err) {
     next(err)
