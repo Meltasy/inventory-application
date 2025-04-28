@@ -25,7 +25,7 @@ const getOriginWineList = asyncHandler(async(req, res, next) => {
   }
 
   res.render('allOrigins', {
-    title: 'Vin par origin',
+    title: 'Vin par origine',
     subtitle: 'Choisissez un région ou un appellation.',
     listByRegion: listByRegion,
     listByAppellation: listByAppellation,
@@ -61,18 +61,14 @@ const getEachOriginWineList = asyncHandler(async(req, res, next) => {
     return next(new CustomError('Wine producer list not found.', 404))
   }
 
-  if (fullWineList.length === 0) {
-    return next(new CustomError('Wine producer list is empty', 204))
-  }
-
   res.render('allOrigins', {
-    title: 'Vin par origin',
+    title: 'Vin par origine',
     subtitle: searchAppellation
-      ? `Liste des vins par ${searchAppellation}, ${searchRegion}`
-      : `Liste des vins par ${searchRegion}`,
+      ? `Liste des vins: ${searchAppellation}, ${searchRegion}`
+      : `Liste des vins: ${searchRegion}`,
     listByRegion: listByRegion,
     listByAppellation: listByAppellation,
-    fullWineList: fullWineList,
+    fullWineList: fullWineList || [],
     hasSearched: true
   })
 })
@@ -102,16 +98,12 @@ const getProducerWineList = asyncHandler(async(req, res, next) => {
     return next(new CustomError('Wine producer list not found.', 404))
   }
 
-  if (listByProducer.length === 0) {
-    return next(new CustomError('Wine producer list is empty', 204))
-  }
-
   res.render('allOrigins', {
-    title: 'Vin par origin',
-    subtitle: `Liste des vins par producteur`,
+    title: 'Vin par origine',
+    subtitle: `Liste des vins: ${searchProducer}`,
     listByRegion: listByRegion,
     listByAppellation: listByAppellation,
-    fullWineList: listByProducer,
+    fullWineList: listByProducer || [],
     hasSearched: true
   })
 })

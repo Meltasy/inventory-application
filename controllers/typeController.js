@@ -10,8 +10,8 @@ const getTypeWineList = asyncHandler(async (req, res, next) => {
   }
 
   res.render('allTypes', { 
-    title: 'Wine by color',
-    subtitle: 'Please choose a wine color from the menu.',
+    title: 'Vin par couleur',
+    subtitle: 'Choisissez une couleur de vin dans le menu.',
     listByColor: listByColor,
     colorWineList: [],
     hasSearched: false
@@ -28,8 +28,8 @@ const getEachTypeWineList = asyncHandler(async (req, res, next) => {
   }
 
   res.render('allTypes', {
-    title: 'Wine by type',
-    subtitle: `${searchColor} wine list`,
+    title: 'Vin par couleur',
+    subtitle: `Liste des vins ${searchColor}`,
     listByColor: listByColor,
     colorWineList: colorWineList,
     hasSearched: true

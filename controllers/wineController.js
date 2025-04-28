@@ -15,7 +15,7 @@ const getWineList = asyncHandler(async (req, res, next) => {
   }
 
   res.render('allWines', {
-    title: 'Mon cave',
+    title: 'Ma cave à vins française',
     subtitle: '',
     wineList: wineList
   })
@@ -30,7 +30,7 @@ const getWineById = asyncHandler(async(req, res, next) => {
   }
 
   res.render('detailWine', {
-    title: 'Mon vin',
+    title: 'Ma cave à vins française',
     wineDetail: wineDetail
   })
 })
