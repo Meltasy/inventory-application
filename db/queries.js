@@ -3,7 +3,7 @@ const pool = require('./pool')
 async function getAllWines() {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -44,7 +44,7 @@ async function getListByAppellation(region) {
 async function getRegionWine(region) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -62,7 +62,7 @@ async function getRegionWine(region) {
 async function getAppellationWine(region, appellation) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -80,7 +80,7 @@ async function getAppellationWine(region, appellation) {
 async function getListByProducer(producer) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -110,7 +110,7 @@ async function getListByColor() {
 async function getColorWine(wineColor) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -125,7 +125,7 @@ async function getColorWine(wineColor) {
   }
 }
 
-async function createWine(wineName, wineYear, quantity, wineColor, region, appellation, producer) {
+async function createWine(wineName, wineYear, qtyEmpty, qtyFull, wineColor, region, appellation, producer) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
@@ -148,9 +148,9 @@ async function createWine(wineName, wineYear, quantity, wineColor, region, appel
     )
     const typeId = typeRows[0].type_id
     await client.query(
-      `INSERT INTO wine_list (origin_id, type_id, wine_name, year, quantity)
-      VALUES ($1, $2, $3, $4, $5);`,
-      [originId, typeId, wineName, wineYear, quantity]
+      `INSERT INTO wine_list (origin_id, type_id, wine_name, year, qty_empty, qty_full)
+      VALUES ($1, $2, $3, $4, $5, $6);`,
+      [originId, typeId, wineName, wineYear, qtyEmpty, qtyFull]
     )
     await client.query('COMMIT')
     return typeId
@@ -166,7 +166,7 @@ async function createWine(wineName, wineYear, quantity, wineColor, region, appel
 async function getWineDetail(wineId) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, quantity, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -180,7 +180,7 @@ async function getWineDetail(wineId) {
   }
 }
 
-async function updateWineDetail(wineName, wineYear, quantity, wineColor, region, appellation, producer, wineId) {
+async function updateWineDetail(wineName, wineYear, qtyEmpty, qtyFull, wineColor, region, appellation, producer, wineId) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
@@ -204,9 +204,9 @@ async function updateWineDetail(wineName, wineYear, quantity, wineColor, region,
     )
     const typeId = typeRows[0].type_id
     await client.query(
-      `UPDATE wine_list SET origin_id = $1, type_id = $2, wine_name = $3, year = $4, quantity = $5
-      WHERE wine_id = $6;`,
-      [originId, typeId, wineName, wineYear, quantity, wineId]
+      `UPDATE wine_list SET origin_id = $1, type_id = $2, wine_name = $3, year = $4, qty_empty = $5, qty_full = $6
+      WHERE wine_id = $7;`,
+      [originId, typeId, wineName, wineYear, qtyEmpty, qtyFull, wineId]
     )
     await client.query('COMMIT')
   } catch (err) {
@@ -218,16 +218,19 @@ async function updateWineDetail(wineName, wineYear, quantity, wineColor, region,
   }
 }
 
-async function updateWineQuantity(quantity, wineId) {
+async function updateWineQuantity(qtyEmpty, qtyFull, wineId) {
   try {
     const { rows } = await pool.query(
-      'UPDATE wine_list SET quantity = $1 WHERE wine_id = $2 RETURNING *;',
-      [quantity, wineId]
+      `UPDATE wine_list
+      SET qty_empty = $1, qty_full = $2
+      WHERE wine_id = $3
+      RETURNING *;`,
+      [qtyEmpty, qtyFull, wineId]
     )
     return rows[0]
   } catch (err) {
-    console.error('Error editing quantity of wine: ', err)
-    throw new Error('Impossible to edit quantity of wine.')
+    console.error('Error editing wine quantity: ', err)
+    throw new Error('Impossible to edit wine quantity.')
   }
 }
 

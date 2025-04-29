@@ -1,11 +1,11 @@
 function handleDecrease() {
-  const quantityInput = document.querySelector('#quantity')
-  const currentValue = parseInt(quantityInput.value) || 0
-  quantityInput.value = currentValue > 0 ? currentValue - 1 : 0
+  const qtyInput = document.querySelector('#qtyFull')
+  const currentValue = parseInt(qtyInput.value) || 0
+  qtyInput.value = currentValue > 0 ? currentValue - 1 : 0
 }
 
 function handleIncrease() {
-  const quantityInput = document.querySelector('#quantity')
-  const currentValue = parseInt(quantityInput.value) || 0
-  quantityInput.value = currentValue < 100 ? currentValue + 1 : 100
+  const qtyInput = document.querySelector('#qtyFull')
+  const currentValue = parseInt(qtyInput.value) || 0
+  qtyInput.value = currentValue < 100 ? currentValue + 1 : 100
 }

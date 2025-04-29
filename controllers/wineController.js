@@ -55,24 +55,31 @@ const updateWinePut = asyncHandler(async(req, res, next) => {
     if (!errors.isEmpty()) {
       return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
     }
-    const { wineName, wineYear, quantity, wineColor, region, appellation, producer } = req.body
+    const { wineName, wineYear, qtyEmpty, qtyFull, wineColor, region, appellation, producer } = req.body
     const wineId = req.params.wineId
-    await db.updateWineDetail(wineName, wineYear, quantity, wineColor, region, appellation, producer, wineId)
+    await db.updateWineDetail(wineName, wineYear, qtyEmpty, qtyFull, wineColor, region, appellation, producer, wineId)
     res.redirect('/wine')
   } catch(err) {
     next(err)
   }
 })
 
-const updateQuantityPatch = asyncHandler(async(req, res, next) => {
+const updateQtyPatch = asyncHandler(async(req, res, next) => {
   try {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
     }
-    const { quantity } = req.body
+        const { qtyFull } = req.body
     const wineId = req.params.wineId
-    await db.updateWineQuantity(quantity, wineId)
+    const wineDetail = await db.getWineDetail(wineId)
+    let qtyEmpty = wineDetail.qty_empty
+    const prevQtyFull = wineDetail.qty_full
+    const qtyDifference = prevQtyFull - qtyFull
+    if (qtyDifference > 0) {
+      qtyEmpty = parseInt(qtyEmpty) + qtyDifference
+    }
+    await db.updateWineQuantity(qtyEmpty, qtyFull, wineId)
     res.redirect('/wine')
   } catch(err) {
     next(err)
@@ -95,6 +102,6 @@ module.exports = {
   getWineById,
   updateWineGet,
   updateWinePut,
-  updateQuantityPatch,
+  updateQtyPatch,
   deleteWineById
 }

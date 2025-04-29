@@ -3,7 +3,7 @@ const { body, query } = require('express-validator')
 const reqErr = 'is required.'
 const lengthErr = 'must be between 1 and 30 characters'
 
-const validateWine = [
+const validateNewWine = [
   body('wineName').trim().notEmpty().withMessage(`Wine name ${reqErr}`)
     .isLength({ min: 1, max: 30 }).withMessage(`Name ${lengthErr}`),
   body('producer').trim().notEmpty().withMessage(`Wine producer ${reqErr}`)
@@ -15,12 +15,30 @@ const validateWine = [
   body('wineYear').notEmpty().withMessage(`Wine year ${reqErr}`)
     .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
   body('wineColor').notEmpty().withMessage(`Wine color ${reqErr}`),
-  body('quantity').notEmpty().withMessage(`Wine quantity ${reqErr}`)
+  body('qtyFull').notEmpty().withMessage(`Quantity of full bottles ${reqErr}`)
+    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
+]
+
+const validateEditWine = [
+  body('wineName').trim().notEmpty().withMessage(`Wine name ${reqErr}`)
+    .isLength({ min: 1, max: 30 }).withMessage(`Name ${lengthErr}`),
+  body('producer').trim().notEmpty().withMessage(`Wine producer ${reqErr}`)
+    .isLength({ min: 1, max: 30 }).withMessage(`Producer ${lengthErr}`),
+  body('appellation').trim().notEmpty().withMessage(`Wine appellation ${reqErr}`)
+    .isLength({ min: 1, max: 30 }).withMessage(`Appellation ${lengthErr}`),
+  body('region').trim().notEmpty().withMessage(`Wine region ${reqErr}`)
+    .isLength({ min: 1, max: 30 }).withMessage(`Region ${lengthErr}`),
+  body('wineYear').notEmpty().withMessage(`Wine year ${reqErr}`)
+    .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
+  body('wineColor').notEmpty().withMessage(`Wine color ${reqErr}`),
+  body('qtyEmpty').notEmpty().withMessage(`Quantity of empty bottles ${reqErr}`)
+    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
+  body('qtyFull').notEmpty().withMessage(`Quantity of full bottles ${reqErr}`)
     .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
 ]
 
 const validateQuantity = [
-  body('quantity').notEmpty().withMessage(`Wine quantity ${reqErr}`)
+  body('qtyFull').notEmpty().withMessage(`Quantity of full bottles ${reqErr}`)
     .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
 ]
 
@@ -29,4 +47,4 @@ const validateSearch = [
     .isLength({ min: 1, max: 30 }).withMessage(`Producer ${lengthErr}`),
 ]
 
-module.exports = { validateWine, validateQuantity, validateSearch }
+module.exports = { validateNewWine, validateEditWine, validateQuantity, validateSearch }

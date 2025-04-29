@@ -23,8 +23,10 @@
       <input value='<%= wineDetail.region %>' type='text' name='region' id='region' minlength='3' maxlength='30' required>
       <label for='wineYear'>Millésime *</label>
       <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
-      <label for='quantity'>Quantité *</label>
-      <input value='<%= wineDetail.quantity %>' type='number' name='quantity' id='quantity' min='0' max='100' required>
+      <label for='qtyEmpty'>Quantité de vides *</label>
+      <input value='<%= wineDetail.qty_empty %>' type='number' name='qtyEmpty' id='qtyEmpty' min='0' max='100' required>
+      <label for='qtyFull'>Quantité de pleines *</label>
+      <input value='<%= wineDetail.qty_full %>' type='number' name='qtyFull' id='qtyFull' min='0' max='100' required>
       <fieldset>
         <legend>Couleur *</legend>
         <input type='radio' id='rouge' name='wineColor' value='rouge' <%= wineDetail.color === 'rouge' ? 'checked' : '' %> required>

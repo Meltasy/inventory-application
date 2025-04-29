@@ -277,7 +277,7 @@ label {
   border: var(--dark-border);
 }
 
-.quantityForm {
+.qtyForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -285,15 +285,15 @@ label {
   align-self: center;
 }
 
-.quantityForm input {
+.qtyForm input {
   max-width: 10%;
 }
 
-.quantityForm button {
+.qtyForm button {
   padding: 0.5rem 0.8rem;
   align-self: center;
 }
 
-.quantityForm div {
+.qtyForm div {
   align-self: center;
 }
