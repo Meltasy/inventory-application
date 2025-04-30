@@ -9,14 +9,29 @@ async function createWineGet(req, res) {
   })  
 }
 
+const getMaxLifeWineList = asyncHandler(async(req, res, next) => {
+  const maxLifeList = await db.getAllMaxLifeWine(lifeMax = new Date().getFullYear())
+
+  if (!maxLifeList) {
+    return next(new CustomError('Short life wine list not found.', 404))
+  }
+
+  res.render('home', {
+    title: 'Ma cave à vins française',
+    searchTitle: 'Recherche de vin',
+    sectionTitle: 'Vins à boire cette année',
+    maxLifeList: maxLifeList
+  })
+})
+
 const createWinePost = asyncHandler(async (req, res, next) => {
   try {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
     }
-    const { wineName, wineYear, qtyFull, wineColor, region, appellation, producer } = req.body
-    await db.createWine(wineName, wineYear, qtyEmpty = 0, qtyFull, wineColor, region, appellation, producer)
+    const { wineName, wineYear, lifeMax, qtyFull, wineColor, region, appellation, producer } = req.body
+    await db.createWine(wineName, wineYear, lifeMax, qtyEmpty = 0, qtyFull, wineColor, region, appellation, producer)
     res.redirect('/')
   } catch (err) {
     next(err)
@@ -24,6 +39,7 @@ const createWinePost = asyncHandler(async (req, res, next) => {
 })
 
 module.exports = {
+  getMaxLifeWineList,
   createWineGet,
   createWinePost
 }

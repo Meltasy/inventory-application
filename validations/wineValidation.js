@@ -14,9 +14,11 @@ const validateNewWine = [
     .isLength({ min: 1, max: 30 }).withMessage(`Region ${lengthErr}`),
   body('wineYear').notEmpty().withMessage(`Wine year ${reqErr}`)
     .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
-  body('wineColor').notEmpty().withMessage(`Wine color ${reqErr}`),
+  body('lifeMax').notEmpty().withMessage(`Time in years that wine can be kept ${reqErr}`)
+    .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
   body('qtyFull').notEmpty().withMessage(`Quantity of full bottles ${reqErr}`)
-    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
+    .isInt({ min: 1, max: 100}).withMessage('This must be a number between 1 and 100.'),
+  body('wineColor').notEmpty().withMessage(`Wine color ${reqErr}`),
 ]
 
 const validateEditWine = [
@@ -30,11 +32,13 @@ const validateEditWine = [
     .isLength({ min: 1, max: 30 }).withMessage(`Region ${lengthErr}`),
   body('wineYear').notEmpty().withMessage(`Wine year ${reqErr}`)
     .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
-  body('wineColor').notEmpty().withMessage(`Wine color ${reqErr}`),
+  body('lifeMax').notEmpty().withMessage(`Time in years that wine can be kept ${reqErr}`)
+    .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
   body('qtyEmpty').notEmpty().withMessage(`Quantity of empty bottles ${reqErr}`)
-    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
+    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 0 and 100.'),
   body('qtyFull').notEmpty().withMessage(`Quantity of full bottles ${reqErr}`)
-    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 1 and 100.'),
+    .isInt({ min: 0, max: 100}).withMessage('This must be a number between 0 and 100.'),
+  body('wineColor').notEmpty().withMessage(`Wine color ${reqErr}`),
 ]
 
 const validateQuantity = [

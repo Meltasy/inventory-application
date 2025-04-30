@@ -75,17 +75,41 @@ button:hover {
 /* home styles */
 
 .mainHome {
-  width: 50%;
+  width: 75%;
   margin: auto;
   display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
   gap: 1rem;
   justify-content: center;
-  text-align: center;
 }
 
-.mainHome a {
-  font-size: 1.5rem;
-  padding: 3rem 6rem;
+.mainHome section {
+  grid-column: 3;
+}
+
+.mainHome .searchBar {
+  grid-column: 1;
+}
+
+.mainHome section ul {
+  display: grid;
+  gap: 1rem;
+}
+
+.searchBar .homeList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  gap: 1rem;
+}
+
+.searchBar .homeList li {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-self: center;
+  width: 100%;
 }
 
 /* type styles & origin styles */

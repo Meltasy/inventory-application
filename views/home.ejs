@@ -12,9 +12,47 @@
     <h1><%= title %></h1>
   </header>
   <main class='mainHome'>
-    <a href='/wine'>Liste des vins</a>
-    <a href='/type'>Vin par couleur</a>
-    <a href='/origin'>Vin par origine</a>
+    <div class='searchBar'>
+      <ul class='homeList'>
+        <h2><%= searchTitle %></h2>
+        <li>
+          <a href='/wine'>Liste des vins</a>
+        </li>
+        <li>
+          <a href='/type'>Vin par couleur</a>
+        </li>
+        <li>
+          <a href='/origin'>Vin par origine</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <%- include('./partials/glass-wine', { fill: 'darkred', stroke: 'darkred' }) %>
+      <%- include('./partials/glass-wine', { fill: 'yellow', stroke: 'yellow' }) %>
+      <%- include('./partials/glass-wine', { fill: 'white', stroke: 'white' }) %>
+    </div>
+    <section>
+      <h2><%= sectionTitle %></h2>
+      <% if (maxLifeList.length === 0) { %>
+        <p>Pas de vin avec une date de garde maximale cette année.</p>
+      <% } else if (maxLifeList && maxLifeList.length > 0) { %>
+        <ul>
+          <% maxLifeList.forEach((wine) => { %>
+            <li>
+              <div>
+                <h3><%= wine.wine_name %> <%= wine.year %></h3>
+                <h3><%= wine.producer %></h3>
+                <h4><%= wine.appellation %>, <%= wine.region %></h4>
+                <p><%= wine.color %></p>
+              </div>
+              <div>
+                <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </section>
   </main>
 </body>
 </html>

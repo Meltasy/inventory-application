@@ -23,6 +23,8 @@
       <input placeholder='Vallée de la Loire' type='text' name='region' id='region' minlength='3' maxlength='30' required>
       <label for='wineYear'>Millésime *</label>
       <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
+      <label for='lifeMax'>Garde maximum *</label>
+      <input type='number' name='lifeMax' id='lifeMax' min='1900' max='<%= new Date().getFullYear() %>' required>
       <label for='qtyFull'>Quantité *</label>
       <input type='number' name='qtyFull' id='qtyFull' min='0' max='100' required>
       <fieldset>
