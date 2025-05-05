@@ -24,7 +24,7 @@
       <label for='wineYear'>Millésime *</label>
       <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
       <label for='lifeMax'>Garde maximum *</label>
-      <input value='<%= wineDetail.life_max %>' type='number' name='lifeMax' id='lifeMax' min='1900' max='<%= new Date().getFullYear() %>' required>
+      <input value='<%= wineDetail.life_max %>' type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' required>
       <label for='qtyEmpty'>Quantité de vides *</label>
       <input value='<%= wineDetail.qty_empty %>' type='number' name='qtyEmpty' id='qtyEmpty' min='0' max='100' required>
       <label for='qtyFull'>Quantité de pleines *</label>

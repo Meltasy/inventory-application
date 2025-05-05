@@ -27,9 +27,6 @@
       </ul>
     </div>
     <div>
-      <%- include('./partials/glass-wine', { fill: 'darkred', stroke: 'darkred' }) %>
-      <%- include('./partials/glass-wine', { fill: 'yellow', stroke: 'yellow' }) %>
-      <%- include('./partials/glass-wine', { fill: 'white', stroke: 'white' }) %>
     </div>
     <section>
       <h2><%= sectionTitle %></h2>
@@ -43,9 +40,20 @@
                 <h3><%= wine.wine_name %> <%= wine.year %></h3>
                 <h3><%= wine.producer %></h3>
                 <h4><%= wine.appellation %>, <%= wine.region %></h4>
-                <p><%= wine.color %></p>
               </div>
-              <div>
+              <div class='iconBtns'>
+                <div>
+                  <%- include('./partials/glass-wine', {
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                  <%- include('./partials/bottle-wine', {
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                </div>
                 <a href='/wine/<%= wine.wine_id %>'>Détails</a>
               </div>
             </li>

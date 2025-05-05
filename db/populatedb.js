@@ -42,8 +42,8 @@ const wines = [
   { wineName: 'Les Opiniâtres', year: 2021, lifeMax: 2026, qtyEmpty: 3, qtyFull: 0, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Luberon', producer: 'Le Temps des Sages' },
   { wineName: 'Les Soucas', year: 2021, lifeMax: 2029, qtyEmpty: 1, qtyFull: 2, color: 'blanc', region: 'Vallée du Rhône', appellation: 'Luberon', producer: 'Domaine le Novi' },
   { wineName: 'Tonelum', year: 2019, lifeMax: 2025, qtyEmpty: 3, qtyFull: 3, color: 'blanc', region: 'Vallée de la Loire', appellation: 'Pouilly-Fumé', producer: 'Caves de Pouilly-Sur-Loire' },
-  { wineName: 'Plateau des Chênes', year: 2028, lifeMax: 7, qtyEmpty: 0, qtyFull: 6, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Lirac', producer: 'Famille Brechet' },
-  { wineName: 'Albert & Camille', year: 2028, lifeMax: 9, qtyEmpty: 0, qtyFull: 6, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Vacqueyras', producer: 'Domaine La Garrigue' },
+  { wineName: 'Plateau des Chênes', year: 2021, lifeMax: 2028, qtyEmpty: 0, qtyFull: 6, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Lirac', producer: 'Famille Brechet' },
+  { wineName: 'Albert & Camille', year: 2021, lifeMax: 2028, qtyEmpty: 0, qtyFull: 6, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Vacqueyras', producer: 'Domaine La Garrigue' },
 ]
 
 async function main() {

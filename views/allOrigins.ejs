@@ -43,21 +43,30 @@
           <% fullWineList.forEach((wine) => { %>
             <li>
               <div>
-                <h3><%= wine.wine_name %></h3>
-                <p><%= wine.year %></p>
-                <p><%= wine.life_max %></p>
-                <p><%= wine.color %></p>
+                <h3><%= wine.wine_name %> <%= wine.year %></h3>
+                <h3><%= wine.producer %></h3>
+                <h4><%= wine.appellation %>, <%= wine.region %></h4>
+                <% if (wine.qty_full === 0) { %>
+                  <p><em>Il ne reste plus de bouteilles.</em></p>
+                <% } else if (wine.qty_full === 1) { %>
+                  <p><em>Il reste une dernière bouteille.</em></p>
+                <% } else { %>
+                  <p><em>Il reste <%= wine.qty_full %> bouteilles.</em></p>
+                <% } %>
               </div>
-              <div>
-                <p><%= wine.producer %></p>
-                <p><%= wine.appellation %></p>
-                <p><%= wine.region %></p>
-              </div>
-              <div>
-                <p><%= wine.qty_empty %></p>
-                <p><%= wine.qty_full %></p>
-              </div>
-              <div>
+              <div class=iconBtns>
+                <div>
+                  <%- include('./partials/glass-wine', {
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                  <%- include('./partials/bottle-wine', {
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                </div>
                 <a href='/wine/<%= wine.wine_id %>'>Détails</a>
               </div>
             </li>

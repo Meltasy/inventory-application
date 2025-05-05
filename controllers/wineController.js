@@ -58,7 +58,7 @@ const updateWinePut = asyncHandler(async(req, res, next) => {
     const { wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineColor, region, appellation, producer } = req.body
     const wineId = req.params.wineId
     await db.updateWineDetail(wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineColor, region, appellation, producer, wineId)
-    res.redirect('/wine')
+    res.redirect(`/wine/${wineId}`)
   } catch(err) {
     next(err)
   }
@@ -80,7 +80,7 @@ const updateQtyPatch = asyncHandler(async(req, res, next) => {
       qtyEmpty = parseInt(qtyEmpty) + qtyDifference
     }
     await db.updateWineQuantity(qtyEmpty, qtyFull, wineId)
-    res.redirect('/wine')
+    res.redirect(`/wine/${wineId}`)
   } catch(err) {
     next(err)
   }

@@ -26,6 +26,16 @@ app.use('/wine', wineRouter)
 app.use('/type', typeRouter)
 app.use('/origin', originRouter)
 
+app.locals.getWineColor = function(wineColor) {
+  const colorMap = {
+    'rouge' : '#722f37',
+    'blanc' : '#e1e488',
+    'rosé' : '#fec1cc',
+    'effervescent' : '#dacd7b'
+  }
+  return colorMap[wineColor]
+}
+
 app.use((req, res, next) => {
   next(new CustomError('Page not found.', 404))
 })

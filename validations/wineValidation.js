@@ -15,7 +15,7 @@ const validateNewWine = [
   body('wineYear').notEmpty().withMessage(`Wine year ${reqErr}`)
     .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
   body('lifeMax').notEmpty().withMessage(`Time in years that wine can be kept ${reqErr}`)
-    .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
+    .isInt({ min: new Date().getFullYear(), max: 2100 }).withMessage('This must be a year between this year and 2100.'),
   body('qtyFull').notEmpty().withMessage(`Quantity of full bottles ${reqErr}`)
     .isInt({ min: 1, max: 100}).withMessage('This must be a number between 1 and 100.'),
   body('wineColor').notEmpty().withMessage(`Wine color ${reqErr}`),
@@ -33,7 +33,7 @@ const validateEditWine = [
   body('wineYear').notEmpty().withMessage(`Wine year ${reqErr}`)
     .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
   body('lifeMax').notEmpty().withMessage(`Time in years that wine can be kept ${reqErr}`)
-    .isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('This must be a year between 1900 and this year.'),
+    .isInt({ min: new Date().getFullYear(), max: 2100 }).withMessage('This must be a year between this year and 2100.'),
   body('qtyEmpty').notEmpty().withMessage(`Quantity of empty bottles ${reqErr}`)
     .isInt({ min: 0, max: 100}).withMessage('This must be a number between 0 and 100.'),
   body('qtyFull').notEmpty().withMessage(`Quantity of full bottles ${reqErr}`)

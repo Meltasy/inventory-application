@@ -1,9 +1,27 @@
 const pool = require('./pool')
 
+async function getAllMaxLifeWine(lifeMax) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT wine_id, wine_name, year, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      FROM wine_list
+      INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
+      INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
+      WHERE life_max = $1 AND qty_full > 0
+      ORDER BY wine_name;`,
+      [lifeMax]
+    )
+    return rows
+  } catch (err) {
+    console.error('Error getting short life wine list: ', err)
+    throw new Error('Impossible to get short life wine list.')
+  } 
+}
+
 async function getAllWines() {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, life_max, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -14,24 +32,6 @@ async function getAllWines() {
     console.error('Error getting wine list: ', err)
     throw new Error('Impossible to get wine list.')
   }
-}
-
-async function getAllMaxLifeWine(lifeMax) {
-  try {
-    const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, life_max, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
-      FROM wine_list
-      INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
-      INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
-      WHERE life_max = $1
-      ORDER BY wine_name;`,
-      [lifeMax]
-    )
-    return rows
-  } catch (err) {
-    console.error('Error getting short life wine list: ', err)
-    throw new Error('Impossible to get short life wine list.')
-  } 
 }
 
 async function getListByRegion() {
@@ -62,7 +62,7 @@ async function getListByAppellation(region) {
 async function getRegionWine(region) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, life_max, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -80,7 +80,7 @@ async function getRegionWine(region) {
 async function getAppellationWine(region, appellation) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, life_max, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -98,7 +98,7 @@ async function getAppellationWine(region, appellation) {
 async function getListByProducer(producer) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, life_max, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -128,7 +128,7 @@ async function getListByColor() {
 async function getColorWine(wineColor) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, life_max, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -269,8 +269,8 @@ async function deleteWine(wineId) {
 }
 
 module.exports = {
-  getAllWines,
   getAllMaxLifeWine,
+  getAllWines,
   getListByRegion,
   getListByAppellation,
   getRegionWine,
