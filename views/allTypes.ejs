@@ -14,8 +14,8 @@
   </header>
   <main class='mainType'>
     <div class='searchBar'>
-      <ul class='colorList'>
-        <% listByColor.forEach((colorList) => { %>
+      <ul>
+        <% listByColor.forEach(colorList => { %>
           <li>
             <a href='/type/search?color=<%= colorList.color %>'><%= colorList.color %></a>
           </li>
@@ -27,7 +27,7 @@
         <p>Aucun vin trouvé - veuillez choisir une autre couleur.</p>
       <% } else if (colorWineList && colorWineList.length > 0) { %>
         <ul>
-          <% colorWineList.forEach((wine) => { %>
+          <% colorWineList.forEach(wine => { %>
             <li>
               <div>
                 <h3><%= wine.wine_name %> <%= wine.year %></h3>

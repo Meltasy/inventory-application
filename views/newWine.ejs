@@ -4,6 +4,7 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <link rel='stylesheet' href='/styles.css'>
+  <script src='/grapeControls.js' defer></script>
   <title><%= title %></title>
 </head>
 <body>
@@ -13,31 +14,50 @@
   </header>
   <main class='mainBox'>
     <form action='/newWine' method='POST' class='mainForm'>
-      <label for='wineName'>Nom du vin *</label>
-      <input placeholder='Les Grands Chênes' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' required>
-      <label for='producer'>Producteur *</label>
-      <input placeholder='Domaine Langlois' type='text' name='producer' id='producer' minlength='3' maxlength='30' required>
-      <label for='appellation'>Appellation *</label>
-      <input placeholder='Coteaux du Giennois' type='text' name='appellation' id='appellation' minlength='3' maxlength='30' required>
-      <label for='region'>Région *</label>
-      <input placeholder='Vallée de la Loire' type='text' name='region' id='region' minlength='3' maxlength='30' required>
-      <label for='wineYear'>Millésime *</label>
-      <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
-      <label for='lifeMax'>Garde maximum *</label>
-      <input type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' required>
-      <label for='qtyFull'>Quantité *</label>
-      <input type='number' name='qtyFull' id='qtyFull' min='0' max='100' required>
-      <fieldset>
-        <legend>Couleur *</legend>
-        <input type='radio' id='rouge' name='wineColor' value='rouge' required>
-        <label for='rouge'>rouge</label><br>
-        <input type='radio' id='blanc' name='wineColor' value='blanc'>
-        <label for='blanc'>blanc</label><br>
-        <input type='radio' id='rosé' name='wineColor' value='rosé'>
-        <label for='rosé'>rosé</label><br>
-        <input type='radio' id='effervescent' name='wineColor' value='effervescent'>
-        <label for='effervescent'>effervescent</label><br>
-      </fieldset>
+      <div>
+        <label for='wineName'>Nom du vin *</label>
+        <input placeholder='Les Grands Chênes' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' required>
+        <label for='producer'>Producteur *</label>
+        <input placeholder='Domaine Langlois' type='text' name='producer' id='producer' minlength='3' maxlength='30' required>
+        <label for='appellation'>Appellation *</label>
+        <input placeholder='Coteaux du Giennois' type='text' name='appellation' id='appellation' minlength='3' maxlength='30' required>
+        <label for='region'>Région *</label>
+        <input placeholder='Vallée de la Loire' type='text' name='region' id='region' minlength='3' maxlength='30' required>
+        <label for='wineYear'>Millésime *</label>
+        <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
+        <label for='lifeMax'>Garde maximum *</label>
+        <input type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' required>
+      </div>
+      <div>
+        <div id='grapeInput'>
+          <div class='grapeBtn'>
+            <label for='grapes0'>Cépage *</label>
+            <input placeholder='100% Sauvignon' type='text' name='grapes[]' id='grapes0' minlength='3' maxlength='30' required>
+            <button type='button' id='addGrape'>+</button>
+          </div>
+        </div>
+        <label for='qtyFull'>Quantité *</label>
+        <input type='number' name='qtyFull' id='qtyFull' min='0' max='100' required>
+        <fieldset>
+          <legend>Couleur *</legend>
+          <label class='checkform' for='rouge'>rouge
+            <input type='radio' id='rouge' name='wineColor' value='rouge' required>
+            <span class='checkmark'></span>
+          </label>
+          <label class='checkform' for='blanc'>blanc
+            <input type='radio' id='blanc' name='wineColor' value='blanc'>
+            <span class='checkmark'></span>
+          </label>
+          <label class='checkform' for='rosé'>rosé
+            <input type='radio' id='rosé' name='wineColor' value='rosé'>
+            <span class='checkmark'></span>
+          </label>
+          <label class='checkform' for='effervescent'>effervescent
+            <input type='radio' id='effervescent' name='wineColor' value='effervescent'>
+            <span class='checkmark'></span>            
+          </label>
+        </fieldset>
+      </div>
       <div class='formButton'>
         <button type='submit'>Sauvegarder</button>
       </div>

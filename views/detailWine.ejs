@@ -18,19 +18,39 @@
       <h2>Appellation: <%= wineDetail.appellation %></h2>
       <h2>Région: <%= wineDetail.region %></h2>
       <h3>Garde: <%= wineDetail.life_max %></h3>
+      <% if (wineDetail.grapes.length === 1) { %>
+        <h3>Cépage:</h3>
+      <% } else { %>
+        <h3>Cépages:</h3>
+      <% } %>
+      <ul class='grapeList'>
+        <% wineDetail.grapes.forEach(grape => { %>
+          <li><h4><%= grape %></li></h4></li>
+        <% }) %>
+      </ul>
     </div>
     <div class='detailQty'>
-      <h2>Quantité</h2>
-      <h4>Total: <%= wineDetail.qty_empty + wineDetail.qty_full %></h4>
-      <h4>Il reste <%= wineDetail.qty_full %> bouteilles.</h4>
-      <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='qtyForm'>
+      <div class='qtyBox'>
         <div>
-          <button type='button' onclick='handleDecrease()'>-</button>
-            <input value='<%= wineDetail.qty_full %>' type='text' name='qtyFull' id='qtyFull' minlength='0' maxlength='3' pattern='^\d+$' required>
-          <button type='button' onclick='handleIncrease()'>+</button>
+          <h2>Quantité</h2>
+          <h3>Total: <%= wineDetail.qty_empty + wineDetail.qty_full %></h3>
         </div>
-        <button type='submit'>Sauvegarder</button>
-      </form>
+        <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='qtyForm'>
+          <div>
+            <button type='button' onclick='handleDecrease()'>-</button>
+            <input value='<%= wineDetail.qty_full %>' type='text' name='qtyFull' id='qtyFull' minlength='0' maxlength='3' pattern='^\d+$' required>
+            <button type='button' onclick='handleIncrease()'>+</button>
+          </div>
+          <button type='submit'>Sauvegarder</button>
+        </form>
+      </div>
+      <% if (wineDetail.qty_full === 0) { %>
+        <p><em>Il ne reste plus de bouteilles.</em></p>
+      <% } else if (wineDetail.qty_full === 1) { %>
+        <p><em>Il reste une dernière bouteille.</em></p>
+      <% } else { %>
+        <p><em>Il reste <%= wineDetail.qty_full %> bouteilles.</em></p>
+      <% } %>
     </div>
     <div class='detailIcons'>
       <%- include('./partials/glass-wine', {

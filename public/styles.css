@@ -1,13 +1,26 @@
 /* global styles */
 
 :root {
-  --text-color: #BDCFC6;
-  --background-color: #002A16;
-  --primary-color: #2A7953;
-  --primary-color-light: #66A185;
-  --primary-color-dark: #05522D;
-  --light-border: 2px solid var(--primary-color);
-  --dark-border: 2px solid var(--primary-color-dark);
+  --text-color: #030117;
+  --background-color: #DCDBE5;
+  --primary-color: #3A3479;
+  --primary-color-light: #7B77AA;
+  --primary-color-dark: #120C4A;
+  --secondary-color: #5D2B74;
+  --secondary-color-light: #926DA3;
+  --secondary-color-dark: #320646;
+  --tertiary-color: #275B6C;
+  --tertiary-color-light: #658C99;
+  --tertiary-color-dark: #053342;
+  --primary-border-dark: 2px solid var(--primary-color-dark);
+  --primary-border-light: 2px solid var(--primary-color-light);
+  --secondary-border-dark: 2px solid var(--secondary-color-dark);
+  --secondary-border-light: 2px solid var(--secondary-color-light);
+  --tertiary-border-dark: 2px solid var(--tertiary-color-dark);
+  --tertiary-border-light: 2px solid var(--tertiary-color-light);
+  --primary-box-shadow: 2px 2px 2px var(--primary-color);
+  --secondary-box-shadow: 2px 2px 2px var(--secondary-color);
+  --tertiary-box-shadow: 2px 2px 2px var(--tertiary-color);
 }
 
 body {
@@ -25,19 +38,22 @@ ul {
 }
 
 nav ul {
-  margin: 1rem;
+  font-size: 1.2rem;
+  width: 75%;
+  margin: auto;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 header {
   text-align: center;
+  padding: 1rem;
 }
 
-nav li {
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: space-between;
+h1 {
+  font-size: 3rem;
+  text-shadow: 2px 2px var(--primary-color-light);
+  margin-bottom: 0;
 }
 
 a {
@@ -45,14 +61,18 @@ a {
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-color);
-  background-color: var(--primary-color-dark);
-  border: var(--dark-border);
+  background-color: var(--primary-color-light);
+  border: var(--primary-border-dark);
+  box-shadow: var(--primary-box-shadow);
   padding: 0.8rem 1.2rem;
   text-decoration: none;
 }
 
 a:hover {
-  background-color: var(--background-color);
+  color: var(--background-color);
+  background-color: var(--primary-color-dark);
+  border: var(--primary-border-light);
+  box-shadow: var(--primary-box-shadow);
 }
 
 button {
@@ -60,16 +80,39 @@ button {
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--background-color);
-  background-color: var(--primary-color-light);
-  border: var(--light-border);
+  background-color: var(--tertiary-color-dark);
+  border: var(--tertiary-border-light);
+  box-shadow: var(--tertiary-box-shadow);
   padding: 0.8rem 1.2rem;
   outline: none;
 }
 
 button:hover {
   color: var(--text-color);
-  background-color: var(--primary-color-dark);
-  border: var(--dark-border);
+  background-color: var(--tertiary-color-light);
+  border: var(--tertiary-border-dark);
+  box-shadow: var(--tertiary-box-shadow);
+}
+
+.searchBar > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  gap: 1rem;
+}
+
+.searchBar > ul > li {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-self: center;
+  width: 100%;
+}
+
+.searchBar a {
+  font-size: 1.5rem;
+  padding: 1.5rem 3rem;
 }
 
 section ul {
@@ -80,8 +123,9 @@ section ul {
 section li {
   font-size: 1.2rem;
   color: var(--background-color);
-  background-color: var(--text-color);
-  border: var(--light-border);
+  background-color: var(--secondary-color-dark);
+  border: var(--secondary-border-light);
+  box-shadow: var(--secondary-box-shadow);
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -103,31 +147,14 @@ section li {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
   gap: 1rem;
-  justify-content: center;
-}
-
-.mainHome section {
-  grid-column: 3;
 }
 
 .mainHome .searchBar {
   grid-column: 1;
 }
 
-.searchBar .homeList {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  gap: 1rem;
-}
-
-.searchBar .homeList li {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  align-self: center;
-  width: 100%;
+.mainHome section {
+  grid-column: 3;
 }
 
 /* type styles & origin styles */
@@ -139,45 +166,34 @@ section li {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1rem;
-  justify-content: center;
 }
 
-.searchBar .colorList,
-.searchBar .regionList {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  gap: 1rem;
+.mainType .searchBar,
+.mainOrigin .searchBar {
+  grid-column: 1;
 }
 
-.searchBar .colorList li,
-.searchBar .regionList li {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  align-self: center;
-  width: 100%;
+.mainType section,
+.mainOrigin section {
+  grid-column: 2;
 }
 
 .regionList > li.active > a {
-  background-color: var(--background-color);
+  color: var(--background-color);
+  background-color: var(--primary-color-dark);
+  border: var(--primary-border-light);
+  box-shadow: var(--primary-box-shadow);
 }
 
 .regionList > li.active > a:hover {
-  background-color: var(--primary-color-dark);
-}
-
-.searchBar a {
-  font-size: 1.5rem;
-  padding: 1.5rem 3rem;
-  width: 100%;
-  box-sizing: border-box;
+  color: var(--text-color);
+  background-color: var(--primary-color-light);
+  border: var(--primary-border-dark);
+  box-shadow: var(--primary-box-shadow);
 }
 
 .searchBar .appellationList {
   display: none;
-  width: 100%;
 }
 
 .searchBar .appellationList.show {
@@ -186,24 +202,43 @@ section li {
 
 .searchBar .appellationList li {
   margin-top: 1rem;
-  width: 100%;
 }
 
 .searchBar .appellationList a {
-  color: var(--background-color);
-  background-color: var(--primary-color-light);
-  border: var(--light-border);
   display: block;
+  color: var(--background-color);
+  background-color: var(--primary-color-dark);
+  border: var(--primary-border-light);
+  box-shadow: var(--primary-box-shadow);
 }
 
 .searchBar .appellationList a:hover {
   color: var(--text-color);
-  background-color: var(--primary-color-dark);
-  border: var(--dark-border);
+  background-color: var(--primary-color-light);
+  border: var(--primary-border-dark);
+  box-shadow: var(--primary-box-shadow);
 }
 
 .searchProducer {
   margin: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchProducer input {
+  color: var(--text-color);
+  background-color: var(--tertiary-color-light);
+  border: var(--tertiary-border-dark);
+  box-shadow: var(--tertiary-box-shadow);
+}
+
+.searchProducer input:focus {
+  color: var(--background-color);
+  background-color: var(--tertiary-color-dark);
+  border: var(--tertiary-border-light);
+  box-shadow: var(--tertiary-box-shadow);
 }
 
 .searchProducer button {
@@ -227,83 +262,182 @@ section li {
 .mainBox {
   width: 50%;
   margin: auto;
-  display: flex;
-  justify-content: center;
 }
 
 .mainForm {
-  color: var(--background-color);
-  background-color: var(--text-color);
-  border: var(--light-border);
+  color: var(--text-color);
+  background-color: var(--secondary-color-light);
+  border: var(--secondary-border-dark);
+  box-shadow: var(--secondary-box-shadow);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 6fr 1fr;
+}
+
+.mainForm > div {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   gap: 1rem;
-  text-align: left;
 }
 
-input {
+input,
+fieldset {
   font-family: inherit;
   font-size: 1.2rem;
   color: var(--text-color);
-  background-color: var(--background-color);
-  border: var(--dark-border);
+  background-color: var(--tertiary-color-light);
+  border: var(--tertiary-border-dark);
+  box-shadow: var(--tertiary-box-shadow);
   padding: 0.3rem;
   outline: none;
 }
 
-label {
+fieldset {
+  box-shadow: 0 -10px 10px var(--tertiary-color-light);
+}
+
+input:focus {
+  color: var(--background-color);
+  background-color: var(--tertiary-color-dark);
+  border: var(--tertiary-border-light);
+  box-shadow: var(--tertiary-box-shadow);
+}
+
+label,
+legend {
   font-family: inherit;
   font-size: 1.2rem;
   font-weight: 700;
 }
 
+fieldset label {
+  font-weight: 400;
+}
+
+.checkform {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.checkform input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: var(--tertiary-color);
+  border-radius: 50%;
+}
+
+.checkform:hover input ~ .checkmark {
+  background-color: var(--tertiary-color-dark);
+}
+
+.checkform input:checked ~ .checkmark {
+  background-color: var(--tertiary-color-dark);
+}
+
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.checkform input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkform .checkmark:after {
+  top: 5px;
+  left: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--tertiary-color-light);
+}
+
 .formButton {
+  grid-column: 1 / 3;
+  grid-row: 2;
   text-align: center;
+  justify-self: center;
+}
+
+/* .grapeExtra {
+  margin-bottom: 0.3rem;
+}
+
+Look into what needs changing!
+
+.grapeBtn {
+  margin-top: 0.3rem;
+  margin-bottom: 0.6rem;
+} */
+
+.grapeBtn button,
+.grapeExtra button {
+  margin-right: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
 }
 
 /* detailWine styles */
 
 .detailMain {
   color: var(--background-color);
-  background-color: var(--text-color);
-  border: var(--light-border);
-  padding: 1rem;
+  background-color: var(--secondary-color-dark);
+  border: var(--secondary-border-light);
+  box-shadow: var(--secondary-box-shadow);
+  padding: 1.5rem 0.75rem 1.5rem 1.5rem;
   width: 50%;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 2fr 2fr;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 2.5fr 1fr;
 }
 
 .detailMain a {
   color: var(--background-color);
-  background-color: var(--primary-color-light);
-  border: var(--light-border);
+  background-color: var(--tertiary-color-dark);
+  border: var(--tertiary-border-light);
+  box-shadow: var(--tertiary-box-shadow);
 }
 
 .detailMain a:hover {
   color: var(--text-color);
-  background-color: var(--primary-color-dark);
-  border: var(--dark-border);
+  background-color: var(--tertiary-color-light);
+  border: var(--tertiary-border-dark);
+  box-shadow: var(--tertiary-box-shadow);
 }
 
 .detailInfo {
-  grid-column: 1 / 4;
+  grid-column: 1 / 5;
   grid-row: 1;
+}
+
+.grapeList {
+  list-style-type: disc;
+  margin: 1rem;
+  padding-left: 1rem;
 }
 
 .detailIcons {
   grid-column: 5;
   grid-row: 1;
-  text-align: center;
-}
-
-.detailQty {
-  grid-column: 1;
-  grid-row: 2;
-  text-align: left;
+  text-align: right;
 }
 
 .detailBtns {
@@ -316,10 +450,23 @@ label {
   gap: 1rem;
 }
 
-.detailQty form {
+.detailQty {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  background-color: var(--secondary-color-dark);
+  border: var(--secondary-border-light);
+  box-shadow: var(--secondary-box-shadow);
   text-align: center;
-  background-color: var(--primary-color-light);
-  border: var(--light-border);
+}
+
+.qtyBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.detailQty form {
   padding: 0.5rem;
 }
 

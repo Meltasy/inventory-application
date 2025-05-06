@@ -57,7 +57,17 @@ const updateWinePut = asyncHandler(async(req, res, next) => {
     }
     const { wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineColor, region, appellation, producer } = req.body
     const wineId = req.params.wineId
-    await db.updateWineDetail(wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineColor, region, appellation, producer, wineId)
+    let grapes = req.body['grapes[]']
+    if (!Array.isArray(grapes)) {
+      grapes = [grapes]
+    }
+    grapes = grapes.filter(grape => grape && grape.trim() !== '')
+    // Can we remove the below and have at least one grape variety as required?
+    // if (grapes.length === 0) {
+    //   grapes = ['Non spécifié']
+    // }
+    console.log('Saving grapes:', grapes)
+    await db.updateWineDetail(wineName, wineYear, lifeMax, grapes, qtyEmpty, qtyFull, wineColor, region, appellation, producer, wineId)
     res.redirect(`/wine/${wineId}`)
   } catch(err) {
     next(err)

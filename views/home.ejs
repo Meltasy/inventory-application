@@ -13,7 +13,7 @@
   </header>
   <main class='mainHome'>
     <div class='searchBar'>
-      <ul class='homeList'>
+      <ul>
         <h2><%= searchTitle %></h2>
         <li>
           <a href='/wine'>Liste des vins</a>
@@ -34,7 +34,7 @@
         <p>Pas de vin avec une date de garde maximale cette année.</p>
       <% } else if (maxLifeList && maxLifeList.length > 0) { %>
         <ul>
-          <% maxLifeList.forEach((wine) => { %>
+          <% maxLifeList.forEach(wine => { %>
             <li>
               <div>
                 <h3><%= wine.wine_name %> <%= wine.year %></h3>

@@ -30,7 +30,7 @@ app.locals.getWineColor = function(wineColor) {
   const colorMap = {
     'rouge' : '#722f37',
     'blanc' : '#e1e488',
-    'rosé' : '#fec1cc',
+    'rosé' : '#f18e8e',
     'effervescent' : '#dacd7b'
   }
   return colorMap[wineColor]

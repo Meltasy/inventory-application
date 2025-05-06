@@ -143,7 +143,7 @@ async function getColorWine(wineColor) {
   }
 }
 
-async function createWine(wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineColor, region, appellation, producer) {
+async function createWine(wineName, wineYear, lifeMax, grapes, qtyEmpty, qtyFull, wineColor, region, appellation, producer) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
@@ -166,9 +166,9 @@ async function createWine(wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineCo
     )
     const typeId = typeRows[0].type_id
     await client.query(
-      `INSERT INTO wine_list (origin_id, type_id, wine_name, year, life_max, qty_empty, qty_full)
-      VALUES ($1, $2, $3, $4, $5, $6, $7);`,
-      [originId, typeId, wineName, wineYear, lifeMax, qtyEmpty, qtyFull]
+      `INSERT INTO wine_list (origin_id, type_id, wine_name, year, life_max, grapes, qty_empty, qty_full)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+      [originId, typeId, wineName, wineYear, lifeMax, grapes, qtyEmpty, qtyFull]
     )
     await client.query('COMMIT')
     return typeId
@@ -184,7 +184,7 @@ async function createWine(wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineCo
 async function getWineDetail(wineId) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, life_max, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, life_max, grapes, qty_empty, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
@@ -198,7 +198,7 @@ async function getWineDetail(wineId) {
   }
 }
 
-async function updateWineDetail(wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineColor, region, appellation, producer, wineId) {
+async function updateWineDetail(wineName, wineYear, lifeMax, grapes, qtyEmpty, qtyFull, wineColor, region, appellation, producer, wineId) {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
@@ -222,9 +222,9 @@ async function updateWineDetail(wineName, wineYear, lifeMax, qtyEmpty, qtyFull, 
     )
     const typeId = typeRows[0].type_id
     await client.query(
-      `UPDATE wine_list SET origin_id = $1, type_id = $2, wine_name = $3, year = $4, life_max = $5, qty_empty = $6, qty_full = $7
-      WHERE wine_id = $8;`,
-      [originId, typeId, wineName, wineYear, lifeMax, qtyEmpty, qtyFull, wineId]
+      `UPDATE wine_list SET origin_id = $1, type_id = $2, wine_name = $3, year = $4, life_max = $5, grapes = $6, qty_empty = $7, qty_full = $8
+      WHERE wine_id = $9;`,
+      [originId, typeId, wineName, wineYear, lifeMax, grapes, qtyEmpty, qtyFull, wineId]
     )
     await client.query('COMMIT')
   } catch (err) {

@@ -13,7 +13,7 @@
     <h1><%= title %></h1>
     <h2><%= subtitle %></h2>
     <form action='/origin/search/producer' method='GET' class='searchProducer'>
-      <label for='producer'>Trouver par producteur *</label>
+      <label for='producer'>Trouver par producteur:</label>
       <input type='text' name='producer' id='producer' placeholder='Domaine Langlois' required>
       <button type='submit'>Trouver</button>
     </form>
@@ -21,12 +21,12 @@
   <main class='mainOrigin'>
     <div class='searchBar'>
       <ul class='regionList'>
-        <% listByRegion.forEach((regionList) => { %>
+        <% listByRegion.forEach(regionList => { %>
           <li>
             <a href='/origin/search?region=<%= regionList.region %>'><%= regionList.region %></a>
             <% if (listByAppellation[regionList.region] && listByAppellation[regionList.region].length > 0) { %>
               <ul class='appellationList'>
-                <% listByAppellation[regionList.region].forEach((appellation) => { %>
+                <% listByAppellation[regionList.region].forEach(appellation => { %>
                   <li>
                     <a href='/origin/search?region=<%= regionList.region %>&appellation=<%= appellation %>'><%= appellation %></a>
                   </li>
@@ -40,7 +40,7 @@
     <section>
       <% if (fullWineList && fullWineList.length > 0) { %>
         <ul>
-          <% fullWineList.forEach((wine) => { %>
+          <% fullWineList.forEach(wine => { %>
             <li>
               <div>
                 <h3><%= wine.wine_name %> <%= wine.year %></h3>
