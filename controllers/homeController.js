@@ -31,16 +31,11 @@ const createWinePost = asyncHandler(async (req, res, next) => {
       return next(new CustomError(`Wine validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
     }
     const { wineName, wineYear, lifeMax, qtyFull, wineColor, region, appellation, producer } = req.body
-    let grapes = req.body['grapes[]']
+    let grapes = req.body.grapes
     if (!Array.isArray(grapes)) {
-      grapes = [grapes]
+      grapes = grapes ? [grapes] : []
     }
     grapes = grapes.filter(grape => grape && grape.trim() !== '')
-    // Can we remove the below and have at least one grape variety as required?
-    // if (grapes.length === 0) {
-    //   grapes = ['Non spécifié']
-    // }
-    console.log('Saving grapes:', grapes)
     await db.createWine(wineName, wineYear, lifeMax, grapes, qtyEmpty = 0, qtyFull, wineColor, region, appellation, producer)
     res.redirect('/')
   } catch (err) {

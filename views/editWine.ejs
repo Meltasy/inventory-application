@@ -30,20 +30,25 @@
       </div>
       <div>
         <div id='grapeInput'>
-          <div class='grapeBtn'>
+          <div class='grapeExtra'>
             <label for='grapes0'>Cépage *</label>
             <input value='<%= wineDetail.grapes[0] %>' type='text' name='grapes[]' id='grapes0' minlength='3' maxlength='30' required>
-            <button type='button' id='addGrape'>+</button>
+            <button type='button' id='addGrape'><%- include('./partials/plus') %></button>
           </div>
           <% if (wineDetail.grapes && wineDetail.grapes.length > 1) { %>
-            <% for (let i = 0; i < wineDetail.grapes.length; i++) { %>
+            <% for (let i = 1; i < wineDetail.grapes.length; i++) { %>
               <div class='grapeExtra'>
                 <label for='grapes<%= i %>'>Cépage *</label>
                 <input value='<%= wineDetail.grapes[i] %>' type='text' name='grapes[]' id='grapes<%= i %>' minlength='3' maxlength='30'>
-                <button type='button' onclick='removeGrape(this)'>X</button>
+                <button type='button' onclick='removeGrape(this)'><%- include('./partials/delete') %></button>
               </div>
             <% } %>
           <% } %>
+          <div style='display: none'>
+            <span class='deleteIcon'>
+              <%- include('./partials/delete') %>
+            </span>
+          </div>
         </div>
         <label for='qtyEmpty'>Quantité de vides *</label>
         <input value='<%= wineDetail.qty_empty %>' type='number' name='qtyEmpty' id='qtyEmpty' min='0' max='100' required>

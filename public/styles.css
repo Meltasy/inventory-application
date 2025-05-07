@@ -376,22 +376,16 @@ fieldset label {
   justify-self: center;
 }
 
-/* .grapeExtra {
-  margin-bottom: 0.3rem;
+.grapeExtra {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-Look into what needs changing!
-
-.grapeBtn {
-  margin-top: 0.3rem;
-  margin-bottom: 0.6rem;
-} */
-
-.grapeBtn button,
 .grapeExtra button {
-  margin-right: 0.3rem;
   padding: 0.3rem 0.6rem;
-  cursor: pointer;
 }
 
 /* detailWine styles */
