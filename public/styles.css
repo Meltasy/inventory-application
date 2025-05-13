@@ -1,34 +1,38 @@
 /* global styles */
 
 :root {
-  --text-color: #030117;
-  --background-color: #DCDBE5;
-  --primary-color: #3A3479;
-  --primary-color-light: #7B77AA;
-  --primary-color-dark: #120C4A;
-  --secondary-color: #5D2B74;
-  --secondary-color-light: #926DA3;
-  --secondary-color-dark: #320646;
-  --tertiary-color: #275B6C;
-  --tertiary-color-light: #658C99;
-  --tertiary-color-dark: #053342;
-  --primary-border-dark: 2px solid var(--primary-color-dark);
-  --primary-border-light: 2px solid var(--primary-color-light);
-  --secondary-border-dark: 2px solid var(--secondary-color-dark);
-  --secondary-border-light: 2px solid var(--secondary-color-light);
-  --tertiary-border-dark: 2px solid var(--tertiary-color-dark);
-  --tertiary-border-light: 2px solid var(--tertiary-color-light);
-  --primary-box-shadow: 2px 2px 2px var(--primary-color);
-  --secondary-box-shadow: 2px 2px 2px var(--secondary-color);
-  --tertiary-box-shadow: 2px 2px 2px var(--tertiary-color);
+  --text-color: rgb(0, 16, 6);
+  --background-color: rgb(219, 236, 225);
+  --primary-color: rgb(41, 123, 72);
+  --primary-color-light: rgb(111, 177, 136);
+  --primary-color-dark: rgb(3, 70, 28);
+  --secondary-color: rgb(46, 67, 114);
+  --secondary-color-light: rgb(109, 126, 163);
+  --secondary-color-dark: rgb(9, 27, 64);
+  --tertiary-color: rgb(144, 164, 55);
+  --tertiary-color-light: rgb(219, 235, 148);
+  --tertiary-color-dark: rgb(77, 93, 3);
+  --background-opacity: rgba(219, 236, 225, 0.5);
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   color: var(--text-color);
-  background-color: var(--background-color);
-  margin: 2rem;
+  background-color: var(--primary-color-light);
+}
+
+nav {
+  background-color: var(--primary-color-light);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+nav ul {
+  width: 75%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 ul {
@@ -37,42 +41,57 @@ ul {
   margin: 0;
 }
 
-nav ul {
-  font-size: 1.2rem;
-  width: 75%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-}
-
 header {
   text-align: center;
   padding: 1rem;
+  margin-bottom: 1rem;
+  background-image: url('images/vignoble.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--primary-color);
 }
 
 h1 {
   font-size: 3rem;
+  color: var(--primary-color-dark);
   text-shadow: 2px 2px var(--primary-color-light);
-  margin-bottom: 0;
+  margin: 0.5rem;
+}
+
+header h2 {
+  color: var(--primary-color-dark);
+  text-shadow: 2px 2px var(--primary-color-light);
+  margin: 0.5rem;
+}
+
+.headerBox {
+  background: var(--background-opacity);
+  max-width: fit-content;
+  margin: auto;
+  padding: 0.5rem;
 }
 
 a {
   font-family: inherit;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--text-color);
-  background-color: var(--primary-color-light);
-  border: var(--primary-border-dark);
-  box-shadow: var(--primary-box-shadow);
+  background-color: var(--primary-color);
   padding: 0.8rem 1.2rem;
   text-decoration: none;
+}
+
+nav a {
+  background-color: var(--primary-color-light);
 }
 
 a:hover {
   color: var(--background-color);
   background-color: var(--primary-color-dark);
-  border: var(--primary-border-light);
-  box-shadow: var(--primary-box-shadow);
+}
+
+nav a:hover {
+  background-color: var(--primary-color);
 }
 
 button {
@@ -81,17 +100,14 @@ button {
   font-weight: 700;
   color: var(--background-color);
   background-color: var(--tertiary-color-dark);
-  border: var(--tertiary-border-light);
-  box-shadow: var(--tertiary-box-shadow);
   padding: 0.8rem 1.2rem;
+  border: none;
   outline: none;
 }
 
 button:hover {
   color: var(--text-color);
   background-color: var(--tertiary-color-light);
-  border: var(--tertiary-border-dark);
-  box-shadow: var(--tertiary-box-shadow);
 }
 
 .searchBar > ul {
@@ -99,7 +115,6 @@ button:hover {
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  gap: 1rem;
 }
 
 .searchBar > ul > li {
@@ -111,8 +126,7 @@ button:hover {
 }
 
 .searchBar a {
-  font-size: 1.5rem;
-  padding: 1.5rem 3rem;
+  padding: 1.2rem 2.4rem;
 }
 
 section ul {
@@ -123,12 +137,14 @@ section ul {
 section li {
   font-size: 1.2rem;
   color: var(--background-color);
-  background-color: var(--secondary-color-dark);
-  border: var(--secondary-border-light);
-  box-shadow: var(--secondary-box-shadow);
+  background-color: var(--secondary-color);
   padding: 1rem;
   display: flex;
   justify-content: space-between;
+}
+
+section li a {
+  font-size: 1.2rem;
 }
 
 .iconBtns {
@@ -137,6 +153,18 @@ section li {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.wineIcons {
+  display: flex;
+  align-items: baseline;
+  width: fit-content;
+  position: relative;
+  margin: 0 auto;
+}
+
+.wineIcons .icon:nth-child(2) {
+  margin-left: -20px;
 }
 
 /* home styles */
@@ -181,15 +209,7 @@ section li {
 .regionList > li.active > a {
   color: var(--background-color);
   background-color: var(--primary-color-dark);
-  border: var(--primary-border-light);
-  box-shadow: var(--primary-box-shadow);
-}
-
-.regionList > li.active > a:hover {
-  color: var(--text-color);
-  background-color: var(--primary-color-light);
-  border: var(--primary-border-dark);
-  box-shadow: var(--primary-box-shadow);
+  opacity: 0.7;
 }
 
 .searchBar .appellationList {
@@ -200,23 +220,15 @@ section li {
   display: block;
 }
 
-.searchBar .appellationList li {
-  margin-top: 1rem;
-}
-
 .searchBar .appellationList a {
   display: block;
   color: var(--background-color);
   background-color: var(--primary-color-dark);
-  border: var(--primary-border-light);
-  box-shadow: var(--primary-box-shadow);
 }
 
 .searchBar .appellationList a:hover {
   color: var(--text-color);
   background-color: var(--primary-color-light);
-  border: var(--primary-border-dark);
-  box-shadow: var(--primary-box-shadow);
 }
 
 .searchProducer {
@@ -227,20 +239,6 @@ section li {
   align-items: center;
 }
 
-.searchProducer input {
-  color: var(--text-color);
-  background-color: var(--tertiary-color-light);
-  border: var(--tertiary-border-dark);
-  box-shadow: var(--tertiary-box-shadow);
-}
-
-.searchProducer input:focus {
-  color: var(--background-color);
-  background-color: var(--tertiary-color-dark);
-  border: var(--tertiary-border-light);
-  box-shadow: var(--tertiary-box-shadow);
-}
-
 .searchProducer button {
   padding: 0.3rem 0.8rem;
 }
@@ -248,13 +246,20 @@ section li {
 /* wine styles */
 
 .mainWine {
-  width: 50%;
+  width: 60%;
   margin: auto;
 }
 
 .mainWine ul {
   display: grid;
   gap: 1rem;
+}
+
+.mainWine li {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 3fr 1fr;
+  justify-items: start;
+  align-items: center;
 }
 
 /* newWine & editWine styles */
@@ -266,9 +271,7 @@ section li {
 
 .mainForm {
   color: var(--text-color);
-  background-color: var(--secondary-color-light);
-  border: var(--secondary-border-dark);
-  box-shadow: var(--secondary-box-shadow);
+  background-color: var(--tertiary-color);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 6fr 1fr;
@@ -287,21 +290,14 @@ fieldset {
   font-size: 1.2rem;
   color: var(--text-color);
   background-color: var(--tertiary-color-light);
-  border: var(--tertiary-border-dark);
-  box-shadow: var(--tertiary-box-shadow);
   padding: 0.3rem;
   outline: none;
-}
-
-fieldset {
-  box-shadow: 0 -10px 10px var(--tertiary-color-light);
+  border: none;
 }
 
 input:focus {
   color: var(--background-color);
   background-color: var(--tertiary-color-dark);
-  border: var(--tertiary-border-light);
-  box-shadow: var(--tertiary-box-shadow);
 }
 
 label,
@@ -309,6 +305,11 @@ legend {
   font-family: inherit;
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+fieldset legend {
+  background-color: var(--tertiary-color-light);
+  box-shadow: 0 0 0 0.25rem var(--tertiary-color-light);
 }
 
 fieldset label {
@@ -391,10 +392,10 @@ fieldset label {
 /* detailWine styles */
 
 .detailMain {
-  color: var(--background-color);
-  background-color: var(--secondary-color-dark);
-  border: var(--secondary-border-light);
-  box-shadow: var(--secondary-box-shadow);
+  background-image: url('images/bouchons2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--tertiary-color);
   padding: 1.5rem 0.75rem 1.5rem 1.5rem;
   width: 50%;
   margin: auto;
@@ -403,23 +404,28 @@ fieldset label {
   grid-template-rows: 2.5fr 1fr;
 }
 
+.detailMain button,
+.detailMain input:hover,
 .detailMain a {
+  font-size: 1.2rem;
   color: var(--background-color);
-  background-color: var(--tertiary-color-dark);
-  border: var(--tertiary-border-light);
-  box-shadow: var(--tertiary-box-shadow);
+  background-color: var(--primary-color-dark);
 }
 
+.detailMain button:hover,
+.detailMain input,
 .detailMain a:hover {
   color: var(--text-color);
-  background-color: var(--tertiary-color-light);
-  border: var(--tertiary-border-dark);
-  box-shadow: var(--tertiary-box-shadow);
+  background-color: var(--primary-color-light);
 }
 
 .detailInfo {
   grid-column: 1 / 5;
   grid-row: 1;
+  background: var(--background-opacity);
+  max-width: fit-content;
+  padding: 0 1rem 1rem 1rem;
+  margin-bottom: 1rem;
 }
 
 .grapeList {
@@ -428,10 +434,13 @@ fieldset label {
   padding-left: 1rem;
 }
 
-.detailIcons {
+.detailMain .wineIcons {
   grid-column: 5;
   grid-row: 1;
-  text-align: right;
+  background: var(--background-opacity);
+  max-width: fit-content;
+  max-height: fit-content;
+  padding: 1rem 0 1rem 1rem;
 }
 
 .detailBtns {
@@ -447,9 +456,9 @@ fieldset label {
 .detailQty {
   grid-column: 1 / 3;
   grid-row: 2;
-  background-color: var(--secondary-color-dark);
-  border: var(--secondary-border-light);
-  box-shadow: var(--secondary-box-shadow);
+  background: var(--background-opacity);
+  max-width: fit-content;
+  padding: 0.5rem 1rem 0 1rem;
   text-align: center;
 }
 

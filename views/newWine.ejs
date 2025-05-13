@@ -10,7 +10,9 @@
 <body>
   <%- include('./navbar') %>
   <header>
-    <h1><%= title %></h1>
+    <div class='headerBox'>
+      <h1><%= title %></h1>
+    </div>
   </header>
   <main class='mainBox'>
     <form action='/newWine' method='POST' class='mainForm'>
@@ -26,7 +28,7 @@
         <label for='wineYear'>Millésime *</label>
         <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
         <label for='lifeMax'>Garde maximum *</label>
-        <input type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' required>
+        <input placeholder='YYYY' type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' required>
       </div>
       <div>
         <div id='grapeInput'>

@@ -10,13 +10,15 @@
 <body>
   <%- include('./navbar') %>
   <header>
-    <h1><%= title %></h1>
-    <h2><%= subtitle %></h2>
-    <form action='/origin/search/producer' method='GET' class='searchProducer'>
-      <label for='producer'>Trouver par producteur:</label>
-      <input type='text' name='producer' id='producer' placeholder='Domaine Langlois' required>
-      <button type='submit'>Trouver</button>
-    </form>
+    <div class='headerBox'>
+      <h1><%= title %></h1>
+      <h2><%= subtitle %></h2>
+      <form action='/origin/search/producer' method='GET' class='searchProducer'>
+        <label for='producer'>Trouver par producteur:</label>
+        <input type='text' name='producer' id='producer' placeholder='Domaine Langlois' required>
+        <button type='submit'>Trouver</button>
+      </form>
+    </div>
   </header>
   <main class='mainOrigin'>
     <div class='searchBar'>
@@ -26,6 +28,9 @@
             <a href='/origin/search?region=<%= regionList.region %>'><%= regionList.region %></a>
             <% if (listByAppellation[regionList.region] && listByAppellation[regionList.region].length > 0) { %>
               <ul class='appellationList'>
+                <li>
+                  <a href='/origin/search?region=<%= regionList.region %>'>Tous <%= regionList.region %></a>
+                </li>
                 <% listByAppellation[regionList.region].forEach(appellation => { %>
                   <li>
                     <a href='/origin/search?region=<%= regionList.region %>&appellation=<%= appellation %>'><%= appellation %></a>
@@ -55,7 +60,7 @@
                 <% } %>
               </div>
               <div class=iconBtns>
-                <div>
+                <div class='wineIcons'>
                   <%- include('./partials/glass-wine', {
                     fill: getWineColor(wine.color),
                     stroke: getWineColor(wine.color),

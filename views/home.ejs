@@ -9,7 +9,9 @@
 <body>
   <%- include('./navbar') %>
   <header>
-    <h1><%= title %></h1>
+    <div class='headerBox'>
+      <h1><%= title %></h1>
+    </div>
   </header>
   <main class='mainHome'>
     <div class='searchBar'>
@@ -42,7 +44,7 @@
                 <h4><%= wine.appellation %>, <%= wine.region %></h4>
               </div>
               <div class='iconBtns'>
-                <div>
+                <div class='wineIcons'>
                   <%- include('./partials/glass-wine', {
                     fill: getWineColor(wine.color),
                     stroke: getWineColor(wine.color),

@@ -10,7 +10,9 @@
 <body>
   <%- include('./navbar') %>
   <header>
-    <h1><%= title %></h1>
+    <div class='headerBox'>
+      <h1><%= title %></h1>
+    </div>
   </header>
   <main class='mainBox'>
     <form action='/wine/<%= wineDetail.wine_id %>/edit?_method=PUT' method='POST' class='mainForm'>

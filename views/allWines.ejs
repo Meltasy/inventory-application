@@ -9,41 +9,32 @@
 <body>
   <%- include('./navbar') %>
   <header>
-    <h1><%= title %></h1>
-    <h2><%= subtitle %></h2>
+    <div class='headerBox'>
+      <h1><%= title %></h1>
+      <h2><%= subtitle %></h2>
+    </div>
   </header>
   <main class='mainWine'>
     <section>
       <ul>
         <% wineList.forEach(wine => { %>
           <li>
-            <div>
-              <h3><%= wine.wine_name %> <%= wine.year %></h3>
-              <h3><%= wine.producer %></h3>
-              <h4><%= wine.appellation %>, <%= wine.region %></h4>
-              <% if (wine.qty_full === 0) { %>
-                <p><em>Il ne reste plus de bouteilles.</em></p>
-              <% } else if (wine.qty_full === 1) { %>
-                <p><em>Il reste une dernière bouteille.</em></p>
-              <% } else { %>
-                <p><em>Il reste <%= wine.qty_full %> bouteilles.</em></p>
-              <% } %>
+            <div class='wineIcons'>
+              <%- include('./partials/glass-wine', {
+                fill: getWineColor(wine.color),
+                stroke: getWineColor(wine.color),
+                bubbles: wine.color === 'effervescent'
+              }) %>
+              <%- include('./partials/bottle-wine', {
+                fill: getWineColor(wine.color),
+                stroke: getWineColor(wine.color),
+                bubbles: wine.color === 'effervescent'
+              }) %>
             </div>
-            <div class='iconBtns'>
-              <div>
-                <%- include('./partials/glass-wine', {
-                  fill: getWineColor(wine.color),
-                  stroke: getWineColor(wine.color),
-                  bubbles: wine.color === 'effervescent'
-                }) %>
-                <%- include('./partials/bottle-wine', {
-                  fill: getWineColor(wine.color),
-                  stroke: getWineColor(wine.color),
-                  bubbles: wine.color === 'effervescent'
-                }) %>
-              </div>
-              <a href='/wine/<%= wine.wine_id %>'>Détails</a>
-            </div>
+            <h3><%= wine.wine_name %></h3>
+            <h3><%= wine.year %></h3>
+            <h3><%= wine.producer %></h3>
+            <a href='/wine/<%= wine.wine_id %>'>Détails</a>
           </li>
         <% }) %> 
       </ul>

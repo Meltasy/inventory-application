@@ -28,7 +28,7 @@ app.use('/origin', originRouter)
 
 app.locals.getWineColor = function(wineColor) {
   const colorMap = {
-    'rouge' : '#722f37',
+    'rouge' : '#641c27',
     'blanc' : '#e1e488',
     'rosé' : '#f18e8e',
     'effervescent' : '#dacd7b'

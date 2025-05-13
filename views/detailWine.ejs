@@ -10,7 +10,9 @@
 <body>
   <%- include('./navbar') %>
   <header>
-    <h1><%= wineDetail.wine_name %> <%= wineDetail.year %></h1>
+    <div class='headerBox'>
+      <h1><%= wineDetail.wine_name %> <%= wineDetail.year %></h1>
+    </div>
   </header>
   <main class='detailMain'>
     <div class='detailInfo'>
@@ -25,7 +27,7 @@
       <% } %>
       <ul class='grapeList'>
         <% wineDetail.grapes.forEach(grape => { %>
-          <li><h4><%= grape %></li></h4></li>
+          <li><h3><%= grape %></li></h3></li>
         <% }) %>
       </ul>
     </div>
@@ -52,7 +54,7 @@
         <p><em>Il reste <%= wineDetail.qty_full %> bouteilles.</em></p>
       <% } %>
     </div>
-    <div class='detailIcons'>
+    <div class='wineIcons'>
       <%- include('./partials/glass-wine', {
         fill: getWineColor(wineDetail.color),
         stroke: getWineColor(wineDetail.color),
