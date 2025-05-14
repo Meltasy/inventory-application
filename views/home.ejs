@@ -15,8 +15,8 @@
   </header>
   <main class='mainHome'>
     <div class='searchBar'>
+      <h2><%= searchTitle %></h2>
       <ul>
-        <h2><%= searchTitle %></h2>
         <li>
           <a href='/wine'>Liste des vins</a>
         </li>
@@ -33,7 +33,7 @@
     <section>
       <h2><%= sectionTitle %></h2>
       <% if (maxLifeList.length === 0) { %>
-        <p>Pas de vin avec une date de garde maximale cette année.</p>
+        <h3>Pas de vin avec une date de garde maximale cette année.</h3>
       <% } else if (maxLifeList && maxLifeList.length > 0) { %>
         <ul>
           <% maxLifeList.forEach(wine => { %>
@@ -44,7 +44,7 @@
                 <h4><%= wine.appellation %>, <%= wine.region %></h4>
               </div>
               <div class='iconBtns'>
-                <div class='wineIcons'>
+                <div>
                   <%- include('./partials/glass-wine', {
                     fill: getWineColor(wine.color),
                     stroke: getWineColor(wine.color),

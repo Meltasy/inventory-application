@@ -1,18 +1,18 @@
 /* global styles */
 
 :root {
-  --text-color: rgb(0, 16, 6);
-  --background-color: rgb(219, 236, 225);
-  --primary-color: rgb(41, 123, 72);
-  --primary-color-light: rgb(111, 177, 136);
-  --primary-color-dark: rgb(3, 70, 28);
-  --secondary-color: rgb(46, 67, 114);
-  --secondary-color-light: rgb(109, 126, 163);
-  --secondary-color-dark: rgb(9, 27, 64);
-  --tertiary-color: rgb(144, 164, 55);
-  --tertiary-color-light: rgb(219, 235, 148);
-  --tertiary-color-dark: rgb(77, 93, 3);
-  --background-opacity: rgba(219, 236, 225, 0.5);
+  --text-color: rgb(3, 19, 0);
+  --background-color: rgb(229, 244, 225);
+  --primary-color: rgb(64, 142, 47);
+  --primary-color-light: rgb(141, 203, 128);
+  --primary-color-dark: rgb(16, 80, 3);
+  --secondary-color: rgb(35, 106, 98);
+  --secondary-color-light: rgb(95, 151, 145);
+  --secondary-color-dark: rgb(2, 60, 54);
+  --tertiary-color: rgb(131, 161, 54);
+  --tertiary-color-light: rgb(206, 230, 145);
+  --tertiary-color-dark: rgb(67, 91, 3);
+  --background-opacity: rgba(229, 244, 225, 0.5);
 }
 
 body {
@@ -28,17 +28,17 @@ nav {
   margin-bottom: 1rem;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 nav ul {
   width: 75%;
   margin: auto;
   display: flex;
   justify-content: space-between;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
 }
 
 header {
@@ -110,6 +110,17 @@ button:hover {
   background-color: var(--tertiary-color-light);
 }
 
+main {
+  width: 75%;
+  margin: auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.searchBar {
+  grid-column: 1;
+}
+
 .searchBar > ul {
   display: flex;
   flex-direction: column;
@@ -139,12 +150,29 @@ section li {
   color: var(--background-color);
   background-color: var(--secondary-color);
   padding: 1rem;
-  display: flex;
-  justify-content: space-between;
 }
 
 section li a {
   font-size: 1.2rem;
+}
+
+/* home styles */
+
+.mainHome {
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.mainHome h2 {
+  text-align: center;
+}
+
+.mainHome section {
+  grid-column: 3;
+}
+
+.mainHome section li {
+  display: flex;
+  justify-content: space-between;
 }
 
 .iconBtns {
@@ -155,55 +183,72 @@ section li a {
   gap: 1rem;
 }
 
-.wineIcons {
-  display: flex;
-  align-items: baseline;
-  width: fit-content;
-  position: relative;
-  margin: 0 auto;
+/* wine styles */
+
+.mainWine {
+  width: 60%;
 }
 
-.wineIcons .icon:nth-child(2) {
-  margin-left: -20px;
-}
-
-/* home styles */
-
-.mainHome {
-  width: 75%;
-  margin: auto;
+.mainWine li {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-columns: 1fr 2fr 1fr 3fr 1fr;
+  justify-items: start;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.mainWine .wineIcons,
+.mainWine a {
+  justify-self: center;
+}
+
+/* type styles */
+
+.mainType {
+  grid-template-columns: 1fr 8fr;
+}
+
+.mainType section {
+  grid-column: 2;
+}
+
+.mainType .searchBar {
+  justify-self: center;
+}
+
+.mainType section li {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2.5fr 2.5fr 1fr;
   gap: 1rem;
+  justify-items: start;
+  align-items: center;
 }
 
-.mainHome .searchBar {
-  grid-column: 1;
+.mainType a {
+  justify-self: center;
 }
 
-.mainHome section {
-  grid-column: 3;
-}
+/* origin styles */
 
-/* type styles & origin styles */
-
-.mainType,
 .mainOrigin {
-  width: 75%;
-  margin: auto;
-  display: grid;
   grid-template-columns: 1fr 3fr;
-  gap: 1rem;
 }
 
-.mainType .searchBar,
-.mainOrigin .searchBar {
-  grid-column: 1;
-}
-
-.mainType section,
 .mainOrigin section {
   grid-column: 2;
+}
+
+.mainOrigin section li {
+  display: grid;
+  grid-template-columns: 1fr 4fr 3fr 1fr;
+  gap: 1rem;
+  justify-items: start;
+  align-items: center;
+}
+
+.mainOrigin .wineIcons,
+.mainOrigin section a {
+  justify-self: center;
 }
 
 .regionList > li.active > a {
@@ -243,30 +288,10 @@ section li a {
   padding: 0.3rem 0.8rem;
 }
 
-/* wine styles */
-
-.mainWine {
-  width: 60%;
-  margin: auto;
-}
-
-.mainWine ul {
-  display: grid;
-  gap: 1rem;
-}
-
-.mainWine li {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr 3fr 1fr;
-  justify-items: start;
-  align-items: center;
-}
-
 /* newWine & editWine styles */
 
 .mainBox {
   width: 50%;
-  margin: auto;
 }
 
 .mainForm {
@@ -392,13 +417,12 @@ fieldset label {
 /* detailWine styles */
 
 .detailMain {
-  background-image: url('images/bouchons2.jpg');
+  background-image: url('images/bouchons.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--tertiary-color);
-  padding: 1.5rem 0.75rem 1.5rem 1.5rem;
+  padding: 1.5rem;
   width: 50%;
-  margin: auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 2.5fr 1fr;
@@ -423,9 +447,24 @@ fieldset label {
   grid-column: 1 / 5;
   grid-row: 1;
   background: var(--background-opacity);
+  border-radius: 15px;
   max-width: fit-content;
-  padding: 0 1rem 1rem 1rem;
-  margin-bottom: 1rem;
+  max-height: fit-content;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detailInfo a {
+  font-size: 1.6rem;
+  color: var(--text-color);
+  background-color: inherit;
+  padding: 0;
+}
+
+.detailInfo a:hover {
+  font-size: 1.8rem;
+  color: var(--primary-color-dark);
+  background-color: inherit;
 }
 
 .grapeList {
@@ -438,9 +477,11 @@ fieldset label {
   grid-column: 5;
   grid-row: 1;
   background: var(--background-opacity);
+  border-radius: 15px;
+  justify-self: end;
   max-width: fit-content;
   max-height: fit-content;
-  padding: 1rem 0 1rem 1rem;
+  padding: 1rem;
 }
 
 .detailBtns {
@@ -448,7 +489,7 @@ fieldset label {
   grid-row: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
   gap: 1rem;
 }
@@ -457,6 +498,7 @@ fieldset label {
   grid-column: 1 / 3;
   grid-row: 2;
   background: var(--background-opacity);
+  border-radius: 15px;
   max-width: fit-content;
   padding: 0.5rem 1rem 0 1rem;
   text-align: center;

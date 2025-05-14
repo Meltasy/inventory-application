@@ -16,9 +16,9 @@
   </header>
   <main class='detailMain'>
     <div class='detailInfo'>
-      <h2>Producteur: <%= wineDetail.producer %></h2>
-      <h2>Appellation: <%= wineDetail.appellation %></h2>
-      <h2>Région: <%= wineDetail.region %></h2>
+      <h3><a href='/origin/search/producer?producer=<%= wineDetail.producer %>'>Producteur: <%= wineDetail.producer %></a></h3>
+      <h3><a href='/origin/search?region=<%= wineDetail.region %>&appellation=<%= wineDetail.appellation %>'>Appellation: <%= wineDetail.appellation %></a></h3>
+      <h3><a href='/origin/search?region=<%= wineDetail.region %>'>Région: <%= wineDetail.region %></a></h3>
       <h3>Garde: <%= wineDetail.life_max %></h3>
       <% if (wineDetail.grapes.length === 1) { %>
         <h3>Cépage:</h3>

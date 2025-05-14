@@ -128,7 +128,7 @@ async function getListByColor() {
 async function getColorWine(wineColor) {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, qty_full, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, wine_origin.origin_id, producer, appellation, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id

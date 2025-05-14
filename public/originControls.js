@@ -15,8 +15,6 @@ regionListItems.forEach(item => {
       if (!isOpen) {
         appellationList.classList.add('show')
         item.classList.add('active')
-      } else {
-        window.location.href = regionLink.href
       }
     })
   }
