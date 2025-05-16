@@ -1,20 +1,37 @@
 const pool = require('./pool')
 
-async function getAllMaxLifeWine(lifeMax) {
+async function getMaxLifeList() {
   try {
     const { rows } = await pool.query(
-      `SELECT wine_id, wine_name, year, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      `SELECT wine_id, wine_name, year, life_max, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
       FROM wine_list
       INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
       INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
-      WHERE life_max = $1 AND qty_full > 0
-      ORDER BY wine_name;`,
-      [lifeMax]
+      WHERE life_max = EXTRACT(YEAR FROM CURRENT_DATE) AND qty_full > 0
+      ORDER BY wine_name;`
     )
     return rows
   } catch (err) {
     console.error('Error getting short life wine list: ', err)
     throw new Error('Impossible to get short life wine list.')
+  } 
+}
+
+async function getPrimeList() {
+  try {
+    const { rows } = await pool.query(
+      `SELECT wine_id, wine_name, year, life_max, wine_origin.origin_id, producer, appellation, region, wine_type.type_id, color
+      FROM wine_list
+      INNER JOIN wine_origin ON wine_list.origin_id = wine_origin.origin_id
+      INNER JOIN wine_type ON wine_list.type_id = wine_type.type_id
+      WHERE (EXTRACT(YEAR FROM CURRENT_DATE) - year)::FLOAT / (life_max - year) > 0.67
+      AND life_max != EXTRACT(YEAR FROM CURRENT_DATE) AND qty_full > 0
+      ORDER BY wine_name;`
+    )
+    return rows
+  } catch (err) {
+    console.error('Error getting prime wine list: ', err)
+    throw new Error('Impossible to get prime wine list.')
   } 
 }
 
@@ -316,7 +333,8 @@ async function deleteWine(wineId) {
 }
 
 module.exports = {
-  getAllMaxLifeWine,
+  getMaxLifeList,
+  getPrimeList,
   getAllWines,
   getListByRegion,
   getListByAppellation,

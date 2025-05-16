@@ -5,6 +5,7 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <link rel='stylesheet' href='/styles.css'>
   <script src='/quantityControls.js'></script>
+  <script src='/linkControls.js' defer></script>
   <title><%= title %></title>
 </head>
 <body>
@@ -27,7 +28,13 @@
       <% } %>
       <ul class='grapeList'>
         <% wineDetail.grapes.forEach(grape => { %>
-          <li><h3><%= grape %></li></h3></li>
+          <li>
+            <h3>
+              <%= grape %>
+              <% let search = grape.split(' ').slice(1).join('_') %>
+              <a href='https://fr.wikipedia.org/wiki/<%= search %>' rel='external noopener' class='extLink'><%- include('./partials/search') %></a>
+            </h3>
+          </li>
         <% }) %>
       </ul>
     </div>
@@ -73,5 +80,6 @@
       </form>
     </div>
   </main>
+  <%- include('./footer') %>
 </body>
 </html>

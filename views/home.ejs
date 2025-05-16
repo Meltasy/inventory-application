@@ -14,26 +14,10 @@
     </div>
   </header>
   <main class='mainHome'>
-    <div class='searchBar'>
-      <h2><%= searchTitle %></h2>
-      <ul>
-        <li>
-          <a href='/wine'>Liste des vins</a>
-        </li>
-        <li>
-          <a href='/type'>Vin par couleur</a>
-        </li>
-        <li>
-          <a href='/origin'>Vin par origine</a>
-        </li>
-      </ul>
-    </div>
-    <div>
-    </div>
-    <section>
-      <h2><%= sectionTitle %></h2>
+    <section class='maxLifeList'>
+      <h2 class='centerText'><%= maxLifeTitle %></h2>
       <% if (maxLifeList.length === 0) { %>
-        <h3>Pas de vin avec une date de garde maximale cette année.</h3>
+        <h3 class='centerText'>Pas de vin avec une date de garde maximale cette année.</h3>
       <% } else if (maxLifeList && maxLifeList.length > 0) { %>
         <ul>
           <% maxLifeList.forEach(wine => { %>
@@ -63,6 +47,40 @@
         </ul>
       <% } %>
     </section>
+    <section class='primeList'>
+      <h2 class='centerText'><%= primeTitle %></h2>
+      <% if (primeList.length === 0) { %>
+        <h3 class='centerText'>Pas de vins à leur apogée cette année.</h3>
+      <% } else if (primeList && primeList.length > 0) { %>
+        <ul>
+          <% primeList.forEach(wine => { %>
+            <li>
+              <div>
+                <h3><%= wine.wine_name %> <%= wine.year %></h3>
+                <h3><%= wine.producer %></h3>
+                <h4><%= wine.appellation %>, <%= wine.region %></h4>
+              </div>
+              <div class='iconBtns'>
+                <div>
+                  <%- include('./partials/glass-wine', {
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                  <%- include('./partials/bottle-wine', {
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                </div>
+                <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </section>
   </main>
+  <%- include('./footer') %>
 </body>
 </html>
