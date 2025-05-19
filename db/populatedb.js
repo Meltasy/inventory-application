@@ -2,6 +2,7 @@
 
 require('dotenv').config()
 const { Client } = require('pg')
+const wines = require('./wines')
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS wine_origin (
@@ -31,21 +32,6 @@ CREATE TABLE IF NOT EXISTS wine_list (
   qty_empty INTEGER,
   qty_full INTEGER
 );`
-
-const wines = [
-  { wineName: 'Xut', year: 2022, lifeMax: 2030, grapes: '{"50% Gros Manseng", "25% Petit Courbu", "25% Petit Manseng"}', qtyEmpty: 4, qtyFull: 8, color: 'blanc', region: 'Sud-Ouest', appellation: 'Irouleguy', producer: 'Domaine Extondoa' },
-  { wineName: 'Domaine Brana', year: 2022, lifeMax: 2032, grapes: '{"70% Gros Manseng", "15% Petit Courbu", "15% Petit Manseng"}', qtyEmpty: 2, qtyFull: 10, color: 'blanc', region: 'Sud-Ouest', appellation: 'Irouleguy', producer: 'La Maison Brana' },
-  { wineName: 'Xut', year: 2022, lifeMax: 2027, grapes: '{"70% Tannat", "30% Cabernet Franc"}', qtyEmpty: 7, qtyFull: 5, color: 'rouge', region: 'Sud-Ouest', appellation: 'Irouleguy', producer: 'Domaine Extondoa' },
-  { wineName: 'Domaine Brana', year: 2018, lifeMax: 2038, grapes: '{"70% Cabernet Franc", "20% Tannat", "10% Cabernet Sauvignon"}', qtyEmpty: 2, qtyFull: 4, color: 'rouge', region: 'Sud-Ouest', appellation: 'Irouleguy', producer: 'La Maison Brana' },
-  { wineName: 'Origine', year: 2022, lifeMax: 2026, grapes: '{"100% Sauvignon"}', qtyEmpty: 2, qtyFull: 4, color: 'blanc', region: 'Vallée de la Loire', appellation: 'Pouilly-Fumé', producer: 'Domaine Couet' },
-  { wineName: 'Les Charmes', year: 2022, lifeMax: 2027, grapes: '{"100% Sauvignon"}', qtyEmpty: 2, qtyFull: 4, color: 'blanc', region: 'Vallée de la Loire', appellation: 'Coteaux du Giennois', producer: 'Domaine Langlois' },
-  { wineName: 'Cru Bourgeois', year: 2015, lifeMax: 2029, grapes: '{"50% Cabernet Sauvignon", "45% Merlot", "5% Petit Verdot"}', qtyEmpty: 5, qtyFull: 1, color: 'rouge', region: 'Bordelais', appellation: 'Haut-Medoc', producer: 'Château Lamothe-Bergeron' },
-  { wineName: 'Les Opiniâtres', year: 2021, lifeMax: 2026, grapes: '{"90% Grenache", "10% Syrah"}', qtyEmpty: 3, qtyFull: 0, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Luberon', producer: 'Le Temps des Sages' },
-  { wineName: 'Les Soucas', year: 2021, lifeMax: 2031, grapes: '{"42% Roussane", "35% Clairette Pointue", "23% Viognier"}', qtyEmpty: 1, qtyFull: 2, color: 'blanc', region: 'Vallée du Rhône', appellation: 'Luberon', producer: 'Domaine le Novi' },
-  { wineName: 'Tonelum', year: 2019, lifeMax: 2027, grapes: '{"100% Sauvignon"}', qtyEmpty: 3, qtyFull: 3, color: 'blanc', region: 'Vallée de la Loire', appellation: 'Pouilly-Fumé', producer: 'Caves de Pouilly-Sur-Loire' },
-  { wineName: 'Plateau des Chênes', year: 2021, lifeMax: 2028, grapes: '{"75% Grenache", "25% Syrah"}', qtyEmpty: 0, qtyFull: 6, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Lirac', producer: 'Famille Brechet' },
-  { wineName: 'Albert & Camille', year: 2021, lifeMax: 2030, grapes: '{"80% Grenache", "10% Syrah", "5% Mourvèdre", "5% Cinsault"}', qtyEmpty: 0, qtyFull: 6, color: 'rouge', region: 'Vallée du Rhône', appellation: 'Vacqueyras', producer: 'Domaine La Garrigue' },
-]
 
 async function main() {
   const client = new Client({ connectionString: process.env.CONNECTION_STRING })
