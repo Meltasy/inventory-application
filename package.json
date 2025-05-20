@@ -1,16 +1,23 @@
 {
   "name": "inventory-application",
   "version": "1.0.0",
+  "description": "An odin project inventory application",
+  "homepage": "https://github.com/Meltasy/inventory-application#readme",
+  "bugs": {
+    "url": "https://github.com/Meltasy/inventory-application/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meltasy/inventory-application.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node db/populatedb.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "description": "",
   "dependencies": {
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
