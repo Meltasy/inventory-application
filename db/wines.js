@@ -47,7 +47,7 @@ const wines = [
   { wineName: 'L\'Apéritif du Roy Fruité', year: 2022, lifeMax: 2029, grapes: '{"100% Gros Manseng"}', qtyEmpty: 0, qtyFull: 2, color: 'blanc', region: 'Sud-Ouest', appellation: 'Jurançon', producer: 'Cave de Gan Jurançon' },
   { wineName: 'Rosé Premier Cru', year: 2020, lifeMax: 2025, grapes: '{"50% Pinot Noir","50% Chardonnay"}', qtyEmpty: 0, qtyFull: 1, color: 'effervescent', region: 'Champagne', appellation: 'Champagne', producer: 'Truchon Bergeronneau' },
   { wineName: 'Éclat de Gamay', year: 2020, lifeMax: 2025, grapes: '{"100% Gamay"}', qtyEmpty: 1, qtyFull: 1, color: 'effervescent', region: 'Bourgogne', appellation: 'Beaujolais', producer: 'Didier Lapalus' },
-  { wineName: 'Clos des Demoiselles', year: 2021, lifeMax: 2026, grapes: '{"55% Chardonnay","25% Chenin","20% Pinot Noir"}', qtyEmpty: 18, qtyFull: 2, color: 'effervescent', region: 'Languedoc-Roussillon', appellation: 'Limoux', producer: 'Domaine J.Laurens' },
+  { wineName: 'Clos des Demoiselles', year: 2021, lifeMax: 2026, grapes: '{"55% Chardonnay","25% Chenin","20% Pinot Noir"}', qtyEmpty: 16, qtyFull: 2, color: 'effervescent', region: 'Languedoc-Roussillon', appellation: 'Limoux', producer: 'Domaine J.Laurens' },
   { wineName: 'HDM Fruité', year: 2017, lifeMax: 2025, grapes: '{"100% Gros Manseng"}', qtyEmpty: 0, qtyFull: 1, color: 'blanc', region: 'Sud-Ouest', appellation: 'Côtes de Gascogne', producer: 'Les Hauts de Mont Rouge' },
 ]
 
