@@ -18,30 +18,30 @@
     <form action='/wine/<%= wineDetail.wine_id %>/edit?_method=PUT' method='POST' class='mainForm'>
       <div>
         <label for='wineName'>Nom du vin *</label>
-        <input value='<%= wineDetail.wine_name %>' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' required>
+        <input value='<%= wineDetail.wine_name %>' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' autocomplete='off' autofocus required>
         <label for='producer'>Producteur *</label>
-        <input value='<%= wineDetail.producer %>' type='text' name='producer' id='producer' minlength='3' maxlength='30' required>
+        <input value='<%= wineDetail.producer %>' type='text' name='producer' id='producer' minlength='3' maxlength='30' autocomplete='off' required>
         <label for='appellation'>Appellation *</label>
-        <input value='<%= wineDetail.appellation %>' type='text' name='appellation' id='appellation' minlength='3' maxlength='30' required>
+        <input value='<%= wineDetail.appellation %>' type='text' name='appellation' id='appellation' minlength='3' maxlength='30' autocomplete='off' required>
         <label for='region'>Région *</label>
-        <input value='<%= wineDetail.region %>' type='text' name='region' id='region' minlength='3' maxlength='30' required>
+        <input value='<%= wineDetail.region %>' type='text' name='region' id='region' minlength='3' maxlength='30' autocomplete='off' required>
         <label for='wineYear'>Millésime *</label>
-        <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
+        <input value='<%= wineDetail.year %>' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' autocomplete='off' required>
         <label for='lifeMax'>Garde maximum *</label>
-        <input value='<%= wineDetail.life_max %>' type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' required>
+        <input value='<%= wineDetail.life_max %>' type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' autocomplete='off' required>
       </div>
       <div>
         <div id='grapeInput'>
           <div class='grapeExtra'>
             <label for='grapes0'>Cépage *</label>
-            <input value='<%= wineDetail.grapes[0] %>' type='text' name='grapes[]' id='grapes0' minlength='3' maxlength='30' required>
+            <input value='<%= wineDetail.grapes[0] %>' type='text' name='grapes[]' id='grapes0' minlength='3' maxlength='30' autocomplete='off' required>
             <button type='button' id='addGrape'><%- include('./partials/plus') %></button>
           </div>
           <% if (wineDetail.grapes && wineDetail.grapes.length > 1) { %>
             <% for (let i = 1; i < wineDetail.grapes.length; i++) { %>
               <div class='grapeExtra'>
                 <label for='grapes<%= i %>'>Cépage *</label>
-                <input value='<%= wineDetail.grapes[i] %>' type='text' name='grapes[]' id='grapes<%= i %>' minlength='3' maxlength='30'>
+                <input value='<%= wineDetail.grapes[i] %>' type='text' name='grapes[]' id='grapes<%= i %>' minlength='3' maxlength='30' autocomplete='off'>
                 <button type='button' onclick='removeGrape(this)'><%- include('./partials/delete') %></button>
               </div>
             <% } %>
@@ -53,9 +53,9 @@
           </div>
         </div>
         <label for='qtyEmpty'>Quantité de vides *</label>
-        <input value='<%= wineDetail.qty_empty %>' type='number' name='qtyEmpty' id='qtyEmpty' min='0' max='100' required>
+        <input value='<%= wineDetail.qty_empty %>' type='number' name='qtyEmpty' id='qtyEmpty' min='0' max='100' autocomplete='off' required>
         <label for='qtyFull'>Quantité de pleines *</label>
-        <input value='<%= wineDetail.qty_full %>' type='number' name='qtyFull' id='qtyFull' min='0' max='100' required>
+        <input value='<%= wineDetail.qty_full %>' type='number' name='qtyFull' id='qtyFull' min='0' max='100' autocomplete='off' required>
         <fieldset>
           <legend>Couleur *</legend>
           <label class='checkform' for='rouge'>rouge

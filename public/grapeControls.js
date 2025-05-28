@@ -16,6 +16,7 @@ addGrapeBtn.addEventListener('click', function() {
   input.setAttribute('id', `grapes${grapeCount}`)
   input.setAttribute('minlength', '3')
   input.setAttribute('maxlength', '30')
+  input.setAttribute('autocomplete', 'off')
 
   const button = document.createElement('button')
   button.setAttribute('type', 'button')

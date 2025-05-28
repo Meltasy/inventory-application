@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const methodOverride = require('method-override')
 const app = express()
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 const path = require('node:path')
 const assetsPath = path.join(__dirname, 'public')
 const homeRouter = require('./routes/homeRouter')

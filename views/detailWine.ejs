@@ -47,7 +47,7 @@
         <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='qtyForm'>
           <div>
             <button type='button' onclick='handleDecrease()'>-</button>
-            <input value='<%= wineDetail.qty_full %>' type='text' name='qtyFull' id='qtyFull' minlength='0' maxlength='3' pattern='^\d+$' required>
+            <input value='<%= wineDetail.qty_full %>' type='text' name='qtyFull' id='qtyFull' minlength='0' maxlength='3' pattern='^\d+$' autocomplete='off' required>
             <button type='button' onclick='handleIncrease()'>+</button>
           </div>
           <button type='submit'>Sauvegarder</button>

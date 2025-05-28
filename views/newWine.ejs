@@ -18,23 +18,23 @@
     <form action='/newWine' method='POST' class='mainForm'>
       <div>
         <label for='wineName'>Nom du vin *</label>
-        <input placeholder='Les Grands Chênes' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' required>
+        <input placeholder='Les Grands Chênes' type='text' name='wineName' id='wineName' minlength='3' maxlength='30' autocomplete='off' autofocus required>
         <label for='producer'>Producteur *</label>
-        <input placeholder='Domaine Langlois' type='text' name='producer' id='producer' minlength='3' maxlength='30' required>
+        <input placeholder='Domaine Langlois' type='text' name='producer' id='producer' minlength='3' maxlength='30' autocomplete='off' required>
         <label for='appellation'>Appellation *</label>
-        <input placeholder='Coteaux du Giennois' type='text' name='appellation' id='appellation' minlength='3' maxlength='30' required>
+        <input placeholder='Coteaux du Giennois' type='text' name='appellation' id='appellation' minlength='3' maxlength='30' autocomplete='off' required>
         <label for='region'>Région *</label>
-        <input placeholder='Vallée de la Loire' type='text' name='region' id='region' minlength='3' maxlength='30' required>
+        <input placeholder='Vallée de la Loire' type='text' name='region' id='region' minlength='3' maxlength='30' autocomplete='off' required>
         <label for='wineYear'>Millésime *</label>
-        <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' required>
+        <input placeholder='YYYY' type='number' name='wineYear' id='wineYear' min='1900' max='<%= new Date().getFullYear() %>' autocomplete='off' required>
         <label for='lifeMax'>Garde maximum *</label>
-        <input placeholder='YYYY' type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' required>
+        <input placeholder='YYYY' type='number' name='lifeMax' id='lifeMax' min='<%= new Date().getFullYear() %>' max='2100' autocomplete='off' required>
       </div>
       <div>
         <div id='grapeInput'>
           <div class='grapeExtra'>
             <label for='grapes0'>Cépage *</label>
-            <input placeholder='100% Sauvignon' type='text' name='grapes[]' id='grapes0' minlength='3' maxlength='30' required>
+            <input placeholder='100% Sauvignon' type='text' name='grapes[]' id='grapes0' minlength='3' maxlength='30' autocomplete='off' required>
             <button type='button' id='addGrape'><%- include('./partials/plus') %></button>
           </div>
           <div style='display: none'>

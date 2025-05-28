@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS wine_list (
 );`
 
 async function main() {
-  const client = new Client({ connectionString: process.env.DATABASE_PUBLIC_URL })
+  const client = new Client({ connectionString: process.env.CONNECTION_STRING })
   await client.connect()
 
   console.log('Creating tables ...')
