@@ -2,11 +2,11 @@ const db = require('../db/queries')
 const asyncHandler = require('express-async-handler')
 const CustomError = require('../errors/CustomError')
 
-const getTypeWineList = asyncHandler(async (req, res, next) => {
+const getTypeWineList = asyncHandler(async (req, res) => {
   const listByColor = await db.getListByColor()
 
   if (!listByColor) {
-    return next(new CustomError('Wine color list not found.', 404))
+    throw new CustomError('Wine color list not found.', 400)
   }
 
   res.render('allTypes', { 
@@ -18,13 +18,13 @@ const getTypeWineList = asyncHandler(async (req, res, next) => {
   })
 })
 
-const getEachTypeWineList = asyncHandler(async (req, res, next) => {
+const getEachTypeWineList = asyncHandler(async (req, res) => {
   const searchColor = req.query.color || ''
   const listByColor = await db.getListByColor()
   const colorWineList = await db.getColorWine(searchColor)
 
   if (!colorWineList) {
-    return next(new CustomError('Wine color list not found.', 404))
+    throw new CustomError('Wine color list not found.', 400)
   }
 
   res.render('allTypes', {

@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const CustomError = require('../errors/CustomError')
 const { validationResult } = require('express-validator')
 
-const getOriginWineList = asyncHandler(async(req, res, next) => {
+const getOriginWineList = asyncHandler(async(req, res) => {
   const [ listByRegion, listByAppellation ] = await Promise.all([
     db.getListByRegion(),
     db.getListByRegion().then(async (rows) => {
@@ -17,11 +17,11 @@ const getOriginWineList = asyncHandler(async(req, res, next) => {
   ])
 
   if (!listByRegion || !listByAppellation) {
-    return next(new CustomError('Wine origin list not found.', 404))
+    throw new CustomError('Wine origin list not found.', 400)
   }
 
   if (listByRegion.length === 0 || listByAppellation.length === 0) {
-    return next(new CustomError('Wine origin list is empty.', 204))
+    throw new CustomError('Wine origin list is empty.', 204)
   }
 
   res.render('allOrigins', {
@@ -34,7 +34,7 @@ const getOriginWineList = asyncHandler(async(req, res, next) => {
   })
 })
 
-const getEachOriginWineList = asyncHandler(async(req, res, next) => {
+const getEachOriginWineList = asyncHandler(async(req, res) => {
   const searchRegion = req.query.region || ''
   const searchAppellation = req.query.appellation || ''
 
@@ -58,7 +58,7 @@ const getEachOriginWineList = asyncHandler(async(req, res, next) => {
   }
 
   if (!fullWineList) {
-    return next(new CustomError('Wine producer list not found.', 404))
+    throw new CustomError('Wine producer list not found.', 400)
   }
 
   res.render('allOrigins', {
@@ -73,10 +73,10 @@ const getEachOriginWineList = asyncHandler(async(req, res, next) => {
   })
 })
 
-const getProducerWineList = asyncHandler(async(req, res, next) => {
+const getProducerWineList = asyncHandler(async(req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
-    return next(new CustomError(`Search validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400))
+    throw new CustomError(`Search validation failed: ${errors.array().map(err => err.msg).join(', ')}`, 400)
   }
   const searchProducer = req.query.producer
 
@@ -95,7 +95,7 @@ const getProducerWineList = asyncHandler(async(req, res, next) => {
   const listByProducer = await db.getListByProducer(searchProducer)
 
   if (!listByProducer) {
-    return next(new CustomError('Wine producer list not found.', 404))
+    throw new CustomError('Wine producer list not found.', 400)
   }
 
   res.render('allOrigins', {
