@@ -24,8 +24,8 @@ body {
 
 nav {
   background-color: var(--primary-color-light);
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 ul {
@@ -157,24 +157,25 @@ section li a {
 }
 
 footer {
-  text-align: center;
-  padding: 1rem;
-  margin-top: 1rem;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 footer a {
   font-size: 1rem;
   color: var(--primary-color-dark);
   background-color: inherit;
-  text-decoration: underline;
   padding: 0;
 }
 
 footer a:hover {
-  font-size: 1.2rem;
-  color: var(--primary-color-dark);
+  color: var(--primary-color);
   background-color: inherit;
-  text-decoration: none;
 }
 
 /* home styles */
