@@ -21,11 +21,15 @@
           <a href='/type/search?color=<%= colorList.color %>'>
             <li>
               <%- include('./partials/glass-wine', {
+                width: '28',
+                height: '56',
                 fill: getWineColor(colorList.color),
                 stroke: getWineColor(colorList.color),
                 bubbles: colorList.color === 'effervescent'
               }) %>
               <%- include('./partials/bottle-wine', {
+                width: '48',
+                height: '96',
                 fill: getWineColor(colorList.color),
                 stroke: getWineColor(colorList.color),
                 bubbles: colorList.color === 'effervescent'

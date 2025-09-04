@@ -14,7 +14,7 @@
       <h1><%= title %></h1>
       <h2><%= subtitle %></h2>
       <form action='/origin/search/producer' method='GET' class='searchProducer'>
-        <label for='producer'>Trouver par producteur:</label>
+        <label for='producer'>Producteur:</label>
         <input type='text' name='producer' id='producer' placeholder='Domaine Langlois' autocomplete='off'>
         <button type='submit'>Trouver</button>
       </form>
@@ -49,11 +49,15 @@
             <li>
               <div class='wineIcons'>
                 <%- include('./partials/glass-wine', {
+                  width: '20',
+                  height: '40',
                   fill: getWineColor(wine.color),
                   stroke: getWineColor(wine.color),
                   bubbles: wine.color === 'effervescent'
                 }) %>
                 <%- include('./partials/bottle-wine', {
+                  width: '34',
+                  height: '68',
                   fill: getWineColor(wine.color),
                   stroke: getWineColor(wine.color),
                   bubbles: wine.color === 'effervescent'
@@ -61,7 +65,7 @@
               </div>
               <div>
                 <h3><%= wine.wine_name %> <%= wine.year %></h3>
-                <h3><%= wine.appellation %>, <%= wine.region %></h3>
+                <h4><%= wine.appellation %>, <%= wine.region %></h4>
               </div>
               <div>
                 <h3><%= wine.producer %></h3>

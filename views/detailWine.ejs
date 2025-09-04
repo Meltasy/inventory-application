@@ -63,11 +63,15 @@
     </div>
     <div class='wineIcons'>
       <%- include('./partials/glass-wine', {
+        width: '35',
+        height: '70',
         fill: getWineColor(wineDetail.color),
         stroke: getWineColor(wineDetail.color),
         bubbles: wineDetail.color === 'effervescent'
       }) %>
       <%- include('./partials/bottle-wine', {
+        width: '60',
+        height: '120',
         fill: getWineColor(wineDetail.color),
         stroke: getWineColor(wineDetail.color),
         bubbles: wineDetail.color === 'effervescent'
