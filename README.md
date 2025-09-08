@@ -20,8 +20,8 @@ Check out my [Wine Cellar App](https://inventory-application-production-b054.up.
 * 🔎 **Advanced search and filtering:** Find wines instantly by name, color, producer, region or appellation
 * 🍾 **Complete wine lifecycle:** Track every bottle from cellar to consumption
 * 🍷 **Visual Status Indicators:** At-a-glance inventory health and drinking recommendations
-* 🌟 **Seamless user experience:** Responsive design with dynamic forms and real-time updates
-* 🏆 **Data integrity assurance:** Validated inputs and redundancy-free database architecture
+* 💫 **Seamless user experience:** Responsive design with dynamic forms and real-time updates
+* 🔒 **Data integrity assurance:** Validated inputs and redundancy-free database architecture
 
 ## Future Improvements
 
@@ -55,7 +55,7 @@ Prerequisite: Node.js v22.19.0
 3. Configure environment variables with an `.env` file in the root directory:
     * `DATABASE_PUBLIC_URL="your-database-url"`
     * `PORT="your-port"`
-4. Create a new postgreSQL database with the name in your .env file
+4. Create a new postgreSQL database with the name in your `.env` file
 5. Set up the database, including wine data: `npm run start`
 6. Start the server: `npm run dev`
 
