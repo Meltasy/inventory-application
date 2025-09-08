@@ -8,84 +8,86 @@
   <title><%= title %></title>
 </head>
 <body>
-  <%- include('./navbar') %>
-  <header>
-    <div class='headerBox'>
-      <h1><%= title %></h1>
-      <h2><%= subtitle %></h2>
-      <form action='/origin/search/producer' method='GET' class='searchProducer'>
-        <label for='producer'>Producteur:</label>
-        <input type='text' name='producer' id='producer' placeholder='Domaine Langlois' autocomplete='off'>
-        <button type='submit'>Trouver</button>
-      </form>
-    </div>
-  </header>
-  <main class='mainOrigin'>
-    <div class='searchBar'>
-      <ul class='regionList'>
-        <% listByRegion.forEach(regionList => { %>
-          <li>
-            <a href='/origin/search?region=<%= regionList.region %>'><%= regionList.region %></a>
-            <% if (listByAppellation[regionList.region] && listByAppellation[regionList.region].length > 0) { %>
-              <ul class='appellationList'>
-                <li>
-                  <a href='/origin/search?region=<%= regionList.region %>'>Tous <%= regionList.region %></a>
-                </li>
-                <% listByAppellation[regionList.region].forEach(appellation => { %>
-                  <li>
-                    <a href='/origin/search?region=<%= regionList.region %>&appellation=<%= appellation %>'><%= appellation %></a>
-                  </li>
-                <% }) %>
-              </ul>
-            <% } %>
-          </li>
-        <% }) %>
-      </ul>
-    </div>
-    <section>
-      <% if (fullWineList && fullWineList.length > 0) { %>
-        <ul>
-          <% fullWineList.forEach(wine => { %>
+  <div class='wrapper'>
+    <%- include('./navbar') %>
+    <header>
+      <div class='headerBox'>
+        <h1><%= title %></h1>
+        <h2><%= subtitle %></h2>
+        <form action='/origin/search/producer' method='GET' class='searchProducer'>
+          <label for='producer'>Producteur:</label>
+          <input type='text' name='producer' id='producer' placeholder='Domaine Langlois' autocomplete='off'>
+          <button type='submit'>Trouver</button>
+        </form>
+      </div>
+    </header>
+    <main class='mainOrigin'>
+      <div class='searchBar'>
+        <ul class='regionList'>
+          <% listByRegion.forEach(regionList => { %>
             <li>
-              <div class='wineIcons'>
-                <%- include('./partials/glass-wine', {
-                  width: '20',
-                  height: '40',
-                  fill: getWineColor(wine.color),
-                  stroke: getWineColor(wine.color),
-                  bubbles: wine.color === 'effervescent'
-                }) %>
-                <%- include('./partials/bottle-wine', {
-                  width: '34',
-                  height: '68',
-                  fill: getWineColor(wine.color),
-                  stroke: getWineColor(wine.color),
-                  bubbles: wine.color === 'effervescent'
-                }) %>
-              </div>
-              <div>
-                <h3><%= wine.wine_name %> <%= wine.year %></h3>
-                <h4><%= wine.appellation %>, <%= wine.region %></h4>
-              </div>
-              <div>
-                <h3><%= wine.producer %></h3>
-                <% if (wine.qty_full === 0) { %>
-                  <p><em>Il ne reste plus de bouteilles.</em></p>
-                <% } else if (wine.qty_full === 1) { %>
-                  <p><em>Il reste une dernière bouteille.</em></p>
-                <% } else { %>
-                  <p><em>Il reste <%= wine.qty_full %> bouteilles.</em></p>
-                <% } %>
-              </div>
-              <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+              <a href='/origin/search?region=<%= regionList.region %>'><%= regionList.region %></a>
+              <% if (listByAppellation[regionList.region] && listByAppellation[regionList.region].length > 0) { %>
+                <ul class='appellationList'>
+                  <li>
+                    <a href='/origin/search?region=<%= regionList.region %>'>Tous <%= regionList.region %></a>
+                  </li>
+                  <% listByAppellation[regionList.region].forEach(appellation => { %>
+                    <li>
+                      <a href='/origin/search?region=<%= regionList.region %>&appellation=<%= appellation %>'><%= appellation %></a>
+                    </li>
+                  <% }) %>
+                </ul>
+              <% } %>
             </li>
           <% }) %>
         </ul>
-      <% } else if (hasSearched) { %>
-        <h3>Aucun vin trouvé - veuillez choisir une autre origine.</h3>
-      <% } %>
-    </section>
-  </main>
-  <%- include('./footer') %>
+      </div>
+      <section>
+        <% if (fullWineList && fullWineList.length > 0) { %>
+          <ul>
+            <% fullWineList.forEach(wine => { %>
+              <li>
+                <div class='wineIcons'>
+                  <%- include('./partials/glass-wine', {
+                    width: '20',
+                    height: '40',
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                  <%- include('./partials/bottle-wine', {
+                    width: '34',
+                    height: '68',
+                    fill: getWineColor(wine.color),
+                    stroke: getWineColor(wine.color),
+                    bubbles: wine.color === 'effervescent'
+                  }) %>
+                </div>
+                <div>
+                  <h3><%= wine.wine_name %> <%= wine.year %></h3>
+                  <h4><%= wine.appellation %>, <%= wine.region %></h4>
+                </div>
+                <div>
+                  <h3><%= wine.producer %></h3>
+                  <% if (wine.qty_full === 0) { %>
+                    <p><em>Il ne reste plus de bouteilles.</em></p>
+                  <% } else if (wine.qty_full === 1) { %>
+                    <p><em>Il reste une dernière bouteille.</em></p>
+                  <% } else { %>
+                    <p><em>Il reste <%= wine.qty_full %> bouteilles.</em></p>
+                  <% } %>
+                </div>
+                <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else if (hasSearched) { %>
+          <h3>Aucun vin trouvé - veuillez choisir une autre origine.</h3>
+        <% } %>
+      </section>
+    </main>
+    <%- include('./footer') %>
+  </div>
 </body>
 </html>

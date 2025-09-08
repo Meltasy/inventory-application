@@ -9,81 +9,83 @@
   <title><%= title %></title>
 </head>
 <body>
-  <%- include('./navbar') %>
-  <header>
-    <div class='headerBox'>
-      <h1><%= wineDetail.wine_name %> <%= wineDetail.year %></h1>
-    </div>
-  </header>
-  <main class='detailMain'>
-    <div class='detailInfo'>
-      <h3><a href='/origin/search/producer?producer=<%= wineDetail.producer %>'>Producteur: <%= wineDetail.producer %></a></h3>
-      <h3><a href='/origin/search?region=<%= wineDetail.region %>&appellation=<%= wineDetail.appellation %>'>Appellation: <%= wineDetail.appellation %></a></h3>
-      <h3><a href='/origin/search?region=<%= wineDetail.region %>'>Région: <%= wineDetail.region %></a></h3>
-      <h3>Garde: <%= wineDetail.life_max %></h3>
-      <% if (wineDetail.grapes.length === 1) { %>
-        <h3>Cépage:</h3>
-      <% } else { %>
-        <h3>Cépages:</h3>
-      <% } %>
-      <ul class='grapeList'>
-        <% wineDetail.grapes.forEach(grape => { %>
-          <li>
-            <h3>
-              <%= grape %>
-              <% let search = grape.split(' ').slice(1).join('_') %>
-              <a href='https://fr.wikipedia.org/wiki/<%= search %>' rel='external noopener' class='extLink'><%- include('./partials/search') %></a>
-            </h3>
-          </li>
-        <% }) %>
-      </ul>
-    </div>
-    <div class='detailQty'>
-      <div class='qtyBox'>
-        <div>
-          <h2>Quantité</h2>
-          <h3>Total: <%= wineDetail.qty_empty + wineDetail.qty_full %></h3>
-        </div>
-        <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='qtyForm'>
+  <div class='wrapper'>
+    <%- include('./navbar') %>
+    <header>
+      <div class='headerBox'>
+        <h1><%= wineDetail.wine_name %> <%= wineDetail.year %></h1>
+      </div>
+    </header>
+    <main class='detailMain'>
+      <div class='detailInfo'>
+        <h3><a href='/origin/search/producer?producer=<%= wineDetail.producer %>'>Producteur: <%= wineDetail.producer %></a></h3>
+        <h3><a href='/origin/search?region=<%= wineDetail.region %>&appellation=<%= wineDetail.appellation %>'>Appellation: <%= wineDetail.appellation %></a></h3>
+        <h3><a href='/origin/search?region=<%= wineDetail.region %>'>Région: <%= wineDetail.region %></a></h3>
+        <h3>Garde: <%= wineDetail.life_max %></h3>
+        <% if (wineDetail.grapes.length === 1) { %>
+          <h3>Cépage:</h3>
+        <% } else { %>
+          <h3>Cépages:</h3>
+        <% } %>
+        <ul class='grapeList'>
+          <% wineDetail.grapes.forEach(grape => { %>
+            <li>
+              <h3>
+                <%= grape %>
+                <% let search = grape.split(' ').slice(1).join('_') %>
+                <a href='https://fr.wikipedia.org/wiki/<%= search %>' rel='external noopener' class='extLink'><%- include('./partials/search') %></a>
+              </h3>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class='detailQty'>
+        <div class='qtyBox'>
           <div>
-            <button type='button' onclick='handleDecrease()'>-</button>
-            <input value='<%= wineDetail.qty_full %>' type='text' name='qtyFull' id='qtyFull' minlength='0' maxlength='3' pattern='^\d+$' autocomplete='off' required>
-            <button type='button' onclick='handleIncrease()'>+</button>
+            <h2>Quantité</h2>
+            <h3>Total: <%= wineDetail.qty_empty + wineDetail.qty_full %></h3>
           </div>
-          <button type='submit'>Sauvegarder</button>
+          <form action='/wine/<%= wineDetail.wine_id %>/quantity?_method=PATCH' method='POST' class='qtyForm'>
+            <div>
+              <button type='button' onclick='handleDecrease()'>-</button>
+              <input value='<%= wineDetail.qty_full %>' type='text' name='qtyFull' id='qtyFull' minlength='0' maxlength='3' pattern='^\d+$' autocomplete='off' required>
+              <button type='button' onclick='handleIncrease()'>+</button>
+            </div>
+            <button type='submit'>Sauvegarder</button>
+          </form>
+        </div>
+        <% if (wineDetail.qty_full === 0) { %>
+          <p><em>Il ne reste plus de bouteilles.</em></p>
+        <% } else if (wineDetail.qty_full === 1) { %>
+          <p><em>Il reste une dernière bouteille.</em></p>
+        <% } else { %>
+          <p><em>Il reste <%= wineDetail.qty_full %> bouteilles.</em></p>
+        <% } %>
+      </div>
+      <div class='wineIcons'>
+        <%- include('./partials/glass-wine', {
+          width: '35',
+          height: '70',
+          fill: getWineColor(wineDetail.color),
+          stroke: getWineColor(wineDetail.color),
+          bubbles: wineDetail.color === 'effervescent'
+        }) %>
+        <%- include('./partials/bottle-wine', {
+          width: '60',
+          height: '120',
+          fill: getWineColor(wineDetail.color),
+          stroke: getWineColor(wineDetail.color),
+          bubbles: wineDetail.color === 'effervescent'
+        }) %>
+      </div>
+      <div class='detailBtns'>
+        <a href='/wine/<%= wineDetail.wine_id %>/edit'>Mettre à jour</a>
+        <form action='/wine/<%= wineDetail.wine_id %>/delete?_method=DELETE' method='POST'>
+          <button type='submit'>Supprimer</button>
         </form>
       </div>
-      <% if (wineDetail.qty_full === 0) { %>
-        <p><em>Il ne reste plus de bouteilles.</em></p>
-      <% } else if (wineDetail.qty_full === 1) { %>
-        <p><em>Il reste une dernière bouteille.</em></p>
-      <% } else { %>
-        <p><em>Il reste <%= wineDetail.qty_full %> bouteilles.</em></p>
-      <% } %>
-    </div>
-    <div class='wineIcons'>
-      <%- include('./partials/glass-wine', {
-        width: '35',
-        height: '70',
-        fill: getWineColor(wineDetail.color),
-        stroke: getWineColor(wineDetail.color),
-        bubbles: wineDetail.color === 'effervescent'
-      }) %>
-      <%- include('./partials/bottle-wine', {
-        width: '60',
-        height: '120',
-        fill: getWineColor(wineDetail.color),
-        stroke: getWineColor(wineDetail.color),
-        bubbles: wineDetail.color === 'effervescent'
-      }) %>
-    </div>
-    <div class='detailBtns'>
-      <a href='/wine/<%= wineDetail.wine_id %>/edit'>Mettre à jour</a>
-      <form action='/wine/<%= wineDetail.wine_id %>/delete?_method=DELETE' method='POST'>
-        <button type='submit'>Supprimer</button>
-      </form>
-    </div>
-  </main>
-  <%- include('./footer') %>
+    </main>
+    <%- include('./footer') %>
+  </div>
 </body>
 </html>

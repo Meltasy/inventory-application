@@ -7,43 +7,45 @@
   <title><%= title %></title>
 </head>
 <body>
-  <%- include('./navbar') %>
-  <header>
-    <div class='headerBox'>
-      <h1><%= title %></h1>
-      <h2><%= subtitle %></h2>
-    </div>
-  </header>
-  <main class='mainWine'>
-    <section>
-      <ul>
-        <% wineList.forEach(wine => { %>
-          <li>
-            <div class='wineIcons'>
-              <%- include('./partials/glass-wine', {
-                width: '15',
-                height: '30',
-                fill: getWineColor(wine.color),
-                stroke: getWineColor(wine.color),
-                bubbles: wine.color === 'effervescent'
-              }) %>
-              <%- include('./partials/bottle-wine', {
-                width: '26',
-                height: '52',
-                fill: getWineColor(wine.color),
-                stroke: getWineColor(wine.color),
-                bubbles: wine.color === 'effervescent'
-              }) %>
-            </div>
-            <h3><%= wine.wine_name %></h3>
-            <h3><%= wine.year %></h3>
-            <h3><%= wine.producer %></h3>
-            <a href='/wine/<%= wine.wine_id %>'>Détails</a>
-          </li>
-        <% }) %> 
-      </ul>
-    </section>
-  </main>
-  <%- include('./footer') %>
+  <div class='wrapper'>
+    <%- include('./navbar') %>
+    <header>
+      <div class='headerBox'>
+        <h1><%= title %></h1>
+        <h2><%= subtitle %></h2>
+      </div>
+    </header>
+    <main class='mainWine'>
+      <section>
+        <ul>
+          <% wineList.forEach(wine => { %>
+            <li>
+              <div class='wineIcons'>
+                <%- include('./partials/glass-wine', {
+                  width: '15',
+                  height: '30',
+                  fill: getWineColor(wine.color),
+                  stroke: getWineColor(wine.color),
+                  bubbles: wine.color === 'effervescent'
+                }) %>
+                <%- include('./partials/bottle-wine', {
+                  width: '26',
+                  height: '52',
+                  fill: getWineColor(wine.color),
+                  stroke: getWineColor(wine.color),
+                  bubbles: wine.color === 'effervescent'
+                }) %>
+              </div>
+              <h3><%= wine.wine_name %></h3>
+              <h3><%= wine.year %></h3>
+              <h3><%= wine.producer %></h3>
+              <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+            </li>
+          <% }) %> 
+        </ul>
+      </section>
+    </main>
+    <%- include('./footer') %>
+  </div>
 </body>
 </html>

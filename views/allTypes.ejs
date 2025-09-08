@@ -7,56 +7,58 @@
   <title><%= title %></title>
 </head>
 <body>
-  <%- include('./navbar') %>
-  <header>
-    <div class='headerBox'>
-      <h1><%= title %></h1>
-      <h2><%= subtitle %></h2>
-    </div>
-  </header>
-  <main class='mainType'>
-    <div class='searchBar'>
-      <ul>
-        <% listByColor.forEach(colorList => { %>
-          <a href='/type/search?color=<%= colorList.color %>'>
-            <li>
-              <%- include('./partials/glass-wine', {
-                width: '28',
-                height: '56',
-                fill: getWineColor(colorList.color),
-                stroke: getWineColor(colorList.color),
-                bubbles: colorList.color === 'effervescent'
-              }) %>
-              <%- include('./partials/bottle-wine', {
-                width: '48',
-                height: '96',
-                fill: getWineColor(colorList.color),
-                stroke: getWineColor(colorList.color),
-                bubbles: colorList.color === 'effervescent'
-              }) %>
-            </li>
-          </a>
-        <% }) %>
-      </ul>
-    </div>
-    <section>
-      <% if (hasSearched && colorWineList.length === 0) { %>
-        <h3>Aucun vin trouvé - veuillez choisir une autre couleur.</h3>
-      <% } else if (colorWineList && colorWineList.length > 0) { %>
+  <div class='wrapper'>
+    <%- include('./navbar') %>
+    <header>
+      <div class='headerBox'>
+        <h1><%= title %></h1>
+        <h2><%= subtitle %></h2>
+      </div>
+    </header>
+    <main class='mainType'>
+      <div class='searchBar'>
         <ul>
-          <% colorWineList.forEach(wine => { %>
-            <li>
-              <h3><%= wine.wine_name %></h3>
-              <h3><%= wine.year %></h3>
-              <h3><%= wine.producer %></h3>
-              <h3><%= wine.appellation %></h3>
-              <a href='/wine/<%= wine.wine_id %>'>Détails</a>
-            </li>
+          <% listByColor.forEach(colorList => { %>
+            <a href='/type/search?color=<%= colorList.color %>'>
+              <li>
+                <%- include('./partials/glass-wine', {
+                  width: '28',
+                  height: '56',
+                  fill: getWineColor(colorList.color),
+                  stroke: getWineColor(colorList.color),
+                  bubbles: colorList.color === 'effervescent'
+                }) %>
+                <%- include('./partials/bottle-wine', {
+                  width: '48',
+                  height: '96',
+                  fill: getWineColor(colorList.color),
+                  stroke: getWineColor(colorList.color),
+                  bubbles: colorList.color === 'effervescent'
+                }) %>
+              </li>
+            </a>
           <% }) %>
         </ul>
-      <% } %>
-    </section>
-  </main>
-  <%- include('./footer') %>
+      </div>
+      <section>
+        <% if (hasSearched && colorWineList.length === 0) { %>
+          <h3>Aucun vin trouvé - veuillez choisir une autre couleur.</h3>
+        <% } else if (colorWineList && colorWineList.length > 0) { %>
+          <ul>
+            <% colorWineList.forEach(wine => { %>
+              <li>
+                <h3><%= wine.wine_name %></h3>
+                <h3><%= wine.year %></h3>
+                <h3><%= wine.producer %></h3>
+                <h3><%= wine.appellation %></h3>
+                <a href='/wine/<%= wine.wine_id %>'>Détails</a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </section>
+    </main>
+    <%- include('./footer') %>
+  </div>
 </body>
 </html>

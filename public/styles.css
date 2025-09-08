@@ -20,6 +20,14 @@ body {
   font-size: 16px;
   color: var(--text-color);
   background-color: var(--primary-color-light);
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 nav {
@@ -130,6 +138,7 @@ button:hover {
 }
 
 main {
+  flex: 1;
   width: 75%;
   margin: auto;
   display: grid;
@@ -174,6 +183,7 @@ footer {
   justify-content: space-around;
   align-items: center;
   padding: 1rem 0.5rem 0.5rem 0.5rem;
+  margin-top: auto;
 }
 
 footer a {
@@ -461,7 +471,6 @@ fieldset label {
   padding: 1.5rem;
   width: 50%;
   display: grid;
-  /* grid-template-columns: repeat(5, 1fr); */
   grid-template-columns: 3fr 2fr;
   grid-template-rows: 2.5fr 1fr;
 }
@@ -482,7 +491,7 @@ fieldset label {
 }
 
 .detailInfo {
-  grid-column: 1 / 5;
+  grid-column: 1 / 3;
   grid-row: 1;
   background: var(--background-opacity);
   border-radius: 15px;
@@ -526,7 +535,7 @@ fieldset label {
 }
 
 .detailMain .wineIcons {
-  grid-column: 5;
+  grid-column: 3;
   grid-row: 1;
   background: var(--background-opacity);
   border-radius: 15px;
@@ -537,7 +546,7 @@ fieldset label {
 }
 
 .detailBtns {
-  grid-column: 5;
+  grid-column: 3;
   grid-row: 2;
   display: flex;
   flex-direction: column;
