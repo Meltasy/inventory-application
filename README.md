@@ -1,40 +1,33 @@
 # inventory-application
 
-Personal wine collectors face significant challenges managing their collections without proper digital infrastructure. Traditional methods like spreadsheets or paper records become unwieldly as collections grow, making it difficult to track optimal drinking windows, manage inventory levels, and efficiently locate specific wines by their characteristics. Wine enthusiasts need comprehensive tracking systems that can handle complex wine data while providing intuitive search and filtering capabilities.
+[![License ISC](https://img.shields.io/github/license/Meltasy/inventory-application)](https://opensource.org/licenses/ISC)
+[![ECMAScript](https://img.shields.io/badge/ECMAScript-2025-blue.svg)](https://ecma-international.org/publications-and-standards/standards/ecma-262/)
+[![Node.js](https://img.shields.io/badge/Node.js-v22.12.0-brightgreen.svg)](https://nodejs.org/)
+[![npm](https://img.shields.io/badge/npm-v11.3.0-red.svg)](https://www.npmjs.com/)
+[![Repo Size](https://img.shields.io/github/repo-size/Meltasy/inventory-application)](https://github.com/Meltasy/inventory-application)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://inventory-application-production-b054.up.railway.app/)
 
-This project solves these challenges by:
-
-* **Centralized inventory management:** Complete digital catalog with detailed wine information and quantity tracking
-* **Intelligent drinking recommendations:** Automated identification of wines at peak maturity or requiring immediate consumption
-* **Advanced search capabilities:** Multi-criteria filtering by color, producer, region, appellation, alphabetical sorting
-* **Normalized data architecture:** Efficient PostgreSQL database design preventing redundancy while maintaining data integrity
-* **Full lifecycle tracking:** Complete CRUD operations with transaction-safe quantity updates and consumption history
-
-Check out my [Wine Cellar App](https://inventory-application-production-b054.up.railway.app/)!
+An inventory management system to catalog, track and manage the wine in my cellar, and to remind me when each bottle is ready for enjoying.
 
 This inventory-application was built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application) curriculum.
 
-***
+Check out my [Wine Cellar App](https://inventory-application-production-b054.up.railway.app/)!
 
 ## Features
 
-### Backend App
+* 📊 **Smart inventory management:** Digital wine catalog with real-time quantity tracking
+* 💡 **Intelligent drinking recommendations:** Automated identification for wines at peak maturity
+* 🔎 **Advanced search and filtering:** Find wines instantly by name, color, producer, region or appellation
+* 🍾 **Complete wine lifecycle:** Track every bottle from cellar to consumption
+* 🍷 **Visual Status Indicators:** At-a-glance inventory health and drinking recommendations
+* 🌟 **Seamless user experience:** Responsive design with dynamic forms and real-time updates
+* 🏆 **Data integrity assurance:** Validated inputs and redundancy-free database architecture
 
-* Full CRUD operations with transaction-safe database management
-* Smart wine categorization identifying peak maturity and expiration alerts
-* Multi-criteria search and filtering by color, producer, region and appellation
-* Normalized PostgreSQL schema preventing data redundancy
-* Server-side validation using Express-validator for data integrity
-* Quantity tracking with separate full/empty bottle management
+## Future Improvements
 
-### Frontend Interface
-
-* Server-side rendered interface using EJS templating
-* Dynamic forms for wine entry and management
-* Real-time search and filtering capabilities
-* Responsive design for collection overview and detailed views
-* Client-side validation for immediate user feedback
-* Visual indicators for drinking recommendations and inventory status
+* Image uploads when editing or adding a wine
+* Adding price paid and date bought
+* Implementing a responsive layout
 
 ## Tech Stack
 
@@ -53,21 +46,18 @@ This inventory-application was built as part of [The Odin Project](https://www.t
 * CSS3 for responsive styling and layout
 * Vanilla JavaScript for client-side interactivity
 
-## Installation
+## Local Installation
+
+Prerequisite: Node.js v22.19.0
 
 1. Clone the repository: `git clone git@github.com:Meltasy/inventory-application.git` and `cd inventory-application`
 2. Install dependencies: `npm install`
-3. Configure environment variables with an .env file in the root directory:
+3. Configure environment variables with an `.env` file in the root directory:
     * `DATABASE_PUBLIC_URL="your-database-url"`
+    * `PORT="your-port"`
 4. Create a new postgreSQL database with the name in your .env file
 5. Set up the database, including wine data: `npm run start`
 6. Start the server: `npm run dev`
-
-## Future Improvements
-
-* Image uploads when editing or adding a wine
-* Adding price paid and date bought
-* Implementing a responsive layout
 
 ## License
 
