@@ -9,7 +9,7 @@
 
 An inventory management system to catalog, track and manage the wine in my cellar, and to remind me when each bottle is ready for enjoying.
 
-This inventory-application was built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application) curriculum.
+This project was built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application) curriculum.
 
 Check out my [Wine Cellar App](https://inventory-application-production-b054.up.railway.app/)!
 
