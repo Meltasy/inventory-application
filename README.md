@@ -1,13 +1,13 @@
 # inventory-application
 
-[![License ISC](https://img.shields.io/github/license/Meltasy/inventory-application)](https://opensource.org/licenses/ISC)
+[![License ISC](https://img.shields.io/github/license/Meltasy/inventory-application)](https://opensource.org/license/isc-license-txt)
 [![ECMAScript](https://img.shields.io/badge/ECMAScript-2025-blue.svg)](https://ecma-international.org/publications-and-standards/standards/ecma-262/)
 [![Node.js](https://img.shields.io/badge/Node.js-v22.12.0-brightgreen.svg)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-v11.3.0-red.svg)](https://www.npmjs.com/)
 [![Repo Size](https://img.shields.io/github/repo-size/Meltasy/inventory-application)](https://github.com/Meltasy/inventory-application)
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://inventory-application-production-b054.up.railway.app/)
 
-An inventory management system to catalog, track and manage the wine in my cellar, and to remind me when each bottle is ready for enjoying.
+An inventory management system to catalog, track and manage the wine in a cellar, with a dynamic dashboard.
 
 This project was built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application) curriculum.
 
@@ -25,9 +25,9 @@ Check out my [Wine Cellar App](https://inventory-application-production-b054.up.
 
 ## Future Improvements
 
-* Image uploads when editing or adding a wine
-* Adding price paid and date bought
-* Implementing a responsive layout
+* Image uploads for wine
+* Additional details for price and date acquired
+* Responsive design for desktop and mobile
 
 ## Tech Stack
 
