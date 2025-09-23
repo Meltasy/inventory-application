@@ -48,7 +48,7 @@ Check out my [Wine Cellar App](https://inventory-application-production-b054.up.
 
 ## Local Installation
 
-Prerequisite: Node.js v22.19.0
+Prerequisite: Node.js v22.12.0
 
 1. Clone the repository: `git clone git@github.com:Meltasy/inventory-application.git` and `cd inventory-application`
 2. Install dependencies: `npm install`
