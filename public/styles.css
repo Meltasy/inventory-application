@@ -546,6 +546,7 @@ fieldset label {
   background: var(--background-opacity);
   border-radius: 15px;
   justify-self: end;
+  align-self: start;
   max-width: fit-content;
   max-height: fit-content;
   padding: 1rem;
