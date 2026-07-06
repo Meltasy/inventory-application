@@ -11,8 +11,6 @@ An inventory management system to catalog, track and manage the wine in a cellar
 
 This project was built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application) curriculum.
 
-Check out my [Wine Cellar App](https://inventory-application-production-b054.up.railway.app/)!
-
 ## Features
 
 * 📊 **Smart inventory management:** Digital wine catalog with real-time quantity tracking
