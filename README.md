@@ -5,7 +5,6 @@
 [![Node.js](https://img.shields.io/badge/Node.js-v22.12.0-brightgreen.svg)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-v11.3.0-red.svg)](https://www.npmjs.com/)
 [![Repo Size](https://img.shields.io/github/repo-size/Meltasy/inventory-application)](https://github.com/Meltasy/inventory-application)
-[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://inventory-application-production-b054.up.railway.app/)
 
 An inventory management system to catalog, track and manage the wine in a cellar, with a dynamic dashboard.
 
